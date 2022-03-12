@@ -7,7 +7,7 @@ public class NicknameListener extends ListenerAdapter {
     public void onGuildMemberUpdateNickname(@NotNull GuildMemberUpdateNicknameEvent event) {
         String name = event.getNewNickname();
         assert name != null;
-        if (name.contains("!")) {
+        if (name.startsWith("!")) {
             event.getMember().modifyNickname(name.replace("!", "")).queue();
         }
     }

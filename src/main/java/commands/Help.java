@@ -13,9 +13,11 @@ public class Help extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder eb = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().startsWith("/help")) {
-            eb.setDescription("<@" + event.getMessage().getAuthor().getId() + ">" + " команда в разработке, пожалуйста ожидайте.");
+        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().startsWith("/help")) {
             eb.setColor(event.getMember().getColor());
+            eb.setTitle("Список доступных команд: ");
+            eb.addField("Получить информацию о сервере:", "**`/si`** *`[/server info]`* - отображает информацию о сервере, содержащую в себе: количество каналов, общие данные об участниках, сведения о бустах, \nник владельца сервера, ID сервера и тому подобное.", true);
+            eb.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/avatars/789218753576566855/a0a96460803e6cc6e27e7023d07d0bba.webp?size=64");
             event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
 
         } else if (event.getMessage().getContentDisplay().startsWith("/help")) {

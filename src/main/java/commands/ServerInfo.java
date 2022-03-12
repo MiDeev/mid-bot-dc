@@ -15,7 +15,7 @@ public class ServerInfo extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().contains("/si")) {
+        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().startsWith("/si") || event.getMessage().getContentDisplay().startsWith("/server info")) {
             EmbedBuilder si = new EmbedBuilder();
             si.setColor(new Color(141, 127, 254));
 
@@ -93,9 +93,9 @@ public class ServerInfo extends ListenerAdapter {
             si.addField("Сервер создан:", TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
 
 
-            si.setFooter("© 2022 MiD#6300", "https://cdn.discordapp.com/avatars/789218753576566855/a0a96460803e6cc6e27e7023d07d0bba.webp?size=128");
+            si.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/avatars/789218753576566855/a0a96460803e6cc6e27e7023d07d0bba.webp?size=128");
 
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("942520425936719952"))
+            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
                     .forEach(textChannel -> textChannel.sendMessageEmbeds(si.build()).queue());
 
 
