@@ -15,7 +15,7 @@ public class ServerInfo extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().startsWith("/si") || event.getMessage().getContentDisplay().startsWith("/server info")) {
+        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(".si") || event.getMessage().getContentDisplay().equals("/server info")) {
             EmbedBuilder si = new EmbedBuilder();
             si.setColor(new Color(141, 127, 254));
 
