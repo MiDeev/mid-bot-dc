@@ -6,13 +6,12 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.util.Objects;
 
 public class Rules extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (event.getChannel().getId().equals("941321405172162611") && event.getMessage().getContentDisplay().contains("/rules")) {
+        if (event.getChannel().getId().equals("941321405172162611") && event.getMessage().getContentDisplay().equals(".rules")) {
 
             EmbedBuilder emba = new EmbedBuilder();
             emba.setColor(new Color(255, 98, 98));
