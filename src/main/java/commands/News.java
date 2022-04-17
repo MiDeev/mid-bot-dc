@@ -9,13 +9,10 @@ public class News extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-
         EmbedBuilder eb = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("941364846899900496") && event.getMessage().getContentDisplay().contains(".news")) {
+        if (event.getChannel().getId().equals("941364846899900496") && event.getMessage().getContentDisplay().equals(".news")) {
             event.getChannel().sendMessage("**Привет, @everyone!** На связи **MiDeev**! Не поверите, но на канале вышло **НЕВЕРОЯТНОГО** уровня **видео**, туда было вложено не мало **сил** и **времени**! \n**СКОРЕЕ СМОТРИТЕ**: https://www.youtube.com/watch?v=868RONy_CGw").submit();
-
         }
-
     }
 }

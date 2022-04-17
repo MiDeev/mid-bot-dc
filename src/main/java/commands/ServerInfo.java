@@ -2,12 +2,14 @@ package commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class ServerInfo extends ListenerAdapter {
 
@@ -93,14 +95,20 @@ public class ServerInfo extends ListenerAdapter {
 
 
         if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(".si") || event.getMessage().getContentDisplay().equals(".server info")) {
-
             event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
                     .forEach(textChannel -> textChannel.sendMessageEmbeds(si.build()).queue());
-
         }
 
-        if (event.getMessage().getAuthor().getId().equals("421259943123877888") && !event.getChannel().getId().equals("941458443749978122")) {
+        if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+        }
+
+        if (event.getMessage().getContentDisplay().equals(".si") && event.getChannel().getId().equals("941334996654911488")) {
+            EmbedBuilder eb = new EmbedBuilder();
+            eb.setDescription("<@" + event.getMessage().getAuthor().getId() + ">" + " все команды доступны в <#941458443749978122>");
+            eb.setColor(event.getMember().getColor());
+            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).delay(7, TimeUnit.SECONDS).flatMap(Message::delete).queue();
+            event.getMessage().delete().queueAfter(3, TimeUnit.SECONDS);
         }
     }
 }
