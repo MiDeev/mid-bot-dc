@@ -1,4 +1,6 @@
-import commands.*;
+package ru.mideev.midbot;
+
+import ru.mideev.midbot.commands.*;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -14,7 +16,7 @@ import javax.security.auth.login.LoginException;
 public class Main {
     public static void main(String[] args) throws LoginException {
         JDAImpl jda = (JDAImpl) JDABuilder.createDefault(System.getenv("ETOKEN"))
-                .addEventListeners(new News(), new Help(), new Rules(), new ServerInfo(), new JoinListener(), new NicknameListener(), new TestCommand())
+                .addEventListeners(new News(), new Help(), new Rules(), new ServerInfo(), new JoinListener(), new NicknameListener(), new TestCommand(), new UserInfo())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)

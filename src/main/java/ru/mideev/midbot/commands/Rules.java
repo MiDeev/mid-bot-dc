@@ -1,4 +1,4 @@
-package commands;
+package ru.mideev.midbot.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -109,8 +109,6 @@ public class Rules extends ListenerAdapter {
 
             event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941321405172162611"))
                     .forEach(textChannel -> textChannel.sendMessage("```diff\n-незнание правил не освождает от ответственности-\n```").queue());
-
-
 
             if (event.getMessage().getContentDisplay().contains("https://discord.gg")) {
                 event.getMessage().delete().queue();

@@ -1,4 +1,4 @@
-package commands;
+package ru.mideev.midbot.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -99,11 +99,11 @@ public class ServerInfo extends ListenerAdapter {
                     .forEach(textChannel -> textChannel.sendMessageEmbeds(si.build()).queue());
         }
 
-        if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
+        else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
-        if (event.getMessage().getContentDisplay().equals(".si") && event.getChannel().getId().equals("941334996654911488")) {
+        if (event.getMessage().getContentDisplay().equals(".si") && event.getChannel().getId().equals("941334996654911488") && !event.getMember().getId().equals("421259943123877888")) {
             EmbedBuilder eb = new EmbedBuilder();
             eb.setDescription("<@" + event.getMessage().getAuthor().getId() + ">" + " все команды доступны в <#941458443749978122>");
             eb.setColor(event.getMember().getColor());
