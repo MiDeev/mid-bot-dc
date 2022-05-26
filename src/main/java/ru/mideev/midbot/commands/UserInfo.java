@@ -33,9 +33,12 @@ public class UserInfo extends ListenerAdapter {
             EmbedBuilder eb = new EmbedBuilder();
             eb.setColor(event.getMember().getColor());
             eb.addField("Ошибка!", "Чота неправильно, давай по новой.", true);
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+            //event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
             throw throwable;
         }
+
+        if (member == null) return;
+
 
 
         String date = Kal.formatDate(member);

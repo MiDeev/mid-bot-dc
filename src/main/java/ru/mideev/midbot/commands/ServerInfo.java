@@ -91,15 +91,13 @@ public class ServerInfo extends ListenerAdapter {
 
         si.addField("Сервер создан:", TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
 
-        si.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/avatars/789218753576566855/a0a96460803e6cc6e27e7023d07d0bba.webp?size=128");
+        si.setFooter("© 2022 MiDeev", event.getGuild().getOwner().getEffectiveAvatarUrl());
 
 
         if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(".si") || event.getMessage().getContentDisplay().equals(".server info")) {
             event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
                     .forEach(textChannel -> textChannel.sendMessageEmbeds(si.build()).queue());
-        }
-
-        else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 

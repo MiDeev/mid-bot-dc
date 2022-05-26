@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 public class TestCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        //nothing
 
     }
 }
