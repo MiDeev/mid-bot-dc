@@ -1,33 +1,38 @@
-package ru.mideev.midbot.commands;
+package ru.mideev.midbot.command.impl;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
-import ru.mideev.midbot.Kal;
+import ru.mideev.midbot.command.AbstractCommand;
+import ru.mideev.midbot.command.filter.FilterChannelWithMessage;
+import ru.mideev.midbot.util.Constants;
+import ru.mideev.midbot.util.DateUtil;
 
 import java.awt.*;
-import java.util.Optional;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-public class UserInfo extends ListenerAdapter {
+import static ru.mideev.midbot.util.Constants.FLOOD_CHANNEL_ID;
+
+public class UserInfo extends AbstractCommand {
+
+    public UserInfo() {
+        super("ui", "Информация о пользователе", true);
+        filters.add(new FilterChannelWithMessage(Constants.FLOOD_CHANNEL_ID, "<@$AUTHOR_ID>" + " все команды доступны в <#" + FLOOD_CHANNEL_ID + ">", Collections.singletonList("421259943123877888")));
+    }
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-
-        String com = event.getMessage().getContentDisplay();
-        String[] args = com.split(" ");
-
+    public boolean execute(MessageReceivedEvent event, String[] args) {
         List<Member> list = event.getMessage().getMentionedMembers();
 
         Member member = event.getMember();
         try {
             if (!list.isEmpty()) {
                 member = list.get(0);
-            } else if (args.length == 2) {
-                member = event.getGuild().getMemberById(args[1]);
+            } else if (args.length == 1) {
+                member = event.getGuild().getMemberById(args[0]);
             }
         } catch (Throwable throwable) {
             EmbedBuilder eb = new EmbedBuilder();
@@ -37,8 +42,7 @@ public class UserInfo extends ListenerAdapter {
             throw throwable;
         }
 
-
-        String date = Kal.formatDate(member);
+        String date = DateUtil.formatDate(member);
 
         EmbedBuilder ui = new EmbedBuilder();
         ui.setColor(new Color(141, 127, 254));
@@ -54,10 +58,7 @@ public class UserInfo extends ListenerAdapter {
             ui.addField("Статус:", status, false);
         });
 
-        if (event.getChannel().getId().startsWith("941458443749978122") && com.startsWith(".ui") || com.startsWith(".user info")) {
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(ui.build()).queue());
-        }
-
+        event.getMessage().getChannel().sendMessageEmbeds(ui.build()).queue();
+        return true;
     }
 }

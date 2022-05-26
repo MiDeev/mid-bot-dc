@@ -1,4 +1,4 @@
-package ru.mideev.midbot.commands;
+package ru.mideev.midbot.command.impl;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -7,15 +7,38 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import org.jetbrains.annotations.NotNull;
+import ru.mideev.midbot.command.AbstractCommand;
+import ru.mideev.midbot.command.filter.FilterChannel;
+import ru.mideev.midbot.command.filter.FilterChannelWithMessage;
+import ru.mideev.midbot.util.Constants;
 
 import java.awt.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class ServerInfo extends ListenerAdapter {
+import static ru.mideev.midbot.util.Constants.FLOOD_CHANNEL_ID;
+
+public class ServerInfo extends AbstractCommand {
+
+    private static final Map<String, String> PROTECTION_MAPPINGS = new HashMap<String, String>() {
+        {
+            put("NONE", "Отсутствует");
+            put("LOW", "Низкая");
+            put("MEDIUM", "Средняя");
+            put("HIGH", "Высокая");
+            put("VERY_HIGH", "Полная");
+        }
+    };
+
+    public ServerInfo() {
+        super("si", "Информация о сервере", true);
+        filters.add(new FilterChannelWithMessage(Constants.FLOOD_CHANNEL_ID, "<@$AUTHOR_ID>" + " все команды доступны в <#" + FLOOD_CHANNEL_ID + ">", Collections.singletonList("421259943123877888")));
+    }
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-
+    public boolean execute(MessageReceivedEvent event, String[] args) {
         EmbedBuilder si = new EmbedBuilder();
         si.setColor(new Color(141, 127, 254));
 
@@ -48,67 +71,16 @@ public class ServerInfo extends ListenerAdapter {
                 getGuild().getVoiceChannels().size() + "**\n<:category:949941456607526912> Категорий: **" + event.
                 getGuild().getCategories().size() + "**", true);
 
-        String s = String.valueOf(event.getGuild().getBoostTier());
-
-        String ver = "" + event.getGuild().getVerificationLevel();
+        String ver = event.getGuild().getVerificationLevel().name();
 
         si.addField("Создатель:", "<:developer:950745056409686049>" + event.getGuild().getOwner().getUser().getAsTag(), true);
-
-        switch (ver) {
-            case "NONE": {
-                String kek = ver.replace("NONE", "Отсутствует");
-                si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                break;
-            }
-            case "LOW": {
-                String kek = ver.replace("LOW", "Низкая");
-                si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                break;
-            }
-            case "MEDIUM": {
-                String kek = ver.replace("MEDIUM", "Средняя");
-                si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                break;
-            }
-            case "HIGH": {
-                String kek = ver.replace("HIGH", "Высокая");
-                si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                break;
-            }
-            case "VERY_HIGH": {
-                String kek = ver.replace("VERY_HIGH", "Полная");
-                si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                break;
-            }
-            default:
-                si.addField("Модерация:", "<:protection:950746378538205244>" + ver, true);
-                break;
-        }
-
+        si.addField("Модерация:", "<:protection:950746378538205244>" + PROTECTION_MAPPINGS.getOrDefault(ver, ver), true);
         si.addField("Бусты:", "<:boost:950748442458742864> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
-
         si.addField("ID сервера:", event.getGuild().getId(), true);
-
         si.addField("Сервер создан:", TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
-
         si.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/avatars/789218753576566855/a0a96460803e6cc6e27e7023d07d0bba.webp?size=128");
 
-
-        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(".si") || event.getMessage().getContentDisplay().equals(".server info")) {
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(si.build()).queue());
-        }
-
-        else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
-        }
-
-        if (event.getMessage().getContentDisplay().equals(".si") && event.getChannel().getId().equals("941334996654911488") && !event.getMember().getId().equals("421259943123877888")) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setDescription("<@" + event.getMessage().getAuthor().getId() + ">" + " все команды доступны в <#941458443749978122>");
-            eb.setColor(event.getMember().getColor());
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).delay(7, TimeUnit.SECONDS).flatMap(Message::delete).queue();
-            event.getMessage().delete().queueAfter(3, TimeUnit.SECONDS);
-        }
+        event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+        return true;
     }
 }
