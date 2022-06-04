@@ -1,4 +1,4 @@
-package ru.mideev.midbot.commands;
+package ru.mideev.midbot.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import org.jetbrains.annotations.NotNull;
+import ru.mideev.midbot.Main;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
@@ -91,18 +92,26 @@ public class ServerInfo extends ListenerAdapter {
 
         si.addField("Сервер создан:", TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
 
-        si.setFooter("© 2022 MiDeev", event.getGuild().getOwner().getEffectiveAvatarUrl());
+        si.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
 
 
         if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(".si") || event.getMessage().getContentDisplay().equals(".server info")) {
             event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
                     .forEach(textChannel -> textChannel.sendMessageEmbeds(si.build()).queue());
+
+            Main.DATABASE.insertCommandUsage(
+                    event.getMember().getIdLong(),
+                    event.getMessage().getContentDisplay()
+            );
         } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
+        String[] args = event.getMessage().getContentRaw().split(" ");
+
+        EmbedBuilder eb = new EmbedBuilder();
+
         if (event.getMessage().getContentDisplay().equals(".si") && event.getChannel().getId().equals("941334996654911488") && !event.getMember().getId().equals("421259943123877888")) {
-            EmbedBuilder eb = new EmbedBuilder();
             eb.setDescription("<@" + event.getMessage().getAuthor().getId() + ">" + " все команды доступны в <#941458443749978122>");
             eb.setColor(event.getMember().getColor());
             event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).delay(7, TimeUnit.SECONDS).flatMap(Message::delete).queue();
