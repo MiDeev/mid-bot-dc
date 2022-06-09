@@ -74,7 +74,7 @@ public class UserInfo extends ListenerAdapter {
 
         ui.setDescription("**Общие сведения:**" + "\n" + "** **");
         ui.addField("Устройство:", UtilLang.clientTypeToString(member.getActiveClients().stream().findFirst().orElse(ClientType.UNKNOWN)), true);
-        ui.addField("Статус:",  UtilLang.onlineStatusToString(member.getOnlineStatus()), true);
+        ui.addField("Статус:", UtilLang.onlineStatusToString(member.getOnlineStatus()), true);
         //ui.addField("Время:", "Пробыл на сервере: " + "**" + date + "**" + "\n" + "Дата регистрации: <t:" + member.getTimeCreated().toEpochSecond() + ":d>", false);
         ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
         ui.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeCreated().toEpochSecond() + ":R>)", true);
@@ -106,11 +106,11 @@ public class UserInfo extends ListenerAdapter {
             }
         });
 
-        if (event.getChannel().getId().startsWith("941458443749978122") && com.startsWith(".ui") || com.startsWith(".user info")) {
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(ui.build()).queue());
+        if (event.getChannel().getId().equals("941458443749978122") && com.startsWith(".ui") || com.startsWith(".userinfo")) {
+            event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(".ui")) {
+            event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
         }
-
         Main.DATABASE.insertCommandUsage(
                 event.getMember().getIdLong(),
                 event.getMessage().getContentDisplay()

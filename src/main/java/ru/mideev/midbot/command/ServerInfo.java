@@ -99,27 +99,17 @@ public class ServerInfo extends ListenerAdapter {
         si.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
 
 
-        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(".si") || event.getMessage().getContentDisplay().equals(".server info")) {
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941458443749978122"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(si.build()).queue());
+        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().startsWith(".si") || event.getMessage().getContentDisplay().startsWith(".serverinfo")) {
+            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
 
             Main.DATABASE.insertCommandUsage(
                     event.getMember().getIdLong(),
                     event.getMessage().getContentDisplay()
             );
-        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().equals(".si")) {
+
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(".si")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
-        String[] args = event.getMessage().getContentRaw().split(" ");
-
-        EmbedBuilder eb = new EmbedBuilder();
-
-        if (event.getMessage().getContentDisplay().equals(".si") && event.getChannel().getId().equals("941334996654911488") && !event.getMember().getId().equals("421259943123877888")) {
-            eb.setDescription("<@" + event.getMessage().getAuthor().getId() + ">" + " все команды доступны в <#941458443749978122>");
-            eb.setColor(event.getMember().getColor());
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).delay(7, TimeUnit.SECONDS).flatMap(Message::delete).queue();
-            event.getMessage().delete().queueAfter(3, TimeUnit.SECONDS);
-        }
     }
 }

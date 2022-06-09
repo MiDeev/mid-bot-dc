@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import ru.mideev.midbot.command.admin.ClearCommand;
 import ru.mideev.midbot.command.admin.CommandCountCommand;
-import ru.mideev.midbot.command.util.Help;
+import ru.mideev.midbot.command.HelpCommand;
 import ru.mideev.midbot.command.util.News;
 import ru.mideev.midbot.command.util.Roles;
 import ru.mideev.midbot.command.util.Rules;
@@ -45,7 +45,7 @@ public class Main {
         DATABASE.init();
 
         JDA jda = JDABuilder.createDefault(System.getenv("ETOKEN"))
-                .addEventListeners(new FallbackHandler(), new News(), new Help(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new Roles())
+                .addEventListeners(new FallbackHandler(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new Roles())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)

@@ -13,9 +13,13 @@ public class IdeaHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getMessage().getContentDisplay().startsWith(".answer") &&
-                event.getMember().getId().equals("421259943123877888"))
-            return;
+        if (event.getMessage().getContentDisplay().startsWith(".answer") && event.getMember().getId().equals("421259943123877888")) return;
+
+        String mid = null;
+
+        if (event.getMember().getId().equals("421259943123877888")) {
+            mid = "0xff4444";
+        } else mid = "0xff6331";
 
         if (event.getChannel().getId().equals("979498476452859994") && !event.getMember().getUser().isBot() && !event.getMember().getUser().isSystem()) {
             String content = event.getMessage().getContentRaw();
@@ -23,7 +27,7 @@ public class IdeaHandler extends ListenerAdapter {
             event.getMessage().delete().queue();
 
             Message message = event.getTextChannel().sendMessageEmbeds(new EmbedBuilder()
-                            .setColor(Color.decode("0xff6331"))
+                            .setColor(Color.decode(mid))
                             .setAuthor("ОТКРЫТАЯ ИДЕЯ ",null , event.getMember().getEffectiveAvatarUrl())
                             .setDescription("**Предложение от: <@" + event.getMessage().getAuthor().getId() + "> ** \n")
                             .appendDescription("\n" + content)
