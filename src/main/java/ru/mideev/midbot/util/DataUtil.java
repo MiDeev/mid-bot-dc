@@ -1,4 +1,4 @@
-package ru.mideev.midbot;
+package ru.mideev.midbot.util;
 
 import net.dv8tion.jda.api.entities.Member;
 
@@ -8,7 +8,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Kal {
+public class DataUtil {
     public static String formatDate(Member member) {
         String ti = Objects.requireNonNull(member).getTimeJoined()
                 .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()

@@ -19,11 +19,12 @@ public class Information extends ListenerAdapter {
                     "<#941321405172162611> - правила сервера.\n" +
                             "<#950750830833852446> - новости этого Discord-сервера.\n" +
                             "<#941364846899900496> - новости YouTube-канала.\n" +
+                            "<#981950722419589141> - список изменений сервера.\n" +
+                            "<#983318878258081813> - канал для получения ролей.\n" +
                             "\n" +
                             "<#941334996654911488> - основной чат для общения.\n" +
                             "<#941458443749978122> - чат для команд и прочего флуда.\n" +
-                            "\n" +
-                            "<#941320640420532258> - главный общий голосовой канал.");
+                            "<#979498476452859994> - канал для идей.");
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
@@ -32,7 +33,7 @@ public class Information extends ListenerAdapter {
             si.setAuthor("ОПИСАНИЕ РОЛЕЙ:", null, "https://cdn.discordapp.com/attachments/942520425936719952/975780927236100146/-_1.png");
 
             si.setDescription(
-                    "<@&942440874690871316> - **главный господин сервера, он же __MiDeev__**.\n" +
+                    "<@&942440874690871316> - **главный господин сервера, он же <@421259943123877888>**.\n" +
                             "\n" +
                             "<@&975747225500123152> - **управляет и сопровождает сервер.**\n" +
                             "*Люди с данной ролью отвечают за персонал и порядок.*\n" +
@@ -62,16 +63,6 @@ public class Information extends ListenerAdapter {
                             "*Выдаётся при достижении **10**-го уровня.*\n" +
                             "<@&975518433821212692> - **может прикреплять изображения к своим сообщениям.**\n" +
                             "*Выдаётся при достижении **5**-го уровня.*");
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
-        }
-
-        if (event.getChannel().getId().equals("941322004060073985") && event.getMessage().getContentDisplay().equals(".info")) {
-            si.setColor(new Color(255, 90, 90));
-            si.setAuthor("ВЫБОР РОЛИ:", null, "https://cdn.discordapp.com/attachments/942520425936719952/976107636640587846/13.png");
-
-            si.setDescription(
-                    ":blue_heart: <@&975336015344566292> | :purple_heart: <@&942467119323422820> - **гендерные роли.**\n" +
-                            "*Можно выбрать одну из ролей, нажав на реакцию ниже*.");
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
     }

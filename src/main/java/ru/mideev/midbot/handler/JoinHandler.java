@@ -1,14 +1,15 @@
-package ru.mideev.midbot;
+package ru.mideev.midbot.handler;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import ru.mideev.midbot.util.DataUtil;
 
 import java.awt.*;
 
-public class JoinListener extends ListenerAdapter {
+public class JoinHandler extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
@@ -34,7 +35,7 @@ public class JoinListener extends ListenerAdapter {
         EmbedBuilder emba = new EmbedBuilder();
         emba.setColor(new Color(255, 98, 98));
 
-        String date = Kal.formatDate(event.getMember());
+        String date = DataUtil.formatDate(event.getMember());
         emba.setDescription("**" + event.getUser().getAsTag() + "** (<@" + event.getUser().getId() + ">)" + " покинул сервер." +
                 "\n\nПробыл на сервере: **" + date + "**");
 

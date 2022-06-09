@@ -1,13 +1,12 @@
 package ru.mideev.midbot.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.IMentionable;
-import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.utils.ImageProxy;
 import org.jetbrains.annotations.NotNull;
-import ru.mideev.midbot.Kal;
+import ru.mideev.midbot.util.DataUtil;
 import ru.mideev.midbot.Main;
 import ru.mideev.midbot.util.UtilLang;
 
@@ -31,6 +30,18 @@ public class UserInfo extends ListenerAdapter {
 
         Member member = event.getMember();
 
+        EmbedBuilder eb = new EmbedBuilder();
+
+        if (member != null) {
+            Color color = member.getColor();
+
+            if (color != null) {
+                eb.setColor(color);
+            }
+
+            eb.addField("Ошибка:", "Указан не верный аргумент.", true);
+        }
+
         try {
             if (!list.isEmpty()) {
                 member = list.get(0);
@@ -38,35 +49,31 @@ public class UserInfo extends ListenerAdapter {
                 member = event.getGuild().getMemberById(args[1]);
             }
         } catch (Throwable throwable) {
-            EmbedBuilder eb = new EmbedBuilder();
-            eb.setColor(event.getMember().getColor());
-            eb.addField("Ошибка!", "Чота неправильно, давай по новой.", true);
-            //event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
             throw throwable;
         }
 
 
         if (member == null) return;
 
-        String date = Kal.formatDate(member);
+        String date = DataUtil.formatDate(member);
 
         EmbedBuilder ui = new EmbedBuilder();
         ui.setColor(new Color(141, 127, 254));
 
+        String nickname = member.getNickname();
 
-        if (member.getNickname() == null) {
+        if (nickname == null) {
             ui.addField("Никнейм:", member.getUser().getAsTag(), true);
-        }
-
-        if (member.getNickname() != null) {
-            ui.addField("Никнейм:", " \n(" + member.getNickname() + ")", true);
+        } else {
+            ui.addField("Никнейм:", member.getUser().getName() + " (" + nickname + ")", true);
         }
 
         //ui.setTitle("Информация об участнике: " + member.getUser().getAsTag());
         ui.setAuthor("Информация об участнике: " + member.getUser().getAsTag(), null, member.getEffectiveAvatarUrl());
 
         ui.setDescription("**Общие сведения:**" + "\n" + "** **");
-        ui.addField(" ", " ", true);
+        ui.addField("Устройство:", UtilLang.clientTypeToString(member.getActiveClients().stream().findFirst().orElse(ClientType.UNKNOWN)), true);
         ui.addField("Статус:",  UtilLang.onlineStatusToString(member.getOnlineStatus()), true);
         //ui.addField("Время:", "Пробыл на сервере: " + "**" + date + "**" + "\n" + "Дата регистрации: <t:" + member.getTimeCreated().toEpochSecond() + ":d>", false);
         ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
@@ -80,7 +87,13 @@ public class UserInfo extends ListenerAdapter {
                         .collect(Collectors.joining("\n"))
                 , false);
 
-        ui.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
+        User.Profile profile = member.getUser().retrieveProfile().complete();
+        Optional<ImageProxy> banner = Optional.ofNullable(profile.getBanner());
+
+        banner.ifPresent(it -> ui.setImage(it.getUrl(256)));
+
+        //ui.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
+        ui.setFooter("Команду запросил: " + event.getMember().getUser().getAsTag(), event.getMember().getEffectiveAvatarUrl());
         Optional<Activity> activity = member.getActivities().stream().filter(x -> x.getType() == Activity.ActivityType.PLAYING || x.getType() == Activity.ActivityType.CUSTOM_STATUS).findFirst();
 
         activity.ifPresent(notNullActivity -> {

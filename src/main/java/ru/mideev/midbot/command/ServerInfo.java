@@ -16,6 +16,10 @@ public class ServerInfo extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        if (!event.isFromGuild()) {
+            System.out.println(event.getAuthor().getAsTag() + ": " + event.getMessage().getContentDisplay());
+            return;
+        }
 
         EmbedBuilder si = new EmbedBuilder();
         si.setColor(new Color(141, 127, 254));

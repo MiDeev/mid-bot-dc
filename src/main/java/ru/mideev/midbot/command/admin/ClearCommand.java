@@ -1,4 +1,4 @@
-package ru.mideev.midbot.command;
+package ru.mideev.midbot.command.admin;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
