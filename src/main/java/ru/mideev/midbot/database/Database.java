@@ -59,8 +59,6 @@ public class Database {
                     "`message_id` bigint not null" +
                     ");");
 
-            statement.addBatch("alter table `ideas` add unique index (message_id);");
-
             statement.executeBatch();
         } catch (Throwable t) {
             t.printStackTrace();

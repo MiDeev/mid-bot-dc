@@ -19,10 +19,7 @@ import ru.mideev.midbot.command.util.News;
 import ru.mideev.midbot.command.util.Roles;
 import ru.mideev.midbot.command.util.Rules;
 import ru.mideev.midbot.database.Database;
-import ru.mideev.midbot.handler.FallbackHandler;
-import ru.mideev.midbot.handler.IdeaAnswerHandler;
-import ru.mideev.midbot.handler.IdeaHandler;
-import ru.mideev.midbot.handler.JoinHandler;
+import ru.mideev.midbot.handler.*;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -45,7 +42,7 @@ public class Main {
         DATABASE.init();
 
         JDA jda = JDABuilder.createDefault(System.getenv("ETOKEN"))
-                .addEventListeners(new FallbackHandler(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new Roles())
+                .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new OfferHandler(), new Roles())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)

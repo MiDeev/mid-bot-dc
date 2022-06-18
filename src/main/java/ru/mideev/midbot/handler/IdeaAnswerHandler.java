@@ -21,7 +21,7 @@ public class IdeaAnswerHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getMember() != null && !event.getTextChannel().getId().equals("979498476452859994") && !event.getMember().getId().equals("421259943123877888") && !event.getMessage().getContentDisplay().startsWith("."))
+        if (!event.getMessage().getContentDisplay().startsWith(".") || !event.getTextChannel().getId().equals("979498476452859994") || event.getMember() == null || !event.getMember().getId().equals("421259943123877888"))
             return;
 
         Message current = event.getMessage();
