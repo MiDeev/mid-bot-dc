@@ -38,6 +38,9 @@ public class Database {
             dataSource.setUser(username);
             dataSource.setPassword(password);
             dataSource.setDatabaseName(database);
+            dataSource.setConnectTimeout(0);
+            dataSource.setSocketTimeout(0);
+            dataSource.setAutoReconnect(true);
 
             connection = dataSource.getConnection();
         } catch (Throwable t) {
