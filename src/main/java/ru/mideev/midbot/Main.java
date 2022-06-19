@@ -1,5 +1,6 @@
 package ru.mideev.midbot;
 
+import io.javalin.Javalin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -39,6 +40,8 @@ public class Main {
     private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
 
     public static void main(String[] args) throws LoginException {
+        Javalin.create().start(Integer.parseInt(System.getenv("PORT"))).get("/", ctx -> ctx.result("Hello World"));
+
         DATABASE.init();
 
         JDA jda = JDABuilder.createDefault(System.getenv("ETOKEN"))

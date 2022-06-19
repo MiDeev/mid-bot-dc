@@ -21,6 +21,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
+    implementation group: 'io.javalin', name: 'javalin', version: '4.6.3'
+
     implementation("mysql:mysql-connector-java:8.0.29")
 
     implementation("net.dv8tion:JDA:5.0.0-alpha.12")
