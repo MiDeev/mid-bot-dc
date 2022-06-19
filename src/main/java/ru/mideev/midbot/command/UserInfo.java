@@ -66,7 +66,7 @@ public class UserInfo extends ListenerAdapter {
         if (nickname == null) {
             ui.addField("Никнейм:", member.getUser().getAsTag(), true);
         } else {
-            ui.addField("Никнейм:", member.getUser().getName() + " (" + nickname + ")", true);
+            ui.addField("Никнейм:", member.getUser().getName() + " \n(" + nickname + ")", true);
         }
 
         //ui.setTitle("Информация об участнике: " + member.getUser().getAsTag());
