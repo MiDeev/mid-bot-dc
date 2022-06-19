@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 compileJava.options.encoding = 'UTF-8'
@@ -29,7 +30,7 @@ test {
     useJUnitPlatform()
 }
 
-jar {
+shadowJar {
     manifest {
         attributes('Main-Class': 'ru.mideev.midbot.Main')
     }
