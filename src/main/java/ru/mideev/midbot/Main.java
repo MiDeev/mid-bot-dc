@@ -24,6 +24,7 @@ import ru.mideev.midbot.handler.*;
 import ru.mideev.midbot.util.SlashCommands;
 
 import javax.security.auth.login.LoginException;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +42,7 @@ public class Main {
     private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
 
     public static void main(String[] args) throws LoginException {
-        Javalin.create().start(Integer.parseInt(System.getenv("PORT"))).get("/", ctx -> ctx.result("Hello World"));
+        Javalin.create().start(Integer.parseInt(Optional.ofNullable(System.getenv("PORT")).orElse("80"))).get("/", ctx -> ctx.result("Hello World"));
 
         DATABASE.init();
 

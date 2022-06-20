@@ -12,6 +12,7 @@ import ru.mideev.midbot.Main;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.List;
@@ -83,10 +84,12 @@ public class UserInfo extends ListenerAdapter {
 
         ui.addField("ID:", member.getId(), false);
 
-        ui.addField("Роли:", member.getRoles()
+        ui.addField("Роль:", member.getRoles()
                         .stream()
-                        .map(IMentionable::getAsMention)
-                        .collect(Collectors.joining("\n"))
+                        .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
+                        .findFirst()
+                        .orElse(null)
+                        .getAsMention()
                 , false);
 
         User.Profile profile = member.getUser().retrieveProfile().complete();
