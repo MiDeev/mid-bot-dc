@@ -26,6 +26,8 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.29")
 
     implementation("net.dv8tion:JDA:5.0.0-alpha.12")
+
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.31'
 }
 
 test {
