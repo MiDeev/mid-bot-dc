@@ -21,6 +21,7 @@ import ru.mideev.midbot.command.util.Roles;
 import ru.mideev.midbot.command.util.Rules;
 import ru.mideev.midbot.database.Database;
 import ru.mideev.midbot.handler.*;
+import ru.mideev.midbot.util.SlashCommands;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -44,8 +45,8 @@ public class Main {
 
         DATABASE.init();
 
-        JDA jda = JDABuilder.createDefault(System.getenv("ETOKEN"))
-                .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new OfferHandler(), new Roles())
+        JDA jda = JDABuilder.createDefault(System.getenv("QTOKEN"))
+                .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new SlashCommands(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new OfferHandler(), new Roles())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
@@ -53,8 +54,16 @@ public class Main {
                 .setCompression(Compression.NONE)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES)
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                .setActivity(Activity.of(Activity.ActivityType.WATCHING,".help"))
+                .setActivity(Activity.of(Activity.ActivityType.WATCHING, ".help"))
                 .build();
+
+
+        Guild guild1 = jda.getGuildById("941320640420532254");
+
+        if (guild1 != null) {
+            guild1.upsertCommand("ui", "Показывает информацию об участнике.").queue();
+        }
+
 
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
             Guild guild = jda.getGuildById("941320640420532254");

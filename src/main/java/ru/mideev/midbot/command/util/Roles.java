@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 
@@ -11,7 +12,7 @@ public class Roles extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
-        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().equals(".roles")) {
+        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "roles")) {
             si.setColor(new Color(255, 90, 90));
             si.setAuthor("ВЫБОР РОЛЕЙ:", null, "https://cdn.discordapp.com/attachments/942520425936719952/976107636640587846/13.png");
 
@@ -27,7 +28,7 @@ public class Roles extends ListenerAdapter {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
-        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().equals(".roles")) {
+        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "roles")) {
             si.setColor(new Color(255, 90, 90));
                         si.setDescription(
                     "\uD83D\uDC99 <@&975336015344566292> | \uD83D\uDC9C <@&942467119323422820> - **гендерные роли.**\n" +

@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
@@ -99,7 +100,7 @@ public class ServerInfo extends ListenerAdapter {
         si.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
 
 
-        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().startsWith(".si") || event.getMessage().getContentDisplay().startsWith(".serverinfo")) {
+        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "si") || event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "serverinfo")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
 
             Main.DATABASE.insertCommandUsage(
@@ -107,7 +108,7 @@ public class ServerInfo extends ListenerAdapter {
                     event.getMessage().getContentDisplay()
             );
 
-        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(".si")) {
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "si")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 

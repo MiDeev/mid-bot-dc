@@ -1,6 +1,7 @@
 package ru.mideev.midbot.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -21,7 +22,8 @@ public class UserInfo extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (!event.getMessage().getContentDisplay().startsWith(".ui")) return;
+
+        if (!event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "ui")) return;
 
         String com = event.getMessage().getContentDisplay();
         String[] args = com.split(" ");
@@ -106,9 +108,9 @@ public class UserInfo extends ListenerAdapter {
             }
         });
 
-        if (event.getChannel().getId().equals("941458443749978122") && com.startsWith(".ui") || com.startsWith(".userinfo")) {
+        if (event.getChannel().getId().equals("941458443749978122") && com.startsWith(UtilLang.PREFIX + "ui") || com.startsWith(UtilLang.PREFIX + "userinfo")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
-        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(".ui")) {
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "ui")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
         }
         Main.DATABASE.insertCommandUsage(

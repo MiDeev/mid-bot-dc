@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import ru.mideev.midbot.Main;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ClearCommand extends ListenerAdapter {
 
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(new Color(255, 53, 107));
-        if (!messageReceivedEvent.getMessage().getContentDisplay().startsWith(".clear") || !messageReceivedEvent.getMember().getId().equals("421259943123877888")) return;
+        if (!messageReceivedEvent.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "clear") || !messageReceivedEvent.getMember().getId().equals("421259943123877888")) return;
 
         String[] args = messageReceivedEvent.getMessage().getContentRaw().split(" ");
 

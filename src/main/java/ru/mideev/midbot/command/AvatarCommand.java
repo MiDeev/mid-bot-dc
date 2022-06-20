@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.List;
@@ -14,7 +15,7 @@ public class AvatarCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (!event.getMessage().getContentDisplay().startsWith(".ava")) return;
+        if (!event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "ava")) return;
 
         String net = event.getMessage().getContentDisplay();
 
@@ -60,9 +61,9 @@ public class AvatarCommand extends ListenerAdapter {
 
         av.setFooter("Команду запросил: " + event.getMember().getUser().getAsTag(), event.getMember().getEffectiveAvatarUrl());
 
-        if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(".ava") || net.startsWith(".avatar")) {
+        if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(UtilLang.PREFIX + "ava") || net.startsWith(UtilLang.PREFIX + "avatar")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(av.build()).queue();
-        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(".ava")) {
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "ava")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(av.build()).queue();
         }
 

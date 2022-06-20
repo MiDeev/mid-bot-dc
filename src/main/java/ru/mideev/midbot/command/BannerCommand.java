@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.ImageProxy;
 import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.List;
@@ -17,7 +18,7 @@ public class BannerCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (!event.getMessage().getContentDisplay().startsWith(".banner")) return;
+        if (!event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "banner")) return;
 
         String net = event.getMessage().getContentDisplay();
 
@@ -68,9 +69,9 @@ public class BannerCommand extends ListenerAdapter {
             ba.setFooter("Команду запросил: " + event.getMember().getUser().getAsTag(), event.getMember().getEffectiveAvatarUrl());
         }
 
-        if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(".banner") || net.startsWith(".banner")) {
+        if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(UtilLang.PREFIX + "banner") || net.startsWith(UtilLang.PREFIX + "banner")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(ba.build()).queue();
-        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(".banner")) {
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "banner")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(ba.build()).queue();
         }
 

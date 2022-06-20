@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +15,7 @@ public class HelpCommand extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder eb = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(".help")) {
+        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "help")) {
             eb.setColor(event.getMember().getColor());
             eb.setTitle("Список доступных команд: ");
             eb.setDescription("**Получить информацию о сервере:**\n" +
@@ -37,7 +38,7 @@ public class HelpCommand extends ListenerAdapter {
                     event.getMessage().getContentDisplay()
             );
 
-        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(".help")) {
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "help")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
         }
     }
