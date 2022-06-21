@@ -1,5 +1,3 @@
-package ru.mideev.midbot;
-
 import io.javalin.Javalin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -46,16 +44,16 @@ public class Main {
 
         DATABASE.init();
 
-        JDA jda = JDABuilder.createDefault(System.getenv("ETOKEN"))
-                .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new SlashCommands(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new OfferHandler(), new Roles())
+        JDA jda = JDABuilder.createDefault(System.getenv("QTOKEN"))
+                .addEventListeners()
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
                 .setBulkDeleteSplittingEnabled(false)
                 .setCompression(Compression.NONE)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES)
-                .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                .setActivity(Activity.of(Activity.ActivityType.WATCHING, ".help"))
+                .setStatus(OnlineStatus.IDLE)
+                .setActivity(Activity.of(Activity.ActivityType.WATCHING, "/help"))
                 .build();
 
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
