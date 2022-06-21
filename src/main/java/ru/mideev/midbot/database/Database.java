@@ -1,6 +1,6 @@
 package ru.mideev.midbot.database;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
+import org.postgresql.ds.PGSimpleDataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,14 +31,13 @@ public class Database {
 
     public void connect() {
         try {
-            MysqlDataSource dataSource = new MysqlDataSource();
+            PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
             dataSource.setServerName(host);
-            dataSource.setPort(port);
+            dataSource.setPortNumber(port);
             dataSource.setUser(username);
             dataSource.setPassword(password);
             dataSource.setDatabaseName(database);
-            dataSource.setAutoReconnect(true);
 
             connection = dataSource.getConnection();
         } catch (Throwable t) {
