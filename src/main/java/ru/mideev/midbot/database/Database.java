@@ -49,14 +49,14 @@ public class Database {
         connect();
 
         try (Statement statement = connection.createStatement()) {
-            statement.addBatch("create table if not exists `commandcounter` (" +
-                    "`snowflake` bigint not null," +
-                    "`command` text not null" +
+            statement.addBatch("create table if not exists commandcounter (" +
+                    "snowflake bigint not null," +
+                    "command text not null" +
                     ");");
 
-            statement.addBatch("create table if not exists `ideas` (" +
-                    "`snowflake` bigint not null," +
-                    "`message_id` bigint not null" +
+            statement.addBatch("create table if not exists ideas (" +
+                    "snowflake bigint not null," +
+                    "message_id bigint not null" +
                     ");");
 
             statement.executeBatch();
@@ -67,7 +67,7 @@ public class Database {
 
     public void insertCommandUsage(long snowflake, String command) {
         try (PreparedStatement statement = connection.prepareStatement(
-                "insert into `commandcounter` (snowflake, command) values (?, ?)"
+                "insert into commandcounter (snowflake, command) values (?, ?)"
         )) {
             statement.setLong(1, snowflake);
             statement.setString(2, command);
@@ -80,7 +80,7 @@ public class Database {
 
     public void insertIdea(long snowflake, long messageId) {
         try (PreparedStatement statement = connection.prepareStatement(
-                "insert into `ideas` (snowflake, message_id) values (?, ?)"
+                "insert into ideas (snowflake, message_id) values (?, ?)"
         )) {
             statement.setLong(1, snowflake);
             statement.setLong(2, messageId);
@@ -93,7 +93,7 @@ public class Database {
 
     public long getSnowflakeByMessageId(long messageId) {
         try (PreparedStatement statement = connection.prepareStatement(
-                "select * from `ideas` where message_id = ?"
+                "select * from ideas where message_id = ?"
         )) {
             statement.setLong(1, messageId);
 
@@ -110,7 +110,7 @@ public class Database {
 
     public int countAllCommandUsages() {
         try (PreparedStatement statement = connection.prepareStatement(
-                "select count(*) from `commandcounter`"
+                "select count(*) from commandcounter"
         )) {
             ResultSet resultSet = statement.executeQuery();
 
