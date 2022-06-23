@@ -109,9 +109,9 @@ public class UserInfo extends ListenerAdapter {
             }
         });
 
-        if (event.getChannel().getId().equals("941458443749978122") && com.startsWith(UtilLang.PREFIX + "ui") || com.startsWith(UtilLang.PREFIX + "userinfo")) {
+        if (event.getChannel().getId().equals("941458443749978122") && com.toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "ui") || com.toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "userinfo")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
-        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "ui")) {
+        } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "ui")) {
             event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
         }
         Main.DATABASE.insertCommandUsage(
