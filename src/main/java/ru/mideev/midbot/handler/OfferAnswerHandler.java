@@ -13,6 +13,7 @@ import ru.mideev.midbot.Main;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class OfferAnswerHandler extends ListenerAdapter {
@@ -21,7 +22,7 @@ public class OfferAnswerHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getMessage().getContentDisplay().startsWith(".true") && event.getTextChannel().getId().equals("985623622293028935") && event.getMember() != null && event.getMember().getId().equals("421259943123877888")) {
+        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".true") && event.getTextChannel().getId().equals("985623622293028935") && event.getMember() != null && event.getMember().getId().equals("421259943123877888")) {
 
             Message current = event.getMessage();
             Message message = current.getReferencedMessage();
@@ -56,7 +57,7 @@ public class OfferAnswerHandler extends ListenerAdapter {
                     }
                 }
             }
-        } else if (event.getMessage().getContentDisplay().startsWith(".false") && event.getTextChannel().getId().equals("985623622293028935") && event.getMember() != null && event.getMember().getId().equals("421259943123877888")) {
+        } else if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".false") && event.getTextChannel().getId().equals("985623622293028935") && event.getMember() != null && event.getMember().getId().equals("421259943123877888")) {
 
             Message current = event.getMessage();
             Message message = current.getReferencedMessage();

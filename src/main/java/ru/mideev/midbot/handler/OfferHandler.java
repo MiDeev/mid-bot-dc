@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class OfferHandler extends ListenerAdapter {
 
@@ -15,7 +16,7 @@ public class OfferHandler extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getMember() == null) return;
 
-        if ((event.getMessage().getContentDisplay().startsWith(".true") || event.getMessage().getContentDisplay().startsWith(".false")) && event.getMember().getId().equals("421259943123877888")) return;
+        if ((event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".true") || event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".false")) && event.getMember().getId().equals("421259943123877888")) return;
 
         String mid = null;
 

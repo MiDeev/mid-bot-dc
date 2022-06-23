@@ -12,9 +12,7 @@ import ru.mideev.midbot.Main;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +22,7 @@ public class UserInfo extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
 
-        if (!event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "ui")) return;
+        if (!event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "ui")) return;
 
         String com = event.getMessage().getContentDisplay();
         String[] args = com.split(" ");

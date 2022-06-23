@@ -7,12 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class Rules extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (event.getChannel().getId().equals("941321405172162611") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "rules")) {
+        if (event.getChannel().getId().equals("941321405172162611") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "rules")) {
 
             EmbedBuilder emba = new EmbedBuilder();
             emba.setColor(new Color(255, 98, 98));

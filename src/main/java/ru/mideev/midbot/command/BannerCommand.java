@@ -12,13 +12,14 @@ import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public class BannerCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
-        if (!event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "banner")) return;
+        if (!event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "banner")) return;
 
         String net = event.getMessage().getContentDisplay();
 

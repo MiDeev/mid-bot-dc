@@ -6,11 +6,13 @@ import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
 import ru.mideev.midbot.util.UtilLang;
 
+import java.util.Locale;
+
 public class CommandCountCommand extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "cc")) {
+        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "cc")) {
             System.out.println(Main.DATABASE.countAllCommandUsages());
         }
     }

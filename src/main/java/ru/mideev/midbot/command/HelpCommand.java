@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
 import ru.mideev.midbot.util.UtilLang;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class HelpCommand extends ListenerAdapter {
@@ -15,7 +16,7 @@ public class HelpCommand extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder eb = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "help")) {
+        if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "help")) {
             eb.setColor(event.getMember().getColor());
             eb.setTitle("Список доступных команд: ");
             eb.setDescription("**Получить информацию о сервере:**\n" +

@@ -7,12 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class Roles extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
-        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "roles")) {
+        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "roles")) {
             si.setColor(new Color(255, 90, 90));
             si.setAuthor("ВЫБОР РОЛЕЙ:", null, "https://cdn.discordapp.com/attachments/942520425936719952/976107636640587846/13.png");
 

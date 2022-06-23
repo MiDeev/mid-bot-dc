@@ -7,12 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class Information extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("941322004060073985") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "info")) {
+        if (event.getChannel().getId().equals("941322004060073985") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "info")) {
             si.setColor(new Color(127, 138, 254));
             si.setAuthor("ОПИСАНИЕ КАНАЛОВ:", null, "https://cdn-icons-png.flaticon.com/64/6517/6517896.png");
 

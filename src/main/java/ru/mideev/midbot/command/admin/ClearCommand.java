@@ -9,6 +9,7 @@ import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class ClearCommand extends ListenerAdapter {
@@ -17,7 +18,7 @@ public class ClearCommand extends ListenerAdapter {
 
         EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(new Color(255, 53, 107));
-        if (!messageReceivedEvent.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "clear") || !messageReceivedEvent.getMember().getId().equals("421259943123877888")) return;
+        if (!messageReceivedEvent.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "clear") || !messageReceivedEvent.getMember().getId().equals("421259943123877888")) return;
 
         String[] args = messageReceivedEvent.getMessage().getContentRaw().split(" ");
 

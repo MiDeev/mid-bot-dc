@@ -11,11 +11,12 @@ import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class TestCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "keka")) return;
+        if (!event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "keka")) return;
 
         System.out.println("DATES");
 

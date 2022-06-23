@@ -45,7 +45,7 @@ public class Main {
         DATABASE.init();
 
         JDA jda = JDABuilder.createDefault(System.getenv("QTOKEN"))
-                .addEventListeners()
+                .addEventListeners(new Test())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)

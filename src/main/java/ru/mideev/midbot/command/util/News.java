@@ -6,13 +6,15 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.util.UtilLang;
 
+import java.util.Locale;
+
 public class News extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder eb = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("941364846899900496") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "news")) {
+        if (event.getChannel().getId().equals("941364846899900496") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "news")) {
             event.getChannel().sendMessage("**Здравствуйте, дружочки пирожочки, также известные как @everyone**! \n" +
                     "Не поверите, но спустя аж целых **3 МЕСЯЦА** на канале **MiDeev'a** вышло новое видео! \n" +
                     "Вы там не падайте, а если шок всё-таки берёт верх и вы уже начали свободное подение, то успевайте в полёте включить видео, а после уже начинайте просмотр. \n" +
