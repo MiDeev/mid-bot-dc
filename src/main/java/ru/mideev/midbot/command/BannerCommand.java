@@ -48,7 +48,7 @@ public class BannerCommand extends ListenerAdapter {
                 member = event.getGuild().getMemberById(args[1]);
             }
         } catch (Throwable throwable) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(eb.build()).queue();
             throw throwable;
         }
 
@@ -71,9 +71,9 @@ public class BannerCommand extends ListenerAdapter {
         }
 
         if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(UtilLang.PREFIX + "banner") || net.startsWith(UtilLang.PREFIX + "banner")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(ba.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(ba.build()).queue();
         } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "banner")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(ba.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(ba.build()).queue();
         }
 
         Main.DATABASE.insertCommandUsage(

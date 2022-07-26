@@ -31,10 +31,10 @@ public class FallbackHandler extends ListenerAdapter {
             privateChannel.sendMessageEmbeds(fb.build()).queue();
         }
 
-        if (COMMANDS.stream().anyMatch(x -> event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(x)) && event.getMessage().getContentDisplay().length() >= 3 && !event.getTextChannel().getId().equals("941458443749978122") && !event.getTextChannel().getId().equals("979498476452859994") && !event.getAuthor().getId().equals("421259943123877888")) {
+        if (COMMANDS.stream().anyMatch(x -> event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(x)) && event.getMessage().getContentDisplay().length() >= 3 && !event.getChannel().asTextChannel().getId().equals("941458443749978122") && !event.getChannel().asTextChannel().getId().equals("979498476452859994") && !event.getAuthor().getId().equals("421259943123877888")) {
             fb.setDescription("<@" + event.getMessage().getAuthor().getId() + ">" + " все команды доступны в <#941458443749978122>");
             fb.setColor(new Color(0xFF4646));
-            event.getMessage().getTextChannel().sendMessageEmbeds(fb.build()).delay(30, TimeUnit.SECONDS).flatMap(Message::delete).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(fb.build()).delay(30, TimeUnit.SECONDS).flatMap(Message::delete).queue();
             event.getMessage().delete().queueAfter(60, TimeUnit.SECONDS);
         }
     }

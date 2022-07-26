@@ -39,11 +39,11 @@ public class ClearCommand extends ListenerAdapter {
         }
 
         List<Message> messageList = messageReceivedEvent.getChannel().getHistory().retrievePast(Integer.parseInt(args[1]) + 1).complete();
-        messageReceivedEvent.getTextChannel().deleteMessages(messageList).queue();
+        messageReceivedEvent.getChannel().asTextChannel().deleteMessages(messageList).queue();
 
 
         eb.setDescription("Было удалено **" + args[1] + "** сообщений.");
-        messageReceivedEvent.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+        messageReceivedEvent.getMessage().getChannel().asTextChannel().sendMessageEmbeds(eb.build()).queue();
 
         Main.DATABASE.insertCommandUsage(
                 messageReceivedEvent.getMember().getIdLong(),

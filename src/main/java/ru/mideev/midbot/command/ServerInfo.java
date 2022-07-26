@@ -102,7 +102,7 @@ public class ServerInfo extends ListenerAdapter {
 
 
         if (event.getChannel().getId().equals("941458443749978122") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "si") || event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "serverinfo")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
 
             Main.DATABASE.insertCommandUsage(
                     event.getMember().getIdLong(),
@@ -110,7 +110,7 @@ public class ServerInfo extends ListenerAdapter {
             );
 
         } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "si")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
     }

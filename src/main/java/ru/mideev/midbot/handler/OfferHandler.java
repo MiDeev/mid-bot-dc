@@ -2,6 +2,7 @@ package ru.mideev.midbot.handler;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,7 @@ public class OfferHandler extends ListenerAdapter {
         if (event.getChannel().getId().equals("985623622293028935") && !event.getMember().getUser().isBot() && !event.getMember().getUser().isSystem()) {
             String content = event.getMessage().getContentRaw();
 
-            Message message = event.getTextChannel().sendMessageEmbeds(new EmbedBuilder()
+            Message message = event.getChannel().asTextChannel().sendMessageEmbeds(new EmbedBuilder()
                     .setColor(Color.decode("0xffb135"))
                     .setAuthor("ОТКРЫТОЕ ПРЕДЛОЖЕНИЕ ",null , event.getMember().getEffectiveAvatarUrl())
                     .appendDescription("\n" + content)
@@ -31,8 +32,8 @@ public class OfferHandler extends ListenerAdapter {
 
             Main.DATABASE.insertIdea(event.getAuthor().getIdLong(), message.getIdLong());
 
-            message.addReaction(":green_check_mark:983314695027064832").queue();
-            message.addReaction("❌").queue();
+            message.addReaction(Emoji.fromCustom("green_check_mark", 983314695027064832L, false)).queue();
+            message.addReaction(Emoji.fromUnicode("❌")).queue();
 
             try {
                 event.getMessage().delete().queue();

@@ -32,7 +32,7 @@ public class HelpCommand extends ListenerAdapter {
                     "**Получить баннер участника:**\n" +
                     "**`.banner`**  `[ID | @упомнинание]` - позволяет отобразить баннер участника. Получить баннер одного из участников, можно указав в аргументах его 'ID' или упомянув его через '@'.  По умолчанию отображает баннер, вызвавшего команду пользователя.");
             eb.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(eb.build()).queue();
 
             Main.DATABASE.insertCommandUsage(
                     event.getMember().getIdLong(),
@@ -40,7 +40,7 @@ public class HelpCommand extends ListenerAdapter {
             );
 
         } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "help")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(eb.build()).queue();
         }
     }
 }

@@ -26,7 +26,7 @@ public class Roles extends ListenerAdapter {
                             "\uD83D\uDCA5 <@&980016919581171763> - **роль для доступа к каналу с дичью.**\n" +
                             "*Если Вы морально готовы к возможным оскорблениям и прочей дичи, тогда эта роль для Вас.*"
             );
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
         if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().equals(UtilLang.PREFIX + "roles")) {
@@ -35,7 +35,7 @@ public class Roles extends ListenerAdapter {
                     "\uD83D\uDC99 <@&975336015344566292> | \uD83D\uDC9C <@&942467119323422820> - **гендерные роли.**\n" +
                             "*Можно выбрать одну из ролей, нажав на реакцию ниже*."
             );
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
         }
     }
 }

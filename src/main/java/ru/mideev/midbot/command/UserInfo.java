@@ -20,8 +20,6 @@ public class UserInfo extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-
-
         if (!event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "ui")) return;
 
         String com = event.getMessage().getContentDisplay();
@@ -50,7 +48,7 @@ public class UserInfo extends ListenerAdapter {
                 member = event.getGuild().getMemberById(args[1]);
             }
         } catch (Throwable throwable) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(eb.build()).queue();
             throw throwable;
         }
 
@@ -110,9 +108,9 @@ public class UserInfo extends ListenerAdapter {
         });
 
         if (event.getChannel().getId().equals("941458443749978122") && com.toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "ui") || com.toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "userinfo")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(ui.build()).queue();
         } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "ui")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(ui.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(ui.build()).queue();
         }
         Main.DATABASE.insertCommandUsage(
                 event.getMember().getIdLong(),

@@ -4,6 +4,8 @@ import io.javalin.Javalin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import ru.mideev.midbot.command.*;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -53,10 +55,28 @@ public class Main {
                 .setChunkingFilter(ChunkingFilter.ALL)
                 .setBulkDeleteSplittingEnabled(false)
                 .setCompression(Compression.NONE)
-                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.MESSAGE_CONTENT)
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                .setActivity(Activity.of(Activity.ActivityType.WATCHING, ".help"))
+                .setActivity(Activity.of(Activity.ActivityType.WATCHING, "/help"))
                 .build();
+
+        // jda.upsertCommand("ui","Показывает информацию о вас.").addOption(OptionType.USER,"Участник","Показывает информацию об участнике.").queue();
+
+        jda.deleteCommandById(1000191439218671687L).queue();
+
+        jda.updateCommands().addCommands(
+                        Commands.slash("help", "Покажет список доступных команд."),
+                        Commands.slash("si", "Покажет информацию о сервере."),
+                        Commands.slash("ui", "Покажет информацию о вас.")
+                                .addOption(
+                                        OptionType.USER, "участник", "Покажет информацию об участнике."),
+                        Commands.slash("ava", "Покажет вашу аватарку.")
+                                .addOption(
+                                        OptionType.USER, "участник", "Покажет аватарку участника."),
+                        Commands.slash("banner", "Покажет баннер участника.")
+                                .addOption(
+                                        OptionType.USER, "участник", "Покажет ваш баннер."))
+                .queue();
 
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
             Guild guild = jda.getGuildById("941320640420532254");

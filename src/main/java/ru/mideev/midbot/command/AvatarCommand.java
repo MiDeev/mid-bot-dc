@@ -45,7 +45,7 @@ public class AvatarCommand extends ListenerAdapter {
                 member = event.getGuild().getMemberById(args[1]);
             }
         } catch (Throwable throwable) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(eb.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(eb.build()).queue();
             throw throwable;
         }
 
@@ -63,9 +63,9 @@ public class AvatarCommand extends ListenerAdapter {
         av.setFooter("Команду запросил: " + event.getMember().getUser().getAsTag(), event.getMember().getEffectiveAvatarUrl());
 
         if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(UtilLang.PREFIX + "ava") || net.startsWith(UtilLang.PREFIX + "avatar")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(av.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(av.build()).queue();
         } else if (event.getMessage().getAuthor().getId().equals("421259943123877888") && event.getMessage().getContentDisplay().startsWith(UtilLang.PREFIX + "ava")) {
-            event.getMessage().getTextChannel().sendMessageEmbeds(av.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(av.build()).queue();
         }
 
         Main.DATABASE.insertCommandUsage(

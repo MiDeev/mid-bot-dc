@@ -2,6 +2,7 @@ package ru.mideev.midbot.handler;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +30,7 @@ public class IdeaHandler extends ListenerAdapter {
 
             event.getMessage().delete().queue();
 
-            Message message = event.getTextChannel().sendMessageEmbeds(new EmbedBuilder()
+            Message message = event.getChannel().asTextChannel().sendMessageEmbeds(new EmbedBuilder()
                             .setColor(Color.decode(mid))
                             .setAuthor("ОТКРЫТАЯ ИДЕЯ ",null , event.getMember().getEffectiveAvatarUrl())
                             .setDescription("**Предложение от: <@" + event.getMessage().getAuthor().getId() + "> ** \n")
@@ -38,8 +39,8 @@ public class IdeaHandler extends ListenerAdapter {
 
             Main.DATABASE.insertIdea(event.getAuthor().getIdLong(), message.getIdLong());
 
-            message.addReaction(":green_check_mark:983314695027064832").queue();
-            message.addReaction("❌").queue();
+            message.addReaction(Emoji.fromCustom("green_check_mark", 983314695027064832L, false)).queue();
+            message.addReaction(Emoji.fromUnicode("❌")).queue();
         }
     }
 }

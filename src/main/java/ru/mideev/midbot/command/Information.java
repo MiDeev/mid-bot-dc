@@ -31,7 +31,7 @@ public class Information extends ListenerAdapter {
                             "<#979498476452859994> - предлагайте свои дс-идеи здесь.\n" +
                             "<#985623622293028935> - советы по изменениям сервера.\n" +
                             "<#988555247888785438> - здесь можно пожаловаться.");
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
         }
 
         if (event.getChannel().getId().equals("941322004060073985") && event.getMessage().getContentDisplay().equals(".info")) {
@@ -69,7 +69,7 @@ public class Information extends ListenerAdapter {
                             "*Выдаётся при достижении **10**-го уровня.*\n" +
                             "<@&975518433821212692> - **может прикреплять изображения к своим сообщениям.**\n" +
                             "*Выдаётся при достижении **5**-го уровня.*");
-            event.getMessage().getTextChannel().sendMessageEmbeds(si.build()).queue();
+            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
         }
     }
 }
