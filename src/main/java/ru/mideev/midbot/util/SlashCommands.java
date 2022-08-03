@@ -15,6 +15,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+
 public class SlashCommands extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
@@ -47,7 +49,7 @@ public class SlashCommands extends ListenerAdapter {
             String date = DataUtil.formatDate(member);
 
             EmbedBuilder ui = new EmbedBuilder();
-            ui.setColor(new Color(95, 129, 255));
+            ui.setColor(Color.decode(EMBED_COLOR));
 
             String nickname = member.getNickname();
 
@@ -131,7 +133,7 @@ public class SlashCommands extends ListenerAdapter {
             if (member == null) return;
 
             EmbedBuilder av = new EmbedBuilder();
-            av.setColor(new Color(95, 129, 255));
+            av.setColor(Color.decode(EMBED_COLOR));
 
             av.setDescription("**Аватар пользователя: **" + "<@" + member.getId() + ">");
 
@@ -175,7 +177,7 @@ public class SlashCommands extends ListenerAdapter {
             if (member == null) return;
 
             EmbedBuilder ba = new EmbedBuilder();
-            ba.setColor(new Color(95, 129, 255));
+            ba.setColor(Color.decode(EMBED_COLOR));
 
             User.Profile profile = member.getUser().retrieveProfile().complete();
             Optional<ImageProxy> banner = Optional.ofNullable(profile.getBanner());
@@ -199,7 +201,7 @@ public class SlashCommands extends ListenerAdapter {
 
         if (event.getName().equals("si")) {
             EmbedBuilder si = new EmbedBuilder();
-            si.setColor(new Color(95, 129, 255));
+            si.setColor(Color.decode(EMBED_COLOR));
 
             si.setTitle("Информация о " + event.getGuild().getName());
 

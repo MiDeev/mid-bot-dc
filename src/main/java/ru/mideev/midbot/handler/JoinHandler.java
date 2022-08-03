@@ -43,9 +43,9 @@ public class JoinHandler extends ListenerAdapter {
         Member member = event.getMember();
 
         EmbedBuilder emba = new EmbedBuilder();
-        emba.setColor(new Color(255, 53, 53));
+        emba.setColor(new Color(255, 60, 60));
 
-        emba.addField("Наивысшая роль:", member.getRoles()
+        emba.addField("Приоритетная роль:", member.getRoles()
                         .stream()
                         .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
                         .findFirst()

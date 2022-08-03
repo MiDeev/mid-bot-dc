@@ -80,7 +80,7 @@ public class UserInfo extends ListenerAdapter {
 
         ui.addField("ID:", member.getId(), false);
 
-        ui.addField("Наивысшая роль:", member.getRoles()
+        ui.addField("Приоритетная роль:", member.getRoles()
                         .stream()
                         .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
                         .findFirst()
