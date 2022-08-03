@@ -60,24 +60,6 @@ public class Main {
                 .setActivity(Activity.of(Activity.ActivityType.WATCHING, "/help"))
                 .build();
 
-        // jda.upsertCommand("ui","Показывает информацию о вас.").addOption(OptionType.USER,"Участник","Показывает информацию об участнике.").queue();
-
-        jda.deleteCommandById(1000191439218671687L).queue();
-
-        jda.updateCommands().addCommands(
-                        Commands.slash("help", "Покажет список доступных команд."),
-                        Commands.slash("si", "Покажет информацию о сервере."),
-                        Commands.slash("ui", "Покажет информацию о вас.")
-                                .addOption(
-                                        OptionType.USER, "участник", "Покажет информацию об участнике."),
-                        Commands.slash("ava", "Покажет вашу аватарку.")
-                                .addOption(
-                                        OptionType.USER, "участник", "Покажет аватарку участника."),
-                        Commands.slash("banner", "Покажет баннер участника.")
-                                .addOption(
-                                        OptionType.USER, "участник", "Покажет ваш баннер."))
-                .queue();
-
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
             Guild guild = jda.getGuildById("941320640420532254");
             guild.retrieveInvites().complete().forEach(x -> {
