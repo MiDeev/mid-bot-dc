@@ -4,8 +4,6 @@ import io.javalin.Javalin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import ru.mideev.midbot.command.*;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -23,7 +21,6 @@ import ru.mideev.midbot.command.util.Roles;
 import ru.mideev.midbot.command.util.Rules;
 import ru.mideev.midbot.database.Database;
 import ru.mideev.midbot.handler.*;
-import ru.mideev.midbot.util.SlashCommands;
 
 import javax.security.auth.login.LoginException;
 import java.util.Optional;
@@ -49,7 +46,7 @@ public class Main {
         DATABASE.init();
 
         JDA jda = JDABuilder.createDefault(System.getenv("ETOKEN"))
-                .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new SlashCommands(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new OfferHandler(), new Roles())
+                .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new OfferHandler(), new Roles())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)

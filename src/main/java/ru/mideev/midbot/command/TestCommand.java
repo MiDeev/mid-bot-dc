@@ -1,15 +1,11 @@
 package ru.mideev.midbot.command;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.util.UtilLang;
 
-import java.awt.*;
 import java.util.Comparator;
 import java.util.Locale;
 
