@@ -31,10 +31,10 @@ public class DataUtil {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(diffDays + " дней, ");
-        sb.append(diffHours + " часов, ");
-        sb.append(diffMinutes + " минут, ");
-        sb.append(diffSeconds + " секунд");
+        sb.append(diffDays + " " + UtilLang.pluralsRu("день", "дня", "дней", (int) diffDays) + ", ");
+        sb.append(diffHours + " " + UtilLang.pluralsRu("час", "часа", "часов", (int) diffHours) + ", ");
+        sb.append(diffMinutes + " " + UtilLang.pluralsRu("минуту", "минуты", "минут", (int) diffMinutes) + ", ");
+        sb.append(diffSeconds + " " + UtilLang.pluralsRu("секунду", "секунды", "секунд", (int) diffSeconds) + "");
         return sb.toString();
     }
 }
