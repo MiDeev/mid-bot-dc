@@ -35,7 +35,7 @@ public class JoinHandler extends ListenerAdapter {
 
         emb.addField("Теперь на сервере:", count + " " + UtilLang.pluralsRu("участник", "участника", "участников", count) + ".", false);
 
-        emb.setFooter("ID:" + member.getId());
+        emb.setFooter("ID участника: " + member.getId());
 
         event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("942516483223846964"))
                 .forEach(textChannel -> textChannel.sendMessageEmbeds(emb.build()).queue());
@@ -63,7 +63,7 @@ public class JoinHandler extends ListenerAdapter {
 
         emba.addField("Теперь на сервере:", event.getGuild().getMemberCount() + " участников.", false);
 
-        emba.setFooter("ID: " + member.getId());
+        emba.setFooter("ID участника: " + member.getId());
 
         event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("942516483223846964"))
                 .forEach(textChannel -> textChannel.sendMessageEmbeds(emba.build()).queue());
