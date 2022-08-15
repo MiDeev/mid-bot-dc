@@ -11,6 +11,7 @@ import ru.mideev.midbot.util.DataUtil;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
+import java.time.Instant;
 import java.util.Comparator;
 
 public class JoinHandler extends ListenerAdapter {
@@ -36,7 +37,7 @@ public class JoinHandler extends ListenerAdapter {
         emb.addField("Теперь на сервере:", count + " " + UtilLang.pluralsRu("участник", "участника", "участников", count) + ".", false);
 
         emb.setFooter("ID участника: " + member.getId());
-
+        emb.setTimestamp(event.getMember().getTimeJoined());
         event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("942516483223846964"))
                 .forEach(textChannel -> textChannel.sendMessageEmbeds(emb.build()).queue());
     }
@@ -64,7 +65,7 @@ public class JoinHandler extends ListenerAdapter {
         emba.addField("Теперь на сервере:", event.getGuild().getMemberCount() + " участников.", false);
 
         emba.setFooter("ID участника: " + member.getId());
-
+        emba.setTimestamp(Instant.now());
         event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("942516483223846964"))
                 .forEach(textChannel -> textChannel.sendMessageEmbeds(emba.build()).queue());
     }
