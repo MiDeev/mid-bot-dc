@@ -1,4 +1,4 @@
-package ru.mideev.midbot.command;
+package ru.mideev.midbot.command.util;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -13,29 +13,30 @@ public class Information extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("941322004060073985") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "info")) {
-            si.setColor(new Color(127, 138, 254));
+        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "info")) {
+            si.setColor(new Color(100, 114, 255));
             si.setAuthor("ОПИСАНИЕ КАНАЛОВ:", null, "https://cdn-icons-png.flaticon.com/64/6517/6517896.png");
 
             si.setDescription(
                     "<#988419768757420063>  - правила сервера.\n" +
-                            "<#950750830833852446> - новости этого Discord-сервера.\n" +
                             "<#941364846899900496> - новости YouTube-канала.\n" +
                             "<#983318878258081813> - канал для получения ролей.\n" +
+                            "<#950750830833852446> - новости этого Discord-сервера.\n" +
+                            "<#989613511124590662> - хронология серверных и прочих изменений.\n" +
                             "\n" +
                             "<#941334996654911488> - основной чат для общения.\n" +
                             "<#941458443749978122> - чат для команд и прочего флуда.\n" +
                             "<#988553193933918319> - дискуссии на игровые тематики.\n" +
                             "<#988556235588661249> - канал для творчества.\n" +
                             "\n" +
-                            "<#979498476452859994> - предлагайте свои дс-идеи здесь.\n" +
-                            "<#985623622293028935> - советы по изменениям сервера.\n" +
-                            "<#988555247888785438> - здесь можно пожаловаться.");
-            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
+                            "<#979498476452859994> - ваши собственные Discord-идеи.\n" +
+                            "<#985623622293028935> - советы по принятию решений.\n" +
+                            "<#988555247888785438> - жалобы на кого-либо.");
+            event.getMessage().getChannel().asNewsChannel().sendMessageEmbeds(si.build()).queue();
         }
 
-        if (event.getChannel().getId().equals("941322004060073985") && event.getMessage().getContentDisplay().equals(".info")) {
-            si.setColor(new Color(255, 148, 79));
+        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "info")) {
+            si.setColor(new Color(255, 136, 60));
             si.setAuthor("ОПИСАНИЕ РОЛЕЙ:", null, "https://cdn.discordapp.com/attachments/942520425936719952/975780927236100146/-_1.png");
 
             si.setDescription(
@@ -68,8 +69,16 @@ public class Information extends ListenerAdapter {
                             "<@&975837708972855326> - **позволяет заходить в приватные каналы.**\n" +
                             "*Выдаётся при достижении **10**-го уровня.*\n" +
                             "<@&975518433821212692> - **может прикреплять изображения к своим сообщениям.**\n" +
-                            "*Выдаётся при достижении **5**-го уровня.*");
-            event.getMessage().getChannel().asTextChannel().sendMessageEmbeds(si.build()).queue();
+                            "*Выдаётся при достижении **5**-го уровня.*\n\n" +
+
+                            "<@&941360822427467846> - **автоматически выдаваемая роль при входе на сервер.**\n" +
+                            "*Как @everyone, только лучше.*\n\n" +
+
+                            "<@&975336015344566292> | <@&942467119323422820> - **cамоназначаемые гендерные роли.**\n" +
+                            "*Получить их и другие роли можно легко и просто в <#983318878258081813>*."
+
+            );
+            event.getMessage().getChannel().asNewsChannel().sendMessageEmbeds(si.build()).queue();
         }
     }
 }

@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import ru.mideev.midbot.command.admin.ClearCommand;
 import ru.mideev.midbot.command.admin.CommandCountCommand;
 import ru.mideev.midbot.command.HelpCommand;
+import ru.mideev.midbot.command.util.Information;
 import ru.mideev.midbot.command.util.News;
 import ru.mideev.midbot.command.util.Roles;
 import ru.mideev.midbot.command.util.Rules;
