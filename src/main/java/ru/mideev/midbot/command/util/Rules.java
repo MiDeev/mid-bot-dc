@@ -4,117 +4,37 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
-import java.util.Locale;
 
 public class Rules extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        EmbedBuilder be = new EmbedBuilder();
+        EmbedBuilder im = new EmbedBuilder();
+        im.setColor(new Color(0xdcddde));
+        im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1036533351038844948/MiBrothers_Server_Rules_Banner.png");
 
-        if (event.getChannel().getId().equals("941321405172162611") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "rules")) {
-
-            EmbedBuilder emba = new EmbedBuilder();
-            emba.setColor(new Color(255, 98, 98));
-
-            emba.setDescription("**Правила сервера, обязательные к прочтению:**\n" +
-                    "\n" +
-                    "            **__Пункт №1. Общение__**\n" +
-                    "            \n" +
-                    "            `1.1` Злоупотребление матом ЗАПРЕЩЕНО.\n" +
-                    "            \n" +
-                    "            `1.2` Оскорбление и провоцирование на агрессию ЗАПРЕЩЕНЫ.\n" +
-                    "            \n" +
-                    "            `1.3` Флуд от 5-ти сообщений подряд вне канала <#941458443749978122> ЗАПРЕЩЕН.\n" +
-                    "            \n" +
-                    "            `1.4` Реклама чего-либо в любом виде и прочий спам ЗАПРЕЩЕНЫ.\n" +
-                    "            \n" +
-                    "            `1.5` Шутки на темы национальности, семьи, политики ЗАПРЕЩЕНЫ.\n" +
-                    "            \n" +
-                    "            `1.6` 18+ и шок-контент в любом виде на сервере ЗАПРЕЩЁН.");
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941321405172162611"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(emba.build()).queue());
-
-            EmbedBuilder emba1 = new EmbedBuilder();
-            emba1.setColor(new Color(255, 98, 98));
-
-            emba1.setDescription("**__Пункт №2. Основное__**\n" +
-                    "\n" +
-                    "            `2.1` Всякие попытки помешать чьему-либо общению на сервере ЗАПРЕЩЕНЫ.\n" +
-                    "            \n" +
-                    "            `2.2` Нацистская символика и порнография в аватарках,\n" +
-                    "            а также нецензурные ники на сервере ЗАПРЕЩЕНЫ.\n" +
-                    "            \n" +
-                    "            `2.3` Выдача себя за администрацию или кого-либо из участников\n" +
-                    "            ЗАПРЕЩЕНА.\n" +
-                    "            \n" +
-                    "            `2.4` Попытки так или иначе навредить серверу ЗАПРЕЩЕНЫ.\n" +
-                    "            \n" +
-                    "            `2.5` Торговля чего-либо в любом виде на сервере категорически ЗАПРЕЩЕНА.\n" +
-                    "            \n" +
-                    "            `2.6` Говорить дезинформацию о чём-либо, касаемо сервера\n" +
-                    "            или участников сервера ЗАПРЕЩЕНО.");
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941321405172162611"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(emba1.build()).queue());
-
-            EmbedBuilder emba2 = new EmbedBuilder();
-            emba2.setColor(new Color(255, 98, 98));
-
-            emba2.setDescription("**__Пункт №3. Голосовой чат__**\n" +
-                    "\n" +
-                    "            `3.1` Кричать, издавать помехи и прочие звуки мешающие нормальному общению ЗАПРЕЩЕНО.\n" +
-                    "            \n" +
-                    "            `3.2` Частые перезаходы в голосовые каналы ЗАПРЕЩЕНЫ.\n" +
-                    "            \n" +
-                    "            `3.3` Оскорбления, провоцирование на агрессию и реклама ЗАПРЕЩЕНЫ.");
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941321405172162611"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(emba2.build()).queue());
-
-            EmbedBuilder emba3 = new EmbedBuilder();
-            emba3.setColor(new Color(255, 98, 98));
-
-            emba3.setDescription("**__Пункт №4. Действия__**\n" +
-                    "\n" +
-                    "            `4.1` Использование багов, недоработок и прочих обходов вышеописанных правил ЗАПРЕЩЕНО.\n" +
-                    "            \n" +
-                    "            `4.2` Всякие обходы наказаний за нарушение того или иного правила ЗАПРЕЩЕНЫ.");
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941321405172162611"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(emba3.build()).queue());
-
-            EmbedBuilder emba4 = new EmbedBuilder();
-            emba4.setColor(new Color(255, 98, 98));
-
-            emba4.setDescription("**__Пункт №5. Общее__**\n" +
-                    "\n" +
-                    "            `5.1` Находясь на данном сервере,\n" +
-                    "            Вы автоматически подтверждаете своё согласие\n" +
-                    "            с вышеперечисленным перечнем правил,\n" +
-                    "            вне зависимости от их прочтения.\n" +
-                    "            \n" +
-                    "            `5.2` Провоцирование кого-либо на любое действие,\n" +
-                    "            нарушающее вышеописанные правила ЗАПРЕЩЕНО.\n" +
-                    "            \n" +
-                    "            `5.3` Находясь на этом сервере,\n" +
-                    "            вне зависимости от имеющийся у Вас на данный момент роли -\n" +
-                    "            Вы соглашаетесь с условиями NDA:\n" +
-                    "            Соглашение о неразглашении конфиденциальной информации\n" +
-                    "            полученной от кого-либо, находящегося на этом сервере.\n" +
-                    "            \n" +
-                    "            `5.4` Администраторы этого сервера вправе выносить наказания,\n" +
-                    "            если на это есть причина, не согласованная с данным сводом правил.\n" +
-                    "            \n" +
-                    "            `5.5` Если Вы считаете, что получили несправедливое наказание,\n" +
-                    "            просим сообщить об этом <@421259943123877888>.");
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941321405172162611"))
-                    .forEach(textChannel -> textChannel.sendMessageEmbeds(emba4.build()).queue());
-
-            event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("941321405172162611"))
-                    .forEach(textChannel -> textChannel.sendMessage("```diff\n-незнание правил не освождает от ответственности-\n```").queue());
-
-            if (event.getMessage().getContentDisplay().contains("https://discord.gg")) {
-                event.getMessage().delete().queue();
-            }
+        if (event.getChannel().getId().equals("942520425936719952") && event.getMember().getId().equals("421259943123877888") && !event.getMember().getUser().isBot()) {
+            be.setColor(new Color(0xdcddde));
+            be.addField("01. Следуйте официальным условиям использования\n" +
+                    "сервисов Discord и правилам сообщества Discord.","Наказание: блокировка на сервере. `[бан]`",false);
+            be.addField("02. Соблюдайте субординацию, уважайте других участников\n" +
+                    "сервера, не устраивайте конфликты в чатах сервера.","Наказание: ограничение к общению на сервере. `[мут]`",false);
+            be.addField("03. Спам, флуд и несогласованная реклама запрещены.","Наказание: ограничение к общению на сервере. `[мут]`",false);
+            be.addField("04. Контенту сомнительного характера, политическим,\n" +
+                    "нацистским и религиозным темам нет места на сервере.","Наказание: ограничение к общению на сервере. `[мут]`",false);
+            be.addField("05. Аватарки и никнеймы пользователей не должны нарушать\n" +
+                    "моральные нормы, повторяться с чьими-либо из других\n" +
+                    "участников, а так же перегружены юникод-символами.","Наказание: блокировка на сервере. `[бан]`",false);
+            be.addField("06. Использование Discord сервера в коммерческих целях\n" +
+                    "для публикации объявлений о продаже чего-либо запрещено.","Наказание: блокировка на сервере. `[бан]`",false);
+            be.addField("07. Сообщения, не несущие какую-либо смысловую нагрузку,\n" +
+                    "а также излишние разбиения сообщений на раздельные строки,\n" +
+                    "которые можно написать одним сообщением недопустимы.","Наказание: ограничение к общению на сервере. `[мут]`",false);
+            be.addField("08. Злоупотребление нецензурными выражениями, токсичное\n" +
+                    "поведение, игнорирование сетевого этикета неприемлемо.","Наказание: ограничение к общению на сервере. `[мут]`",false);
+            event.getMessage().getChannel().asNewsChannel().sendMessageEmbeds(im.build(), be.build()).queue();
         }
     }
 }

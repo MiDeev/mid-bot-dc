@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle;
 import org.jetbrains.annotations.NotNull;
-import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.Locale;
@@ -18,30 +17,32 @@ public class Roles extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
+        EmbedBuilder im = new EmbedBuilder();
         if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(".roles")) {
-            si.setColor(new Color(255, 52, 52));
-            si.setAuthor("ВЫБОР РОЛЕЙ:", null, "https://cdn.discordapp.com/attachments/942520425936719952/976107636640587846/13.png");
+            si.setColor(new Color(220, 221, 222));
+            im.setColor(new Color(220, 221, 222));
+            im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043953226917085344/chosing_roles.png");
 
             si.setDescription(
-                    "\uD83C\uDFAC <@&983322579769126983> - **уведомления о новых видео MiDeev'a**\n" +
-                            "*Роль для тех, кто не хочет пропускать уведомления о новых видео <@421259943123877888>'a*\n\n" +
-                            "\uD83C\uDF1F <@&980016910227869746> - **уведомления об изменениях сервера и прочих новостях.**\n" +
-                            "*Интересуетесь новостями и обновлениями сервера? Тогда эта роль для Вас.*\n" +
+                    "<@&983322579769126983> - **уведомления о новых видео.**\n" +
+                            "*Уведомляет о выходе каждого из видео с [канала](https://www.youtube.com/channel/UCTHm7Ijz2b7XJPkl4_W0vjA) <@421259943123877888>'a*\n\n" +
+                            "<@&980016910227869746> - **позволяет отслеживать объявления сервера.**\n" +
+                            "*Посредством уведомлений ни одно [объявление](https://discord.com/channels/941320640420532254/950750830833852446) не уйдёт мимо глаз.*\n" +
                             "\n" +
-                            "\uD83D\uDCA5 <@&980016919581171763> - **роль для доступа к каналу с дичью.**\n" +
-                            "*Получив эту роль - Вам откроется чат с полным отстутствием правил.*" +
+                            "<@&980016919581171763> - **роль для доступа к каналу с \"дичью\".**\n" +
+                            "*Данная роль открывает доступ к каналу [без правил](https://discord.com/channels/941320640420532254/983318366750146570).*" +
                             "\n\n" +
-                            "\uD83D\uDC99 <@&975336015344566292> | \uD83D\uDC9C <@&942467119323422820> - **гендерные роли.**\n" +
-                            "*Можно выбрать одну из ролей, нажав на реакцию ниже*."
+                            "<@&975336015344566292> | <@&942467119323422820> - **гендерные роли.**\n" +
+                            "*Здесь можно быть кем угодно и даже пол тут выбрать можно.*"
             );
-            event.getMessage().getChannel().asTextChannel()
-                    .sendMessageEmbeds(si.build())
+            event.getMessage().getChannel().asNewsChannel()
+                    .sendMessageEmbeds(im.build(), si.build())
                     .setActionRows(
-                            ActionRow.of(Button.of(ButtonStyle.SECONDARY, "announce", "\uD83C\uDFAC АНОНСЫ"),
-                                    (Button.of(ButtonStyle.SECONDARY, "tracking", "\uD83C\uDF1F ОБЪЯВЛЕНИЯ")),
-                                    (Button.of(ButtonStyle.SECONDARY, "nsfw", "\uD83D\uDCA5 NSFW")),
-                                    (Button.of(ButtonStyle.PRIMARY, "male", "\uD83D\uDC99 BRO")),
-                                    (Button.of(ButtonStyle.DANGER, "female", "\uD83D\uDC9C SIS")))
+                            ActionRow.of(Button.of(ButtonStyle.SECONDARY, "announce", "ANNOUNCEMENTS"),
+                                    (Button.of(ButtonStyle.SECONDARY, "tracking", "TRACKING")),
+                                    (Button.of(ButtonStyle.SECONDARY, "nsfw", "NSFW LISTENER"))),
+                            ActionRow.of((Button.of(ButtonStyle.PRIMARY, "male", "BRO")),
+                                    (Button.of(ButtonStyle.DANGER, "female", "SIS")))
                     )
                     .queue();
         }
