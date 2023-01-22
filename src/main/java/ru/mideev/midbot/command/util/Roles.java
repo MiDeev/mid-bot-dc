@@ -37,7 +37,7 @@ public class Roles extends ListenerAdapter {
             );
             event.getMessage().getChannel().asNewsChannel()
                     .sendMessageEmbeds(im.build(), si.build())
-                    .setActionRows(
+                    .setComponents(
                             ActionRow.of(Button.of(ButtonStyle.SECONDARY, "announce", "ANNOUNCEMENTS"),
                                     (Button.of(ButtonStyle.SECONDARY, "tracking", "TRACKING")),
                                     (Button.of(ButtonStyle.SECONDARY, "nsfw", "NSFW LISTENER"))),

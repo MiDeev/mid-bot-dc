@@ -42,11 +42,10 @@ public class Main {
     private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
 
     public static void main(String[] args) throws LoginException {
-        Javalin.create().start(Integer.parseInt(Optional.ofNullable(System.getenv("PORT")).orElse("80"))).get("/", ctx -> ctx.result("Hello World"));
 
         DATABASE.init();
 
-        JDA jda = JDABuilder.createDefault(System.getenv("ETOKEN"))
+        JDA jda = JDABuilder.createDefault(System.getenv("TOKEN"))
                 .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new BannerCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler.NicknameListener(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new IdeaAnswerHandler(), new OfferHandler(), new Roles())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
