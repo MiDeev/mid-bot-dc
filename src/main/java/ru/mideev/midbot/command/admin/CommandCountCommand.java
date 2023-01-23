@@ -12,7 +12,7 @@ public class CommandCountCommand extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "cc")) {
+        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "count")) {
             System.out.println(Main.DATABASE.countAllCommandUsages());
         }
     }

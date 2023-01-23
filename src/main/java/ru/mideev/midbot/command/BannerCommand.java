@@ -19,32 +19,27 @@ public class BannerCommand extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("banner")) {
-
             String net = event.getInteraction().getCommandString();
-
             Member member = event.getMember();
-
             OptionMapping optionMapping = event.getInteraction().getOption("участник");
 
             if (optionMapping != null && optionMapping.getAsMember() != null) {
                 member = optionMapping.getAsMember();
             }
 
-            EmbedBuilder eb = new EmbedBuilder();
+            EmbedBuilder ba = new EmbedBuilder();
 
             if (member != null) {
                 Color color = member.getColor();
 
                 if (color != null) {
-                    eb.setColor(color);
+                    ba.setColor(color);
                 }
-
-                eb.addField("Ошибка:", "Указан не верный аргумент.", true);
+                ba.addField("Ошибка:", "Указан не верный аргумент.", true);
             }
 
             if (member == null) return;
 
-            EmbedBuilder ba = new EmbedBuilder();
             ba.setColor(Color.decode(EMBED_COLOR));
 
             User.Profile profile = member.getUser().retrieveProfile().complete();

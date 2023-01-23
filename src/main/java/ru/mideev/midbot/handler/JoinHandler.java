@@ -21,25 +21,22 @@ public class JoinHandler extends ListenerAdapter {
         String name = event.getUser().getName();
         if (name.contains("!")) {
             event.getMember().modifyNickname(name.replace("!", "")).queue();
-
         }
 
         Member member = event.getMember();
 
-        EmbedBuilder emb = new EmbedBuilder();
-        emb.setColor(new Color(128, 255, 55));
-        emb.setDescription("**" + event.getUser().getAsTag() + "** (<@" + event.getMember().getUser().getId() + ">)" + " присоединился к серверу.");
-
-        emb.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> " + " [<t:" + member.getTimeCreated().toEpochSecond() + ":R>]", true);
+        EmbedBuilder jh = new EmbedBuilder();
+        jh.setColor(new Color(128, 255, 55));
+        jh.setDescription("**" + event.getUser().getAsTag() + "** (<@" + event.getMember().getUser().getId() + ">)" + " присоединился к серверу.");
+        jh.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> " + " [<t:" + member.getTimeCreated().toEpochSecond() + ":R>]", true);
 
         int count = event.getGuild().getMemberCount();
 
-        emb.addField("Теперь на сервере:", count + " " + UtilLang.pluralsRu("участник", "участника", "участников", count) + ".", false);
-
-        emb.setFooter("ID участника: " + member.getId());
-        emb.setTimestamp(event.getMember().getTimeJoined());
+        jh.addField("Теперь на сервере:", count + " " + UtilLang.pluralsRu("участник", "участника", "участников", count) + ".", false);
+        jh.setFooter("ID участника: " + member.getId());
+        jh.setTimestamp(event.getMember().getTimeJoined());
         event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("942516483223846964"))
-                .forEach(textChannel -> textChannel.sendMessageEmbeds(emb.build()).queue());
+                .forEach(textChannel -> textChannel.sendMessageEmbeds(jh.build()).queue());
     }
 
     @Override
@@ -48,7 +45,6 @@ public class JoinHandler extends ListenerAdapter {
 
         EmbedBuilder emba = new EmbedBuilder();
         emba.setColor(new Color(255, 60, 60));
-
         emba.addField("Приоритетная роль:", member.getRoles()
                         .stream()
                         .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
@@ -57,13 +53,10 @@ public class JoinHandler extends ListenerAdapter {
                         .getAsMention()
                 , false);
 
-        String date = DataUtil.formatDate(event.getMember());
+        String date = DataUtil.joinedDate(event.getMember());
         emba.setDescription("**" + event.getUser().getAsTag() + "** (<@" + event.getUser().getId() + ">)" + " покинул сервер.");
-
         emba.addField("Пробыл на сервере:", date, false);
-
         emba.addField("Теперь на сервере:", event.getGuild().getMemberCount() + " участников.", false);
-
         emba.setFooter("ID участника: " + member.getId());
         emba.setTimestamp(Instant.now());
         event.getGuild().getTextChannels().stream().filter(textChannel -> textChannel.getId().equals("942516483223846964"))

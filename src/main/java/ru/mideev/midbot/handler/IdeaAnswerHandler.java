@@ -33,25 +33,21 @@ public class IdeaAnswerHandler extends ListenerAdapter {
             if (embeds.size() != 0) {
                 String[] mass = current.getContentRaw().split(" ");
                 String[] dist = new String[mass.length - 1];
-
                 System.arraycopy(mass, 1, dist, 0, mass.length - 1);
-
                 String answer = String.join(" ", dist);
 
                 MessageEmbed embed = embeds.get(0);
-
                 User user = message.getGuild().getMemberById(Main.DATABASE.getSnowflakeByMessageId(message.getIdLong())).getUser();
 
                 message.editMessageEmbeds(
                         new EmbedBuilder(embed)
-                                .setAuthor("ЗАКРЫТАЯ ИДЕЯ ",null , user.getEffectiveAvatarUrl())
+                                .setAuthor("ЗАКРЫТАЯ ИДЕЯ ", null, user.getEffectiveAvatarUrl())
                                 .addField("Ответ:", answer, true)
                                 .setColor(Color.decode("0x96ff3c"))
                                 .build()
                 ).queue();
 
                 PrivateChannel privateChannel = user.openPrivateChannel().complete();
-
                 privateChannel.sendMessageEmbeds(
                         new EmbedBuilder()
                                 .setTitle("На вашу идею поступил ответ")
@@ -64,21 +60,11 @@ public class IdeaAnswerHandler extends ListenerAdapter {
 
                 try {
                     current.delete().queue();
-                } catch (Throwable ignored) {}
+                } catch (Throwable ignored) {
+                }
             }
         }
 
-    }
-
-    public static class NicknameListener extends ListenerAdapter {
-        @Override
-        public void onGuildMemberUpdateNickname(@NotNull GuildMemberUpdateNicknameEvent event) {
-            String name = event.getNewNickname();
-
-            if (name != null && name.startsWith("!")) {
-                event.getMember().modifyNickname(name.replace("!", "")).queue();
-            }
-        }
     }
 }
 

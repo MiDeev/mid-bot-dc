@@ -1,4 +1,4 @@
-package ru.mideev.midbot.command.util;
+package ru.mideev.midbot.command.admin.other;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;

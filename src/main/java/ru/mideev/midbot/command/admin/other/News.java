@@ -1,6 +1,5 @@
-package ru.mideev.midbot.command.util;
+package ru.mideev.midbot.command.admin.other;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +11,6 @@ public class News extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        EmbedBuilder eb = new EmbedBuilder();
 
         if (event.getChannel().getId().equals("941364846899900496") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "news")) {
             event.getChannel().sendMessage("Доброго времени суток, уважаемые @everyone! \n" +

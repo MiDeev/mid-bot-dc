@@ -1,10 +1,9 @@
-package ru.mideev.midbot.command.util;
+package ru.mideev.midbot.command.admin.other;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.Locale;
@@ -18,7 +17,6 @@ public class Information extends ListenerAdapter {
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043936302854316042/information_about_channels.png");
             im.setColor(new Color(100, 114, 255));
             si.setColor(new Color(100, 114, 255));
-            //si.setAuthor("ОПИСАНИЕ КАНАЛОВ:", null, "https://cdn-icons-png.flaticon.com/64/6517/6517896.png");
 
             si.setDescription(
                     "<#988419768757420063>  - правила сервера.\n" +
@@ -42,7 +40,6 @@ public class Information extends ListenerAdapter {
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043936302514569297/information_about_roles.png");
             im.setColor(new Color(224, 99, 63));
             si.setColor(new Color(224, 99, 63));
-            //si.setAuthor("ОПИСАНИЕ РОЛЕЙ:", null, "https://cdn.discordapp.com/attachments/942520425936719952/975780927236100146/-_1.png");
 
             si.setDescription(
                     "<@&942440874690871316> - **главный господин сервера, он же <@421259943123877888>**.\n" +
@@ -81,7 +78,6 @@ public class Information extends ListenerAdapter {
 
                             "<@&975336015344566292> | <@&942467119323422820> - **cамоназначаемые гендерные роли.**\n" +
                             "*Получить их и другие роли можно в <#983318878258081813>*."
-
             );
             event.getMessage().getChannel().asNewsChannel().sendMessageEmbeds(im.build(), si.build()).queue();
         }

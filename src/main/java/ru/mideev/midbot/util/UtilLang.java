@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UtilLang {
-
     public static final String PREFIX = "/";
     public static final String EMBED_COLOR = "0x6075ff";
     private static final Map<OnlineStatus, String> ONLINE_STATUS_MAPPINGS = new HashMap<>();

@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Database {
-
     private final String host;
     private final int port;
     private final String username;
@@ -23,10 +22,6 @@ public class Database {
         this.username = username;
         this.password = password;
         this.database = database;
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 
     public void connect() {

@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class ClearCommand extends ListenerAdapter {
 
     public void onMessageReceived(MessageReceivedEvent messageReceivedEvent) {
-
         EmbedBuilder eb = new EmbedBuilder();
+
         eb.setColor(new Color(255, 53, 107));
         if (!messageReceivedEvent.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "clear") || !messageReceivedEvent.getMember().getId().equals("421259943123877888")) return;
 
@@ -41,8 +41,8 @@ public class ClearCommand extends ListenerAdapter {
         List<Message> messageList = messageReceivedEvent.getChannel().getHistory().retrievePast(Integer.parseInt(args[1]) + 1).complete();
         messageReceivedEvent.getChannel().asTextChannel().deleteMessages(messageList).queue();
 
-
         eb.setDescription("Было удалено **" + args[1] + "** сообщений.");
+
         messageReceivedEvent.getMessage().getChannel().asTextChannel().sendMessageEmbeds(eb.build()).queue();
 
         Main.DATABASE.insertCommandUsage(
@@ -59,5 +59,4 @@ public class ClearCommand extends ListenerAdapter {
             return false;
         }
     }
-
 }

@@ -33,7 +33,6 @@ public class UserInfo extends ListenerAdapter {
             if (optionMapping != null && optionMapping.getAsMember() != null) {
                 member = optionMapping.getAsMember();
             }
-
             EmbedBuilder eb = new EmbedBuilder();
 
             if (member != null) {
@@ -42,13 +41,12 @@ public class UserInfo extends ListenerAdapter {
                 if (color != null) {
                     eb.setColor(color);
                 }
-
                 eb.addField("Ошибка:", "Указан не верный аргумент.", true);
             }
 
             if (member == null) return;
 
-            String date = DataUtil.formatDate(member);
+            String date = DataUtil.joinedDate(member);
 
             EmbedBuilder ui = new EmbedBuilder();
             ui.setColor(Color.decode(EMBED_COLOR));
@@ -61,18 +59,14 @@ public class UserInfo extends ListenerAdapter {
                 ui.addField("Никнейм:", member.getUser().getName() + " \n(" + nickname + ")", true);
             }
 
-            //ui.setTitle("Информация об участнике: " + member.getUser().getAsTag());
             ui.setAuthor("Информация об участнике: " + member.getUser().getAsTag(), null, member.getEffectiveAvatarUrl());
 
             ui.setDescription("**Общие сведения:**" + "\n" + "** **");
             ui.addField("Устройство:", UtilLang.clientTypeToString(member.getActiveClients().stream().findFirst().orElse(ClientType.UNKNOWN)), true);
             ui.addField("Статус:", UtilLang.onlineStatusToString(member.getOnlineStatus()), true);
-            //ui.addField("Время:", "Пробыл на сервере: " + "**" + date + "**" + "\n" + "Дата регистрации: <t:" + member.getTimeCreated().toEpochSecond() + ":d>", false);
             ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
             ui.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeCreated().toEpochSecond() + ":R>)", true);
-
             ui.addField("ID:", member.getId(), false);
-
             ui.addField("Приоритетная роль:", member.getRoles()
                             .stream()
                             .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
@@ -86,7 +80,6 @@ public class UserInfo extends ListenerAdapter {
 
             banner.ifPresent(it -> ui.setImage(it.getUrl(256)));
 
-            //ui.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
             ui.setFooter("Команду запросил: " + event.getMember().getUser().getAsTag(), event.getMember().getEffectiveAvatarUrl());
             Optional<Activity> activity = member.getActivities().stream().filter(x -> x.getType() == Activity.ActivityType.PLAYING || x.getType() == Activity.ActivityType.CUSTOM_STATUS).findFirst();
 
@@ -105,7 +98,6 @@ public class UserInfo extends ListenerAdapter {
             } else if (event.getInteraction().getCommandString().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "ui")) {
                 event.replyEmbeds(ui.build()).queue();
             }
-
         }
     }
 }

@@ -16,11 +16,8 @@ public class AvatarCommand extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("ava")) {
-
             String net = event.getInteraction().getCommandString();
-
             Member member = event.getMember();
-
             OptionMapping optionMapping = event.getInteraction().getOption("участник");
 
             if (optionMapping != null && optionMapping.getAsMember() != null) {
@@ -35,15 +32,14 @@ public class AvatarCommand extends ListenerAdapter {
                 if (color != null) {
                     eb.setColor(color);
                 }
-
                 eb.addField("Ошибка:", "Указан не верный аргумент.", true);
             }
 
             if (member == null) return;
 
             EmbedBuilder av = new EmbedBuilder();
-            av.setColor(Color.decode(EMBED_COLOR));
 
+            av.setColor(Color.decode(EMBED_COLOR));
             av.setDescription("**Аватар пользователя: **" + "<@" + member.getId() + ">");
 
             if (member.getUser().getAvatar() == null) {

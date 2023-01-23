@@ -16,10 +16,10 @@ public class IdeaHandler extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getMember() == null) return;
+        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".an") && event.getMember().getId().equals("421259943123877888"))
+            return;
 
-        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".an") && event.getMember().getId().equals("421259943123877888")) return;
-
-        String mid = null;
+        String mid;
 
         if (event.getMember().getId().equals("421259943123877888")) {
             mid = "0xff4444";
@@ -31,10 +31,10 @@ public class IdeaHandler extends ListenerAdapter {
             event.getMessage().delete().queue();
 
             Message message = event.getChannel().asTextChannel().sendMessageEmbeds(new EmbedBuilder()
-                            .setColor(Color.decode(mid))
-                            .setAuthor("ОТКРЫТАЯ ИДЕЯ ",null , event.getMember().getEffectiveAvatarUrl())
-                            .setDescription("**Предложение от: <@" + event.getMessage().getAuthor().getId() + "> ** \n")
-                            .appendDescription("\n" + content)
+                    .setColor(Color.decode(mid))
+                    .setAuthor("ОТКРЫТАЯ ИДЕЯ ", null, event.getMember().getEffectiveAvatarUrl())
+                    .setDescription("**Предложение от: <@" + event.getMessage().getAuthor().getId() + "> ** \n")
+                    .appendDescription("\n" + content)
                     .build()).complete();
 
             Main.DATABASE.insertIdea(event.getAuthor().getIdLong(), message.getIdLong());
