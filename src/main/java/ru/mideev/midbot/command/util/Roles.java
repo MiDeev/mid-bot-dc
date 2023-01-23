@@ -18,7 +18,7 @@ public class Roles extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
         EmbedBuilder im = new EmbedBuilder();
-        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(".roles")) {
+        if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "roles")) {
             si.setColor(new Color(220, 221, 222));
             im.setColor(new Color(220, 221, 222));
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043953226917085344/chosing_roles.png");
