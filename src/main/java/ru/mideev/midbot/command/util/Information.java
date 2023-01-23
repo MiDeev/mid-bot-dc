@@ -14,7 +14,7 @@ public class Information extends ListenerAdapter {
         EmbedBuilder si = new EmbedBuilder();
         EmbedBuilder im = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("info")) {
+        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "info")) {
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043936302854316042/information_about_channels.png");
             im.setColor(new Color(100, 114, 255));
             si.setColor(new Color(100, 114, 255));
