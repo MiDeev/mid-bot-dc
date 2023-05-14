@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class Rules extends ListenerAdapter {
     @Override
@@ -15,7 +16,7 @@ public class Rules extends ListenerAdapter {
         im.setColor(new Color(0xdcddde));
         im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1036533351038844948/MiBrothers_Server_Rules_Banner.png");
 
-        if (event.getChannel().getId().equals("942520425936719952") && event.getMember().getId().equals("421259943123877888") && !event.getMember().getUser().isBot()) {
+        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("rules")) {
             be.setColor(new Color(0xdcddde));
             be.addField("01. Следуйте официальным условиям использования\n" +
                     "сервисов Discord и правилам сообщества Discord.","Наказание: блокировка на сервере. `[бан]`",false);

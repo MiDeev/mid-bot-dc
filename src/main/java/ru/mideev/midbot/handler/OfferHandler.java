@@ -23,7 +23,7 @@ public class OfferHandler extends ListenerAdapter {
         if (event.getChannel().getId().equals("985623622293028935") && !event.getMember().getUser().isBot() && !event.getMember().getUser().isSystem()) {
             String content = event.getMessage().getContentRaw();
 
-            Message message = event.getChannel().asTextChannel().sendMessageEmbeds(new EmbedBuilder()
+            Message message = event.getChannel().asTextChannel().sendMessage("<@&980016910227869746>").addEmbeds(new EmbedBuilder()
                     .setColor(Color.decode("0xffb135"))
                     .setAuthor("ОТКРЫТОЕ ПРЕДЛОЖЕНИЕ ",null , event.getMember().getEffectiveAvatarUrl())
                     .appendDescription("\n" + content)

@@ -23,7 +23,7 @@ dependencies {
 
     implementation group: 'io.javalin', name: 'javalin', version: '4.6.3'
     implementation 'org.postgresql:postgresql:42.4.0'
-    implementation("net.dv8tion:JDA:5.0.0-beta.3")
+    implementation("net.dv8tion:JDA:5.0.0-beta.9")
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.31'
 }
 

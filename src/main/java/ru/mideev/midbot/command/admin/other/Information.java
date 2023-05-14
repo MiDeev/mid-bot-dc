@@ -13,30 +13,32 @@ public class Information extends ListenerAdapter {
         EmbedBuilder si = new EmbedBuilder();
         EmbedBuilder im = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("info")) {
+        if (event.getChannel().getId().equals("1051153223098061010") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("info")) {
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043936302854316042/information_about_channels.png");
             im.setColor(new Color(100, 114, 255));
             si.setColor(new Color(100, 114, 255));
 
             si.setDescription(
                     "<#988419768757420063>  - правила сервера.\n" +
-                            "<#941364846899900496> - новости YouTube-канала.\n" +
                             "<#983318878258081813> - канал для получения ролей.\n" +
-                            "<#950750830833852446> - новости этого Discord-сервера.\n" +
+                            "<#941364846899900496> - новости YouTube-канала.\n" +
                             "<#989613511124590662> - список изменений и разных нововведений.\n" +
+                            "<#950750830833852446> - новости этого Discord-сервера.\n" +
                             "\n" +
                             "<#941334996654911488> - основной чат для общения.\n" +
                             "<#941458443749978122> - чат для команд и прочего флуда.\n" +
                             "<#988553193933918319> - дискуссии на игровые тематики.\n" +
-                            "<#1020060067757817888> - канал для творчества.\n" +
+                            "<#1071497117530587326> - демонстрация вашего творчества.\n" +
+                            "<#1096456932182736977> - канал с рабочими местами.\n" +
+                            "<#1096456959663812618> - канал с рабочими столами.\n" +
+                            "<#1013527821085315082> - место для публичных ответов на вопросы.\n" +
                             "\n" +
-                            "<#979498476452859994> - ваши собственные Discord-идеи.\n" +
-                            "<#985623622293028935> - советы по принятию решений.\n" +
-                            "<#988555247888785438> - жалобы на кого-либо.");
+                            "<#979498476452859994> - ваши идеи для Discord'а.\n" +
+                            "<#985623622293028935> - советы по принятию тех или иных решений.");
             event.getMessage().getChannel().asNewsChannel().sendMessageEmbeds(im.build(), si.build()).queue();
         }
 
-        if (event.getChannel().getId().equals("942520425936719952") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("info")) {
+        if (event.getChannel().getId().equals("1051153223098061010") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("info")) {
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043936302514569297/information_about_roles.png");
             im.setColor(new Color(224, 99, 63));
             si.setColor(new Color(224, 99, 63));
