@@ -1,20 +1,24 @@
 package ru.mideev.midbot.database;
 
+import lombok.Getter;
+import org.jdbi.v3.cache.caffeine.CaffeineCachePlugin;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.postgresql.ds.PGSimpleDataSource;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import ru.mideev.midbot.dao.CommandCounterDao;
+import ru.mideev.midbot.dao.IdeasDao;
+import ru.mideev.midbot.dao.UsersDao;
 
 public class Database {
+
     private final String host;
     private final int port;
     private final String username;
     private final String password;
     private final String database;
 
-    private Connection connection;
+    @Getter
+    private Jdbi jdbi;
 
     public Database(String host, int port, String username, String password, String database) {
         this.host = host;
@@ -34,7 +38,10 @@ public class Database {
             dataSource.setPassword(password);
             dataSource.setDatabaseName(database);
 
-            connection = dataSource.getConnection();
+            jdbi = Jdbi.create(dataSource);
+
+            jdbi.installPlugin(new SqlObjectPlugin());
+            jdbi.installPlugin(new CaffeineCachePlugin());
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -43,78 +50,34 @@ public class Database {
     public void init() {
         connect();
 
-        try (Statement statement = connection.createStatement()) {
-            statement.addBatch("create table if not exists commandcounter (" +
+        jdbi.useTransaction(handle -> {
+            handle.execute("create table if not exists commandcounter (" +
                     "snowflake bigint not null," +
                     "command text not null" +
                     ");");
 
-            statement.addBatch("create table if not exists ideas (" +
+            handle.execute("create table if not exists ideas (" +
                     "snowflake bigint not null," +
                     "message_id bigint not null" +
                     ");");
 
-            statement.executeBatch();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+            jdbi.useExtension(UsersDao.class, UsersDao::createTable);
+        });
     }
 
     public void insertCommandUsage(long snowflake, String command) {
-        try (PreparedStatement statement = connection.prepareStatement(
-                "insert into commandcounter (snowflake, command) values (?, ?)"
-        )) {
-            statement.setLong(1, snowflake);
-            statement.setString(2, command);
-
-            statement.executeUpdate();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+        jdbi.useExtension(CommandCounterDao.class, dao -> dao.insertCommandUsage(snowflake, command));
     }
 
     public void insertIdea(long snowflake, long messageId) {
-        try (PreparedStatement statement = connection.prepareStatement(
-                "insert into ideas (snowflake, message_id) values (?, ?)"
-        )) {
-            statement.setLong(1, snowflake);
-            statement.setLong(2, messageId);
-
-            statement.executeUpdate();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+        jdbi.useExtension(IdeasDao.class, dao -> dao.insertIdea(snowflake, messageId));
     }
 
     public long getSnowflakeByMessageId(long messageId) {
-        try (PreparedStatement statement = connection.prepareStatement(
-                "select * from ideas where message_id = ?"
-        )) {
-            statement.setLong(1, messageId);
-
-            ResultSet resultSet = statement.executeQuery();
-
-            resultSet.next();
-
-            return resultSet.getLong(1);
-        } catch (Throwable t) {
-            t.printStackTrace();
-            return 0;
-        }
+        return jdbi.withExtension(IdeasDao.class, dao -> dao.getSnowflakeByMessageId(messageId));
     }
 
     public int countAllCommandUsages() {
-        try (PreparedStatement statement = connection.prepareStatement(
-                "select count(*) from commandcounter"
-        )) {
-            ResultSet resultSet = statement.executeQuery();
-
-            resultSet.next();
-
-            return resultSet.getInt(1);
-        } catch (Throwable t) {
-            t.printStackTrace();
-            return 0;
-        }
+        return jdbi.withExtension(CommandCounterDao.class, CommandCounterDao::countAllCommandUsages);
     }
 }

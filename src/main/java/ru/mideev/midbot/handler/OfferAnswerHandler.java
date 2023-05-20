@@ -68,7 +68,7 @@ public class OfferAnswerHandler extends ListenerAdapter {
                     User user = message.getGuild().getMemberById(Main.DATABASE.getSnowflakeByMessageId(message.getIdLong())).getUser();
                     message.editMessageEmbeds(
                             new EmbedBuilder(embed)
-                                    .setAuthor("НЕ ПРИНЯТОЕ ПРЕДЛОЖЕНИЕ ", null, user.getEffectiveAvatarUrl())
+                                    .setAuthor("ОТКЛОНЁННОЕ ПРЕДЛОЖЕНИЕ ", null, user.getEffectiveAvatarUrl())
                                     .addField("РЕШЕНИЕ:", answer, true)
                                     .setColor(Color.decode("0xff3535"))
                                     .build()

@@ -25,7 +25,7 @@ public class IdeaHandler extends ListenerAdapter {
             mid = "0xff4444";
         } else mid = "0xff6331";
 
-        if (event.getChannel().getId().equals("979498476452859994") && !event.getMember().getUser().isBot() && !event.getMember().getUser().isSystem()) {
+        if ((event.getChannel().getId().equals("1109502097914863667") || event.getChannel().getId().equals("979498476452859994")) && !event.getMember().getUser().isBot() && !event.getMember().getUser().isSystem()) {
             String content = event.getMessage().getContentRaw();
 
             event.getMessage().delete().queue();

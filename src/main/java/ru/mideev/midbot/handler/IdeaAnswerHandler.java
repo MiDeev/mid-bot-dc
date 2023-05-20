@@ -21,7 +21,7 @@ public class IdeaAnswerHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getMessage().getContentDisplay().startsWith(".") || !event.getChannel().asTextChannel().getId().equals("979498476452859994") || event.getMember() == null || !event.getMember().getId().equals("421259943123877888"))
+        if (!event.getMessage().getContentDisplay().startsWith(".an") || (!event.getChannel().asTextChannel().getId().equals("1109502097914863667") && !event.getChannel().asTextChannel().getId().equals("979498476452859994")) || event.getMember() == null || !event.getMember().getId().equals("421259943123877888"))
             return;
 
         Message current = event.getMessage();
@@ -39,6 +39,13 @@ public class IdeaAnswerHandler extends ListenerAdapter {
                 MessageEmbed embed = embeds.get(0);
                 User user = message.getGuild().getMemberById(Main.DATABASE.getSnowflakeByMessageId(message.getIdLong())).getUser();
 
+                String ideaType = "";
+                if (event.getChannel().asTextChannel().getId().equals("1109502097914863667")) {
+                    ideaType = "видео";
+                } else if (event.getChannel().asTextChannel().getId().equals("979498476452859994")) {
+                    ideaType = "Discord";
+                }
+
                 message.editMessageEmbeds(
                         new EmbedBuilder(embed)
                                 .setAuthor("ЗАКРЫТАЯ ИДЕЯ ", null, user.getEffectiveAvatarUrl())
@@ -47,12 +54,15 @@ public class IdeaAnswerHandler extends ListenerAdapter {
                                 .build()
                 ).queue();
 
+                System.out.println(event.getMessage().getId());
+                System.out.println(event.getMessage().getContentRaw());
+
                 PrivateChannel privateChannel = user.openPrivateChannel().complete();
                 privateChannel.sendMessageEmbeds(
                         new EmbedBuilder()
                                 .setTitle("На вашу идею поступил ответ")
                                 .setColor(Color.decode("0x96ff3c"))
-                                .addField("Ваша идея:", IDEA_PATTERN.matcher(embed.getDescription()).replaceAll("").replaceFirst("\n", "").replaceFirst("\n", ""), false)
+                                .addField("Ваша идея для " + ideaType + ":", IDEA_PATTERN.matcher(embed.getDescription()).replaceAll("").replaceFirst("\n", "").replaceFirst("\n", ""), false)
                                 .addField("Ответ:", answer, false)
                                 .setFooter("На вашу идею ответил " + event.getMember().getUser().getAsTag())
                                 .build()

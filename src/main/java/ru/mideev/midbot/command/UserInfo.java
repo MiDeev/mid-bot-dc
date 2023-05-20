@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.utils.ImageProxy;
 import org.jetbrains.annotations.NotNull;
+import ru.mideev.midbot.Main;
+import ru.mideev.midbot.dao.UsersDao;
 import ru.mideev.midbot.util.DataUtil;
 import ru.mideev.midbot.util.UtilLang;
 
@@ -67,6 +69,12 @@ public class UserInfo extends ListenerAdapter {
             ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
             ui.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeCreated().toEpochSecond() + ":R>)", true);
             ui.addField("ID:", member.getId(), false);
+            Member finalMember = member;
+            Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
+                ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
+                ui.addField("Опыт:", Long.toString(user.getExp()), true);
+                ui.addField("Уровень:", Long.toString(user.getLevel()), true);
+            });
             ui.addField("Приоритетная роль:", member.getRoles()
                             .stream()
                             .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
@@ -74,6 +82,7 @@ public class UserInfo extends ListenerAdapter {
                             .orElse(null)
                             .getAsMention()
                     , false);
+
 
             User.Profile profile = member.getUser().retrieveProfile().complete();
             Optional<ImageProxy> banner = Optional.ofNullable(profile.getBanner());

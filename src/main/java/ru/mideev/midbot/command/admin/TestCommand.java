@@ -4,6 +4,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import ru.mideev.midbot.Main;
+import ru.mideev.midbot.dao.UsersDao;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.util.Comparator;
@@ -13,6 +15,10 @@ public class TestCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (!event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "dates")) return;
+
+        Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
+            System.out.println(dao.findUserOrCreate(event.getAuthor().getIdLong()));
+        });
 
         System.out.println("DATES");
 

@@ -24,7 +24,13 @@ dependencies {
     implementation group: 'io.javalin', name: 'javalin', version: '4.6.3'
     implementation 'org.postgresql:postgresql:42.4.0'
     implementation("net.dv8tion:JDA:5.0.0-beta.9")
+    implementation("org.jdbi:jdbi3-core:3.38.2")
+    implementation("org.jdbi:jdbi3-sqlobject:3.38.2")
+    implementation("org.jdbi:jdbi3-caffeine-cache:3.38.2")
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.6")
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.31'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
 }
 
 test {
