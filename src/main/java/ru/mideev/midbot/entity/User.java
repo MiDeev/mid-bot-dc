@@ -8,12 +8,13 @@ import lombok.experimental.FieldDefaults;
 import java.beans.ConstructorProperties;
 
 @Data
-@AllArgsConstructor(onConstructor_ = @ConstructorProperties({"snowflake", "exp", "level"}))
+@AllArgsConstructor(onConstructor_ = @ConstructorProperties({"snowflake", "exp", "level", "nickname"}))
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     long snowflake;
     long exp;
     long level;
+    String nickname;
 
 }

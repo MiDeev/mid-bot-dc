@@ -18,7 +18,7 @@ public class ServerInfo extends ListenerAdapter {
         if (event.getName().equals("si")) {
             EmbedBuilder si = new EmbedBuilder();
             si.setColor(Color.decode(EMBED_COLOR));
-            si.setTitle("Информация о " + event.getGuild().getName());
+            si.setAuthor("Информация о " + event.getGuild().getName(), null, event.getGuild().getIcon().getUrl(128));
             si.addField("Участники:", "<:all_members:949778978913267713> Всего: **" + event.
                     getGuild().getMemberCount() + "**\n<:people:949778979169107978> Людей: **" + event.
                     getGuild().getMembers().stream().filter(member -> !member.getUser().isBot()).count()
@@ -45,6 +45,7 @@ public class ServerInfo extends ListenerAdapter {
                     getGuild().getTextChannels().size() + "**\n<:voice_channel:949775496382664765> Голосовых: **" + event.
                     getGuild().getVoiceChannels().size() + "**\n<:category:949941456607526912> Категорий: **" + event.
                     getGuild().getCategories().size() + "**", true);
+            si.setImage(event.getGuild().getBanner().getUrl(256));
 
             String ver = "" + event.getGuild().getVerificationLevel();
             si.addField("Создатель:", "<:developer:950745056409686049>" + event.getGuild().getOwner().getUser().getAsTag(), true);
@@ -83,7 +84,7 @@ public class ServerInfo extends ListenerAdapter {
             si.addField("Бусты:", "<:boost:950748442458742864> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
             si.addField("ID сервера:", event.getGuild().getId(), true);
             si.addField("Сервер создан:", TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
-            si.setFooter("© 2022 MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
+            si.setFooter("© 2023 @MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
 
             if (event.getChannel().getId().equals("941458443749978122")) {
                 event.replyEmbeds(si.build()).queue();

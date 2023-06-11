@@ -1,7 +1,6 @@
 package ru.mideev.midbot.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -12,7 +11,6 @@ import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.Locale;
-import java.util.Optional;
 
 import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
 

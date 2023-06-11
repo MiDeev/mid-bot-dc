@@ -1,27 +1,22 @@
 package ru.mideev.midbot;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import ru.mideev.midbot.command.*;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import ru.mideev.midbot.command.admin.ClearCommand;
-import ru.mideev.midbot.command.admin.CommandCountCommand;
-import ru.mideev.midbot.command.HelpCommand;
-import ru.mideev.midbot.command.admin.TestCommand;
-import ru.mideev.midbot.command.admin.other.Information;
-import ru.mideev.midbot.command.admin.other.News;
-import ru.mideev.midbot.command.admin.other.Roles;
-import ru.mideev.midbot.command.admin.other.Rules;
+import ru.mideev.midbot.command.*;
+import ru.mideev.midbot.command.admin.*;
+import ru.mideev.midbot.command.admin.other.*;
 import ru.mideev.midbot.database.Database;
 import ru.mideev.midbot.handler.*;
+import ru.mideev.midbot.util.BadgesUtil;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -38,11 +33,13 @@ public class Main {
 
     private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
 
+    public static JDA jda;
+
     public static void main(String[] args) {
         DATABASE.init();
 
-        JDA jda = JDABuilder.createDefault(System.getenv("TOKEN"))
-                .addEventListeners(new FallbackHandler(), new OfferAnswerHandler(), new RandomNumberCommand(), new BannerCommand(), new TimeCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new OfferHandler(), new Roles(), new LevelHandler())
+        jda = JDABuilder.createDefault(System.getenv("TOKEN"))
+                .addEventListeners(new FallbackHandler(), new CommentsRemover(), new BadgesUtil(), new OfferAnswerHandler(), new BadgesCommand(), new ExpLeaders(), new RandomNumberCommand(), new BannerCommand(), new TimeCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new OfferHandler(), new Roles(), new LevelHandler())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
@@ -52,6 +49,8 @@ public class Main {
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
                 .setActivity(Activity.of(Activity.ActivityType.WATCHING, "/help"))
                 .build();
+
+        //jda.upsertCommand("xpleaders","Получить таблицу лидеров по опыту.").addOption(OptionType.INTEGER, "страница", "Страница таблицы лидеров.").submit();
 
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
             Guild guild = jda.getGuildById("941320640420532254");
