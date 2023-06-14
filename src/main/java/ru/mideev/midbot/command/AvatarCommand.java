@@ -46,7 +46,7 @@ public class AvatarCommand extends ListenerAdapter {
                 av.setImage(member.getUser().getEffectiveAvatarUrl());
             } else av.setImage(member.getUser().getAvatar().getUrl(512));
 
-            av.setFooter("Команду запросил: " + event.getMember().getUser().getAsTag(), event.getMember().getEffectiveAvatarUrl());
+            av.setFooter("Команду запросил: " + UtilLang.memberTagFormat(event.getMember()), event.getMember().getEffectiveAvatarUrl());
 
             if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(UtilLang.PREFIX + "ava") || net.startsWith(UtilLang.PREFIX + "avatar")) {
                 event.replyEmbeds(av.build()).queue();

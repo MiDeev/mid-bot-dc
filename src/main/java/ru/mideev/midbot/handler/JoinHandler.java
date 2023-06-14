@@ -27,7 +27,7 @@ public class JoinHandler extends ListenerAdapter {
 
         EmbedBuilder jh = new EmbedBuilder();
         jh.setColor(new Color(128, 255, 55));
-        jh.setDescription("**" + event.getUser().getAsTag() + "** (<@" + event.getMember().getUser().getId() + ">)" + " присоединился к серверу.");
+        jh.setDescription("**" + UtilLang.userTagFormat(event.getUser()) + "** (<@" + event.getMember().getUser().getId() + ">)" + " присоединился к серверу.");
         jh.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> " + " [<t:" + member.getTimeCreated().toEpochSecond() + ":R>]", true);
 
         int count = event.getGuild().getMemberCount();
@@ -54,7 +54,7 @@ public class JoinHandler extends ListenerAdapter {
                 , false);
 
         String date = DataUtil.joinedDate(event.getMember());
-        emba.setDescription("**" + event.getUser().getAsTag() + "** (<@" + event.getUser().getId() + ">)" + " покинул сервер.");
+        emba.setDescription("**" + UtilLang.userTagFormat(event.getUser()) + "** (<@" + event.getUser().getId() + ">)" + " покинул сервер.");
         emba.addField("Пробыл на сервере:", date, false);
         emba.addField("Теперь на сервере:", event.getGuild().getMemberCount() + " участников.", false);
         emba.setFooter("ID участника: " + member.getId());

@@ -52,11 +52,9 @@ public class UserInfo extends ListenerAdapter {
             EmbedBuilder ui = new EmbedBuilder();
             ui.setColor(Color.decode(EMBED_COLOR));
 
-            String nickname = member.getNickname();
-
-            ui.addField("Никнейм:", UtilLang.userTagFormat(member.getUser(), nickname), true);
-            ui.setAuthor("Информация об участнике: " + member.getUser().getAsTag(), null, member.getEffectiveAvatarUrl());
+            ui.setAuthor("Информация об участнике: " + UtilLang.memberTagFormat(member), null, member.getEffectiveAvatarUrl());
             ui.setDescription("**Общие сведения:**" + "\n" + "** **");
+            ui.addField("Никнейм:", UtilLang.memberTagFormat(member), true);
             ui.addField("Устройство:", UtilLang.clientTypeToString(member.getActiveClients().stream().findFirst().orElse(ClientType.UNKNOWN)), true);
             ui.addField("Статус:", UtilLang.onlineStatusToString(member.getOnlineStatus()), true);
             ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
@@ -90,7 +88,7 @@ public class UserInfo extends ListenerAdapter {
 
             banner.ifPresent(it -> ui.setImage(it.getUrl(256)));
 
-            ui.setFooter("Команду запросил: " + event.getUser().getName(), event.getMember().getEffectiveAvatarUrl());
+            ui.setFooter("Команду запросил: " + UtilLang.userTagFormat(event.getUser()), event.getMember().getEffectiveAvatarUrl());
             Optional<Activity> activity = member.getActivities().stream().filter(x -> x.getType() == Activity.ActivityType.PLAYING || x.getType() == Activity.ActivityType.CUSTOM_STATUS).findFirst();
 
             activity.ifPresent(notNullActivity -> {

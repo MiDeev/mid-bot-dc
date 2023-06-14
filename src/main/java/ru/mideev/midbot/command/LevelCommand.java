@@ -38,11 +38,11 @@ public class LevelCommand extends ListenerAdapter {
         User user = Main.DATABASE.getJdbi().withExtension(UsersDao.class, dao -> dao.findUserOrCreate(member.getIdLong()));
 
         String nickname = member.getNickname();
-        eb.setAuthor("Статистика участника: " + UtilLang.userTagFormat(member.getUser(), nickname), null,  member.getEffectiveAvatarUrl());
+        eb.setAuthor("Статистика участника: " + UtilLang.userTagFormat(event.getUser()), null,  member.getEffectiveAvatarUrl());
 
         eb.setDescription("**Уровень**: " + user.getLevel() + " **|** " + "**Опыт**: " + user.getExp() + "**/**" + LevelUtil.getExperience(user.getLevel() + 1));
 
-        eb.setFooter("Команду запросил: " + event.getUser().getName(), event.getMember().getEffectiveAvatarUrl());
+        eb.setFooter("Команду запросил: " + UtilLang.userTagFormat(event.getUser()));
 
         event.replyEmbeds(eb.build()).queue();
     }

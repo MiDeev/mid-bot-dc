@@ -35,7 +35,7 @@ public class HelpCommand extends ListenerAdapter {
                     "**Поиграть в \"угадай число\":**\n" +
                     "**`/guess`**  `[число]` - простая игра, в которой главная суть - угадывания числа. Суть: вы пишете число в диапазоне от 0 до 9999, если вам выпадает случайно-сгенерированное число совпадающее с вашим - вы выигрываете! Да, будет нелегко, но оно того стоит, при выигрыше вы получите ||упс, случилась интрига||! Так же, если вы не хотите угадывать число, вы можете генерировать числа, написав `/number`, не указывая в аргументах абсолютно ничего.");
 
-            eb.setFooter("© 2023 MiDeev", "https://images-ext-2.discordapp.net/external/7rTn_lmq5h_DIygxeEC5wN5_UY2pwtx8XIzYiG23t8Q/https/cdn.discordapp.com/avatars/421259943123877888/a_4811438747bb7f558531320449410741.gif");
+            eb.setFooter("© 2023 mideev", "https://images-ext-2.discordapp.net/external/7rTn_lmq5h_DIygxeEC5wN5_UY2pwtx8XIzYiG23t8Q/https/cdn.discordapp.com/avatars/421259943123877888/a_4811438747bb7f558531320449410741.gif");
 
             if (event.getChannel().getId().equals("941458443749978122") && event.getInteraction().getCommandString().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "help")) {
                 event.replyEmbeds(eb.build()).queue();

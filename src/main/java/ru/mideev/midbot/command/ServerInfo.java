@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import org.jetbrains.annotations.NotNull;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 
@@ -48,7 +49,7 @@ public class ServerInfo extends ListenerAdapter {
             si.setImage(event.getGuild().getBanner().getUrl(256));
 
             String ver = "" + event.getGuild().getVerificationLevel();
-            si.addField("Создатель:", "<:developer:950745056409686049>" + event.getGuild().getOwner().getUser().getAsTag(), true);
+            si.addField("Создатель:", "<:developer:950745056409686049>" + UtilLang.ownerTagFormat(event.getGuild().getOwner()), true);
 
             switch (ver) {
                 case "NONE": {
@@ -84,7 +85,7 @@ public class ServerInfo extends ListenerAdapter {
             si.addField("Бусты:", "<:boost:950748442458742864> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
             si.addField("ID сервера:", event.getGuild().getId(), true);
             si.addField("Сервер создан:", TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
-            si.setFooter("© 2023 @MiDeev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
+            si.setFooter("© 2023 mideev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
 
             if (event.getChannel().getId().equals("941458443749978122")) {
                 event.replyEmbeds(si.build()).queue();
