@@ -27,7 +27,6 @@ public class UserInfo extends ListenerAdapter {
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("ui")) {
             String com = event.getInteraction().getCommandString();
-            String[] args = com.split(" ");
 
             Member member = event.getMember();
 
@@ -57,17 +56,17 @@ public class UserInfo extends ListenerAdapter {
             ui.addField("Никнейм:", UtilLang.memberTagFormat(member), true);
             ui.addField("Устройство:", UtilLang.clientTypeToString(member.getActiveClients().stream().findFirst().orElse(ClientType.UNKNOWN)), true);
             ui.addField("Статус:", UtilLang.onlineStatusToString(member.getOnlineStatus()), true);
+
+            if (member.getUser().getGlobalName() != null) {
+                ui.addField("Отображаемое имя:", member.getUser().getGlobalName(), true);
+            }
+            if (member.getNickname() != null) {
+                ui.addField("Никнейм на сервере:", member.getNickname(), true);
+            }
+
+            ui.addField("ID:", member.getId(), false);
             ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
             ui.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeCreated().toEpochSecond() + ":R>)", true);
-            ui.addField("ID:", member.getId(), false);
-
-            Member finalMember = member;
-
-            Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
-                ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
-                ui.addField("Опыт:", (user.getExp() + "/" + LevelUtil.getExperience(user.getLevel() + 1)), true);
-                ui.addField("Уровень:", Long.toString(user.getLevel()), true);
-            });
 
             ui.addField("Приоритетная роль:", member.getRoles()
                             .stream()
@@ -76,6 +75,14 @@ public class UserInfo extends ListenerAdapter {
                             .orElse(null)
                             .getAsMention()
                     , false);
+            Member finalMember = member;
+
+            Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
+                ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
+                ui.addField("Опыт:", (user.getExp() + "/" + LevelUtil.getExperience(user.getLevel() + 1)), true);
+                ui.addField("Уровень:", Long.toString(user.getLevel()), true);
+            });
+
 
             String badges = BadgesUtil.getUserBadges(member);
 

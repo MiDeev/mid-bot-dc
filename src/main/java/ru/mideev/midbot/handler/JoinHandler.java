@@ -1,6 +1,7 @@
 package ru.mideev.midbot.handler;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -19,12 +20,10 @@ public class JoinHandler extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
-        String name = event.getUser().getName();
-        if (name.contains("!")) {
-            event.getMember().modifyNickname(name.replace("!", "")).queue();
-        }
-
+        Guild guild = event.getGuild();
         Member member = event.getMember();
+        Role role = event.getGuild().getRoleById("941360822427467846");
+        guild.addRoleToMember(member, role).queue();
 
         EmbedBuilder jh = new EmbedBuilder();
         jh.setColor(new Color(128, 255, 55));
