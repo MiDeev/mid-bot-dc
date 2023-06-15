@@ -12,7 +12,7 @@ import ru.mideev.midbot.util.UtilLang;
 import java.awt.*;
 import java.util.Locale;
 
-import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class TimeCommand extends ListenerAdapter {
 
@@ -45,7 +45,7 @@ public class TimeCommand extends ListenerAdapter {
 
             EmbedBuilder ti = new EmbedBuilder();
 
-            ti.setColor(Color.decode(EMBED_COLOR));
+            ti.setColor(Color.decode(DEFAULT_EMBED_COLOR));
             ti.setAuthor("Информация об участнике: " + member.getUser().getAsTag(), null, member.getEffectiveAvatarUrl());
             ti.addField("Возраст аккаунта:", CDate, true);
             ti.addField("Время нахождения на сервере:", JDate, false);

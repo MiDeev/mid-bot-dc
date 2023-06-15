@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 
-import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LevelHandler extends ListenerAdapter {
@@ -37,19 +37,19 @@ public class LevelHandler extends ListenerAdapter {
 
     Map<Long, Consumer<MessageReceivedEvent>> levelRewards = new HashMap<>() {
         {
-            put(5L, event -> addRoleToMember(event, ROLE_ID_5, 5));
-            put(10L, event -> addRoleToMember(event, ROLE_ID_10, 10));
-            put(15L, event -> addRoleToMember(event, ROLE_ID_15, 15));
-            put(30L, event -> addRoleToMember(event, ROLE_ID_30, 30));
-            put(50L, event -> addRoleToMember(event, ROLE_ID_50, 50));
-            put(75L, event -> addRoleToMember(event, ROLE_ID_75, 75));
-            put(100L, event -> addRoleToMember(event, ROLE_ID_100, 100));
+            put(5L, event -> addRoleToMember(event, ROLE_ID_5, 5, -1));
+            put(10L, event -> addRoleToMember(event, ROLE_ID_10, 10, ROLE_ID_5));
+            put(15L, event -> addRoleToMember(event, ROLE_ID_15, 15, ROLE_ID_10));
+            put(30L, event -> addRoleToMember(event, ROLE_ID_30, 30, ROLE_ID_15));
+            put(50L, event -> addRoleToMember(event, ROLE_ID_50, 50, ROLE_ID_30));
+            put(75L, event -> addRoleToMember(event, ROLE_ID_75, 75, ROLE_ID_50));
+            put(100L, event -> addRoleToMember(event, ROLE_ID_100, 100, ROLE_ID_75));
         }
     };
 
-    private void addRoleToMember(MessageReceivedEvent event, long roleId, int level) {
+    private void addRoleToMember(MessageReceivedEvent event, long roleId, int level, long prevRoleId) {
         EmbedBuilder lv = new EmbedBuilder();
-        lv.setColor(Color.decode(EMBED_COLOR));
+        lv.setColor(Color.decode(DEFAULT_EMBED_COLOR));
 
         Role role = event.getGuild().getRoleById(roleId);
         Member member = event.getMember();
@@ -59,6 +59,9 @@ public class LevelHandler extends ListenerAdapter {
         TextChannel channel = event.getGuild().getTextChannelById("941458443749978122");
 
         member.getGuild().addRoleToMember(member, role).queue();
+        if (prevRoleId != -1) {
+            member.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(prevRoleId)).queue();
+        }
         channel.sendMessageEmbeds(lv.build()).queue();
     }
 
@@ -72,7 +75,7 @@ public class LevelHandler extends ListenerAdapter {
         if (cooldown > System.currentTimeMillis())
             return;
 
-        this.cooldown.put(snowflake, System.currentTimeMillis() + 600);
+        this.cooldown.put(snowflake, System.currentTimeMillis() + 30000);
 
         Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
             User user = dao.findUserOrCreate(snowflake);

@@ -23,7 +23,7 @@ public class ExpLeaders extends ListenerAdapter {
 
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Топ участников по опыту:");
-        eb.setColor(Color.decode("0x93ff0d"));
+        eb.setColor(Color.decode(UtilLang.DEFAULT_EMBED_COLOR));
 
         OptionMapping optionMapping = event.getInteraction().getOption("страница");
 

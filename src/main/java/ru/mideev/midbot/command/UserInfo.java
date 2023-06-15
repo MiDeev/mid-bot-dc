@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class UserInfo extends ListenerAdapter {
 
@@ -50,7 +50,7 @@ public class UserInfo extends ListenerAdapter {
             if (member == null) return;
 
             EmbedBuilder ui = new EmbedBuilder();
-            ui.setColor(Color.decode(EMBED_COLOR));
+            ui.setColor(Color.decode(DEFAULT_EMBED_COLOR));
 
             ui.setAuthor("Информация об участнике: " + UtilLang.memberTagFormat(member), null, member.getEffectiveAvatarUrl());
             ui.setDescription("**Общие сведения:**" + "\n" + "** **");
@@ -77,9 +77,9 @@ public class UserInfo extends ListenerAdapter {
                             .getAsMention()
                     , false);
 
-            String badges = BadgesUtil.getUserBadges(member.getUser());
+            String badges = BadgesUtil.getUserBadges(member);
 
-            if (!badges.equals("none")) {
+            if (!badges.isEmpty()) {
                 ui.addField("Значки:", badges, false);
             }
 

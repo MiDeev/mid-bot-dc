@@ -10,7 +10,7 @@ import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 
-import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class ServerInfo extends ListenerAdapter {
 
@@ -18,7 +18,7 @@ public class ServerInfo extends ListenerAdapter {
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("si")) {
             EmbedBuilder si = new EmbedBuilder();
-            si.setColor(Color.decode(EMBED_COLOR));
+            si.setColor(Color.decode(DEFAULT_EMBED_COLOR));
             si.setAuthor("Информация о " + event.getGuild().getName(), null, event.getGuild().getIcon().getUrl(128));
             si.addField("Участники:", "<:all_members:949778978913267713> Всего: **" + event.
                     getGuild().getMemberCount() + "**\n<:people:949778979169107978> Людей: **" + event.
@@ -49,38 +49,17 @@ public class ServerInfo extends ListenerAdapter {
             si.setImage(event.getGuild().getBanner().getUrl(256));
 
             String ver = "" + event.getGuild().getVerificationLevel();
-            si.addField("Создатель:", "<:developer:950745056409686049>" + UtilLang.ownerTagFormat(event.getGuild().getOwner()), true);
+            si.addField("Создатель:", "<:developer:950745056409686049> " + UtilLang.ownerTagFormat(event.getGuild().getOwner()), true);
 
-            switch (ver) {
-                case "NONE": {
-                    String kek = ver.replace("NONE", "Отсутствует");
-                    si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                    break;
-                }
-                case "LOW": {
-                    String kek = ver.replace("LOW", "Низкая");
-                    si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                    break;
-                }
-                case "MEDIUM": {
-                    String kek = ver.replace("MEDIUM", "Средняя");
-                    si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                    break;
-                }
-                case "HIGH": {
-                    String kek = ver.replace("HIGH", "Высокая");
-                    si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                    break;
-                }
-                case "VERY_HIGH": {
-                    String kek = ver.replace("VERY_HIGH", "Полная");
-                    si.addField("Модерация:", "<:protection:950746378538205244>" + kek, true);
-                    break;
-                }
-                default:
-                    si.addField("Модерация:", "<:protection:950746378538205244>" + ver, true);
-                    break;
-            }
+            String moderation = switch (ver) {
+                case "NONE" -> "Отсутствует";
+                case "LOW" -> "Низкая";
+                case "MEDIUM" -> "Средняя";
+                case "HIGH" -> "Высокая";
+                case "VERY_HIGH" -> "Полная";
+                default -> ver;
+            };
+            si.addField("Модерация:", "<:protection:950746378538205244>" + moderation, true);
 
             si.addField("Бусты:", "<:boost:950748442458742864> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
             si.addField("ID сервера:", event.getGuild().getId(), true);

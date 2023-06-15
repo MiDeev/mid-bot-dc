@@ -10,7 +10,7 @@ import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 
-import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class AvatarCommand extends ListenerAdapter {
     @Override
@@ -39,7 +39,7 @@ public class AvatarCommand extends ListenerAdapter {
 
             EmbedBuilder av = new EmbedBuilder();
 
-            av.setColor(Color.decode(EMBED_COLOR));
+            av.setColor(Color.decode(DEFAULT_EMBED_COLOR));
             av.setDescription("**Аватар пользователя: **" + "<@" + member.getId() + ">");
 
             if (member.getUser().getAvatar() == null) {

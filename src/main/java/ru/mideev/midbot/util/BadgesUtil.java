@@ -1,5 +1,6 @@
 package ru.mideev.midbot.util;
 
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -25,9 +26,9 @@ public class BadgesUtil extends ListenerAdapter {
     public static final String ACTIVE_DEVELOPER = "<:active_developer_badge:1117076543794069564>";
     public static final String UPDATED_NICKNAME = "<:changed_nickname_badge:1117076918181838913>";
 
-    public static String getUserBadges(User user) {
+    public static String getUserBadges(Member member) {
         StringBuilder response = new StringBuilder();
-        EnumSet<User.UserFlag> badges = user.getFlags();
+        EnumSet<User.UserFlag> badges = member.getUser().getFlags();
 
         if (!badges.isEmpty()) {
             Map<User.UserFlag, String> badgeMap = new HashMap<>();
@@ -53,12 +54,9 @@ public class BadgesUtil extends ListenerAdapter {
                 }
             }
 
-            if (user.getAsTag().contains("0000")) {
-                response.append(UPDATED_NICKNAME);
-            }
-
-        } else {
-            response.append("none");
+        }
+        if (member.getUser().getAsTag().contains("0000")) {
+            response.append(UPDATED_NICKNAME);
         }
         return response.toString();
     }

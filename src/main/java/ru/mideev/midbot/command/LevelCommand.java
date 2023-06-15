@@ -22,7 +22,7 @@ public class LevelCommand extends ListenerAdapter {
             return;
 
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(Color.decode("0x93ff0d"));
+        eb.setColor(Color.decode(UtilLang.DEFAULT_EMBED_COLOR));
 
         OptionMapping optionMapping = event.getInteraction().getOption("участник");
 
@@ -37,8 +37,7 @@ public class LevelCommand extends ListenerAdapter {
 
         User user = Main.DATABASE.getJdbi().withExtension(UsersDao.class, dao -> dao.findUserOrCreate(member.getIdLong()));
 
-        String nickname = member.getNickname();
-        eb.setAuthor("Статистика участника: " + UtilLang.userTagFormat(event.getUser()), null,  member.getEffectiveAvatarUrl());
+        eb.setAuthor("Статистика участника: " + UtilLang.memberTagFormat(member), null,  member.getEffectiveAvatarUrl());
 
         eb.setDescription("**Уровень**: " + user.getLevel() + " **|** " + "**Опыт**: " + user.getExp() + "**/**" + LevelUtil.getExperience(user.getLevel() + 1));
 

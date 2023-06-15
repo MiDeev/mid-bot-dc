@@ -13,6 +13,7 @@ import ru.mideev.midbot.util.UtilLang;
 import java.awt.*;
 import java.time.Instant;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class JoinHandler extends ListenerAdapter {
 
@@ -45,11 +46,11 @@ public class JoinHandler extends ListenerAdapter {
 
         EmbedBuilder emba = new EmbedBuilder();
         emba.setColor(new Color(255, 60, 60));
-        emba.addField("Приоритетная роль:", member.getRoles()
-                        .stream()
-                        .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
-                        .findFirst()
-                        .orElse(null)
+        emba.addField("Приоритетная роль:", Objects.requireNonNull(member.getRoles()
+                                .stream()
+                                .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
+                                .findFirst()
+                                .orElse(null))
                         .getAsMention()
                 , false);
 

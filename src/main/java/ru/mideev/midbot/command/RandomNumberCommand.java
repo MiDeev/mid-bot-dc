@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class RandomNumberCommand extends ListenerAdapter {
 
@@ -23,7 +23,7 @@ public class RandomNumberCommand extends ListenerAdapter {
             OptionMapping optionMapping = event.getInteraction().getOption("число");
 
             EmbedBuilder rn = new EmbedBuilder();
-            rn.setColor(Color.decode(EMBED_COLOR));
+            rn.setColor(Color.decode(DEFAULT_EMBED_COLOR));
             rn.setAuthor("Информация о выпавшем числе:", null);
 
             ThreadLocalRandom random = ThreadLocalRandom.current();

@@ -13,7 +13,7 @@ import ru.mideev.midbot.util.UtilLang;
 import java.awt.*;
 import java.util.Optional;
 
-import static ru.mideev.midbot.util.UtilLang.EMBED_COLOR;
+import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class BannerCommand extends ListenerAdapter {
     @Override
@@ -40,7 +40,7 @@ public class BannerCommand extends ListenerAdapter {
 
             if (member == null) return;
 
-            ba.setColor(Color.decode(EMBED_COLOR));
+            ba.setColor(Color.decode(DEFAULT_EMBED_COLOR));
 
             User.Profile profile = member.getUser().retrieveProfile().complete();
             Optional<ImageProxy> banner = Optional.ofNullable(profile.getBanner());
