@@ -29,18 +29,14 @@ public class Roles extends ListenerAdapter {
                             "<@&980016910227869746> - **позволяет отслеживать объявления сервера.**\n" +
                             "*Посредством уведомлений ни одно [объявление](https://discord.com/channels/941320640420532254/950750830833852446) не уйдёт мимо глаз.*\n" +
                             "\n" +
-                            "<@&980016919581171763> - **роль для доступа к каналу с \"дичью\".**\n" +
-                            "*Данная роль открывает доступ к каналу [без правил](https://discord.com/channels/941320640420532254/983318366750146570).*" +
-                            "\n\n" +
                             "<@&975336015344566292> | <@&942467119323422820> - **гендерные роли.**\n" +
                             "*Здесь можно быть кем угодно и даже пол тут выбрать можно.*"
             );
-            event.getMessage().getChannel().asNewsChannel()
+            event.getMessage().getChannel().asTextChannel()
                     .sendMessageEmbeds(im.build(), si.build())
                     .setComponents(
                             ActionRow.of(Button.of(ButtonStyle.SECONDARY, "announce", "ANNOUNCEMENTS"),
-                                    (Button.of(ButtonStyle.SECONDARY, "tracking", "TRACKING")),
-                                    (Button.of(ButtonStyle.SECONDARY, "nsfw", "NSFW LISTENER"))),
+                                    (Button.of(ButtonStyle.SECONDARY, "tracking", "TRACKING"))),
                             ActionRow.of((Button.of(ButtonStyle.PRIMARY, "male", "BRO")),
                                     (Button.of(ButtonStyle.DANGER, "female", "SIS")))
                     )
@@ -76,19 +72,7 @@ public class Roles extends ListenerAdapter {
                 event.getInteraction().deferReply(true).setContent("Роль успешна выдана.").queue();
             }
         }
-        if (Objects.equals(event.getButton().getId(), "nsfw")) {
-            if (event.getGuild().getMember(event.getUser()).getRoles().stream().anyMatch(x -> x.getId().equals("980016919581171763"))) {
-                event.getGuild()
-                        .removeRoleFromMember(event.getUser(), event.getGuild().getRoleById("980016919581171763"))
-                        .queue();
-                event.getInteraction().deferReply(true).setContent("Роль успешна убрана.").queue();
-            } else {
-                event.getGuild()
-                        .addRoleToMember(event.getUser(), event.getGuild().getRoleById("980016919581171763"))
-                        .queue();
-                event.getInteraction().deferReply(true).setContent("Роль успешна выдана.").queue();
-            }
-        }
+
         if (Objects.equals(event.getButton().getId(), "male")) {
             if (event.getGuild().getMember(event.getUser()).getRoles().stream().anyMatch(x -> x.getId().equals("975336015344566292"))) {
                 event.getGuild()

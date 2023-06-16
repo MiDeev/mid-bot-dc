@@ -3,10 +3,12 @@ package ru.mideev.midbot.util;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.utils.ImageProxy;
 
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class BadgesUtil extends ListenerAdapter {
 
@@ -25,6 +27,8 @@ public class BadgesUtil extends ListenerAdapter {
     public static final String BOT_HTTP_INTERACTIONS = "<:support_commands_badge:1117076944589164645>";
     public static final String ACTIVE_DEVELOPER = "<:active_developer_badge:1117076543794069564>";
     public static final String UPDATED_NICKNAME = "<:changed_nickname_badge:1117076918181838913>";
+    public static final String BOOSTER_SUBSCRIBER = "<:nitro_subscriber_badge:1117077027116298272>";
+    public static final String NITRO_BOOSTER = "<:nitro_booster:1119350609129263135>";
 
     public static String getUserBadges(Member member) {
         StringBuilder response = new StringBuilder();
@@ -54,6 +58,16 @@ public class BadgesUtil extends ListenerAdapter {
                 }
             }
 
+        }
+
+        User.Profile profile = member.getUser().retrieveProfile().complete();
+        Optional<ImageProxy> banner = Optional.ofNullable(profile.getBanner());
+
+        if (banner.isPresent()) {
+            response.append(BOOSTER_SUBSCRIBER);
+        }
+        if (member.isBoosting()) {
+            response.append(NITRO_BOOSTER);
         }
         if (member.getUser().getAsTag().contains("0000")) {
             response.append(UPDATED_NICKNAME);
