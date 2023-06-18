@@ -5,6 +5,7 @@ import org.jdbi.v3.cache.caffeine.CaffeineCachePlugin;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.postgresql.ds.PGSimpleDataSource;
+import ru.mideev.midbot.dao.AnswersBranchesDao;
 import ru.mideev.midbot.dao.CommandCounterDao;
 import ru.mideev.midbot.dao.IdeasDao;
 import ru.mideev.midbot.dao.UsersDao;
@@ -39,7 +40,7 @@ public class Database {
             dataSource.setDatabaseName(database);
 
             jdbi = Jdbi.create(dataSource);
-
+            System.out.println(jdbi);
             jdbi.installPlugin(new SqlObjectPlugin());
             jdbi.installPlugin(new CaffeineCachePlugin());
         } catch (Throwable t) {
@@ -62,6 +63,8 @@ public class Database {
                     ");");
 
             jdbi.useExtension(UsersDao.class, UsersDao::createTable);
+            jdbi.useExtension(AnswersBranchesDao.class, AnswersBranchesDao::createTable);
+            jdbi.useExtension(AnswersBranchesDao.class, AnswersBranchesDao::createAnswersTable);
         });
     }
 

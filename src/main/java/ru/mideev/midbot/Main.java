@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.Compression;
@@ -40,7 +39,7 @@ public class Main {
         DATABASE.init();
 
         jda = JDABuilder.createDefault(System.getenv("TOKEN"))
-                .addEventListeners(new FallbackHandler(), new BadgesUtil(), new OfferAnswerHandler(), new LevelCommand(), new ExpLeaders(), new RandomNumberCommand(), new BannerCommand(), new TimeCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new OfferHandler(), new Roles(), new LevelHandler())
+                .addEventListeners(new FallbackHandler(), new SurveyHandler(), new BadgesUtil(), new OfferAnswerHandler(), new LevelCommand(), new ExpLeaders(), new RandomNumberCommand(), new BannerCommand(), new TimeCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new OfferHandler(), new Roles(), new LevelHandler())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
@@ -50,8 +49,6 @@ public class Main {
                 .setStatus(OnlineStatus.DO_NOT_DISTURB)
                 .setActivity(Activity.of(Activity.ActivityType.WATCHING, "/help"))
                 .build();
-
-       // jda.upsertCommand("level","Узнать уровень.").addOption(OptionType.USER, "участник", "Участник, уровень которого необходимо узнать.").submit();
 
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
             Guild guild = jda.getGuildById("941320640420532254");
