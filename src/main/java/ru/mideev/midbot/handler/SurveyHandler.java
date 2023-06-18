@@ -82,7 +82,7 @@ public class SurveyHandler extends ListenerAdapter {
 
             try {
                 eb.setColor(Color.decode("0xdcddde"));
-                eb.setAuthor("MiBrothers спрашивает:",null, "https://cdn.discordapp.com/attachments/942520425936719952/1120044046983893155/mideev.gif");
+                eb.setAuthor("MiBrothers спрашивает:", null, "https://cdn.discordapp.com/attachments/942520425936719952/1120044046983893155/mideev.gif");
                 eb.setDescription("### " + params[0]);
                 eb.setTimestamp(Instant.now());
                 Message message1 = channel.sendMessage("<@&980016919581171763>").addEmbeds(eb.build()).setActionRow(button).submit().get();
@@ -120,20 +120,16 @@ public class SurveyHandler extends ListenerAdapter {
             long answerBranchId = Main.DATABASE.getJdbi().withExtension(AnswersBranchesDao.class, AnswersBranchesDao::getAnswerBranchId);
 
             button.withDisabled(true);
+
             String body = event.getValue("body").getAsString();
-            //si.setTitle("Вопрос: \"" + modal.getTitle() + "\"");
+
             si.setColor(Color.decode("0xdcddde"));
             si.setAuthor("Ответ от " + UtilLang.userTagFormat(event.getUser()) + ":", null, event.getUser().getAvatarUrl());
             si.setDescription("### `" + body + "`");
-//            si.addField(event.getUser().getName() + " - ", "`" + body + "`", false);
             si.setFooter(event.getUser().getId());
             si.setTimestamp(Instant.now());
 
-            CompletableFuture<InteractionHook> buttonInteractionEvent = event.getInteraction().deferEdit().submit();
-
             event.getGuild().getThreadChannelById(answerBranchId).sendMessageEmbeds(si.build()).queue();
-
-            //event.reply("**Спасибо за ответ!**").setEphemeral(true).queue();
             event.deferReply().submit();
 
             Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> dao.addAnswer(event.getMessage().getIdLong(), event.getUser().getIdLong()));
