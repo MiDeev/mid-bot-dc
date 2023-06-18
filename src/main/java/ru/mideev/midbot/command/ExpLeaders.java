@@ -11,6 +11,7 @@ import ru.mideev.midbot.dao.UsersDao;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -22,18 +23,24 @@ public class ExpLeaders extends ListenerAdapter {
             return;
 
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Топ участников по опыту:");
-        eb.setColor(Color.decode(UtilLang.DEFAULT_EMBED_COLOR));
 
         OptionMapping optionMapping = event.getInteraction().getOption("страница");
 
         int page;
 
+        int totalUsers = Main.DATABASE.getJdbi().withExtension(UsersDao.class, UsersDao::getTotalUsers);
+        int pageSize = 10;
+        int totalPages = totalUsers % pageSize == 0 ? totalUsers / pageSize : totalUsers / pageSize + 1;
+
         if (optionMapping != null) {
-            page = optionMapping.getAsInt();
+            page = Math.max(1, Math.min(optionMapping.getAsInt(), totalPages));
+            eb.setAuthor("Страница " + page + " из " + totalPages + " | ");
         } else {
             page = 1;
+            eb.setAuthor("Страница 1 из " + totalPages);
         }
+        eb.setTitle("Топ участников по опыту:");
+        eb.setColor(Color.decode(UtilLang.DEFAULT_EMBED_COLOR));
 
         int offset = 10 * (page - 1);
 

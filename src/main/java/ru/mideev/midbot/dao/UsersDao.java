@@ -28,6 +28,9 @@ public interface UsersDao {
         return Optional.ofNullable(findUser(snowflake)).orElse(new User(snowflake, 0, 0, ""));
     }
 
+    @SqlQuery("SELECT COUNT (*) FROM users where exp > 0")
+    int getTotalUsers();
+
     @SqlQuery("select * from users where exp > 0 order by exp desc limit 10 offset :offset")
     @RegisterConstructorMapper(User.class)
     List<User> getExpLeaders(@Bind("offset") int offset);

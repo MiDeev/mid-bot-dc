@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import ru.mideev.midbot.Main;
+import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.util.List;
@@ -63,7 +64,7 @@ public class IdeaAnswerHandler extends ListenerAdapter {
                                 .setColor(Color.decode("0x96ff3c"))
                                 .addField("Ваша идея для " + ideaType + ":", IDEA_PATTERN.matcher(embed.getDescription()).replaceAll("").replaceFirst("\n", "").replaceFirst("\n", ""), false)
                                 .addField("Ответ:", answer, false)
-                                .setFooter("На вашу идею ответил " + event.getMember().getUser().getAsTag())
+                                .setFooter("На вашу идею ответил " + UtilLang.memberTagFormat(event.getMember()))
                                 .build()
                 ).queue();
 
