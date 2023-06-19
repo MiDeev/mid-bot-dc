@@ -13,7 +13,7 @@ public class Information extends ListenerAdapter {
         EmbedBuilder si = new EmbedBuilder();
         EmbedBuilder im = new EmbedBuilder();
 
-        if (event.getChannel().getId().equals("1051153223098061010") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("info")) {
+        if (event.getChannel().getId().equals("1051153223098061010") && event.getMessage().getContentDisplay().equals("info")) {
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043936302854316042/information_about_channels.png");
             im.setColor(new Color(100, 114, 255));
             si.setColor(new Color(100, 114, 255));
@@ -34,11 +34,12 @@ public class Information extends ListenerAdapter {
                             "<#1013527821085315082> - место для публичных ответов на вопросы.\n" +
                             "\n" +
                             "<#979498476452859994> - ваши идеи для Discord'а.\n" +
+                            "<#1109502097914863667> - ваши идеи для YouTube-канала создателя.\n" +
                             "<#985623622293028935> - советы по принятию тех или иных решений.");
             event.getMessage().getChannel().asNewsChannel().sendMessageEmbeds(im.build(), si.build()).queue();
         }
 
-        if (event.getChannel().getId().equals("1051153223098061010") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals("info")) {
+        if (event.getChannel().getId().equals("1051153223098061010") && event.getMessage().getContentDisplay().equals("info")) {
             im.setImage("https://cdn.discordapp.com/attachments/942520425936719952/1043936302514569297/information_about_roles.png");
             im.setColor(new Color(224, 99, 63));
             si.setColor(new Color(224, 99, 63));
@@ -48,6 +49,8 @@ public class Information extends ListenerAdapter {
                             "\n" +
                             "<@&975747225500123152> - **управляет и сопровождает сервер.**\n" +
                             "*Люди с данной ролью отвечают за персонал и порядок.*\n" +
+                            "<@&1119555023056150558> - **ответственный за персонал.**\n" +
+                            "*Главный помощник администратора и куратор персонала сервера.*\n" +
                             "<@&975748559838281798> - **помогает с вопросами, касательно сервера.**\n" +
                             "*По вопросам пишите им в ЛС или упоминайте людей с этой ролью.*\n" +
                             "<@&975748559473344532> - **контролирует чат и наказывает нарушителей.**\n" +

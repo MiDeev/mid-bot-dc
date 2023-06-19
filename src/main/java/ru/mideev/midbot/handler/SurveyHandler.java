@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle;
@@ -21,7 +20,6 @@ import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
 import java.time.Instant;
-import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +28,6 @@ public class SurveyHandler extends ListenerAdapter {
     public static final String BUTTON_ID = "answer";
 
     Button button = Button.of(ButtonStyle.PRIMARY, BUTTON_ID, "Ответить");
-    Modal modal;
     Pattern pattern = Pattern.compile("\"([^\"]*)\"");
 
     @Override
@@ -66,13 +63,17 @@ public class SurveyHandler extends ListenerAdapter {
                     if (oldId == 0) return;
                     Message message1 = channel.retrieveMessageById(oldId).submit().get();
                     if (!message1.getAuthor().isBot()) return;
-                    message1.editMessageEmbeds().setActionRow(button.asDisabled()).queue();
+                    eb.setColor(Color.decode("0xdcddde"));
+                    eb.setAuthor("MiBrothers спрашивает:", null, "https://cdn.discordapp.com/attachments/942520425936719952/1120044046983893155/mideev.gif");
+                    eb.setDescription("### " + dao.getParam0());
+                    eb.setTimestamp(Instant.now());
+                    message1.editMessageEmbeds().setEmbeds(eb.build()).setActionRow(button.asDisabled()).queue();
                 });
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
 
-            modal = Modal.create("answer", params[0])
+            Modal.create("answer", params[0])
                     .addComponents(ActionRow.of(TextInput.create("body", params[1], TextInputStyle.PARAGRAPH)
                             .setPlaceholder(params[2])
                             .setMinLength(10)
@@ -89,7 +90,7 @@ public class SurveyHandler extends ListenerAdapter {
                 Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> {
                     ThreadChannel threadChannel = channel.createThreadChannel(params[0]).submit().get();
                     threadChannel.sendMessage("**Ответы участников сервера на вопрос \"`" + params[0] + "`\":**").queue();
-                    dao.setAnswerBranch(threadChannel.getIdLong(), message1.getIdLong());
+                    dao.setAnswerBranch(threadChannel.getIdLong(), message1.getIdLong(), params[0], params[1], params[2]);
                 });
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -107,7 +108,13 @@ public class SurveyHandler extends ListenerAdapter {
             if (hasAnswered) {
                 event.reply("**Вы уже отвечали на этот вопрос!**").setEphemeral(true).queue();
             } else {
-                event.replyModal(modal).queue();
+                Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> event.replyModal(Modal.create("answer", dao.getParam0())
+                        .addComponents(ActionRow.of(TextInput.create("body", dao.getParam1(), TextInputStyle.PARAGRAPH)
+                                .setPlaceholder(dao.getParam2())
+                                .setMinLength(10)
+                                .setMaxLength(1000)
+                                .build()))
+                        .build()).queue());
             }
         }
     }
@@ -130,7 +137,7 @@ public class SurveyHandler extends ListenerAdapter {
             si.setTimestamp(Instant.now());
 
             event.getGuild().getThreadChannelById(answerBranchId).sendMessageEmbeds(si.build()).queue();
-            event.deferReply().submit();
+            event.deferReply().setEphemeral(true).addContent("**Благодарим за ответ!**").submit();
 
             Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> dao.addAnswer(event.getMessage().getIdLong(), event.getUser().getIdLong()));
         }

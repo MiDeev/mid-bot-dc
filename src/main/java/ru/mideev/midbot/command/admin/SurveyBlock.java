@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
 
-public class SurveuBlock extends ListenerAdapter {
+public class SurveyBlock extends ListenerAdapter {
     public static final String CHANNEL_ID = "1119244423281262702";
     public static final String ROLE_ID = "1012278002601705473";
     public static final String TARGET_CHANNEL_ID = "1013527821085315082";
