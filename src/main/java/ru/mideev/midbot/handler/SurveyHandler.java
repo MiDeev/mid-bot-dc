@@ -30,7 +30,6 @@ public class SurveyHandler extends ListenerAdapter {
     public static final String BUTTON_ID = "answer";
 
     Button button = Button.of(ButtonStyle.PRIMARY, BUTTON_ID, "Ответить");
-    Modal modal;
     Pattern pattern = Pattern.compile("\"([^\"]*)\"");
 
     @Override
@@ -72,7 +71,7 @@ public class SurveyHandler extends ListenerAdapter {
                 throw new RuntimeException(e);
             }
 
-            modal = Modal.create("answer", params[0])
+            Modal.create("answer", params[0])
                     .addComponents(ActionRow.of(TextInput.create("body", params[1], TextInputStyle.PARAGRAPH)
                             .setPlaceholder(params[2])
                             .setMinLength(10)
@@ -89,7 +88,7 @@ public class SurveyHandler extends ListenerAdapter {
                 Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> {
                     ThreadChannel threadChannel = channel.createThreadChannel(params[0]).submit().get();
                     threadChannel.sendMessage("**Ответы участников сервера на вопрос \"`" + params[0] + "`\":**").queue();
-                    dao.setAnswerBranch(threadChannel.getIdLong(), message1.getIdLong());
+                    dao.setAnswerBranch(threadChannel.getIdLong(), message1.getIdLong(), params[0], params[1], params[2]);
                 });
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -107,7 +106,13 @@ public class SurveyHandler extends ListenerAdapter {
             if (hasAnswered) {
                 event.reply("**Вы уже отвечали на этот вопрос!**").setEphemeral(true).queue();
             } else {
-                event.replyModal(modal).queue();
+                Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> event.replyModal(Modal.create("answer", dao.getParam0())
+                    .addComponents(ActionRow.of(TextInput.create("body", dao.getParam1(), TextInputStyle.PARAGRAPH)
+                            .setPlaceholder(dao.getParam2())
+                            .setMinLength(10)
+                            .setMaxLength(1000)
+                            .build()))
+                    .build()).queue());
             }
         }
     }
