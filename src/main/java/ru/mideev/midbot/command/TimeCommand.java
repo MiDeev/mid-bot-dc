@@ -46,7 +46,7 @@ public class TimeCommand extends ListenerAdapter {
             EmbedBuilder ti = new EmbedBuilder();
 
             ti.setColor(Color.decode(DEFAULT_EMBED_COLOR));
-            ti.setAuthor("Информация об участнике: " + member.getUser().getAsTag(), null, member.getEffectiveAvatarUrl());
+            ti.setAuthor("Информация об участнике: " + UtilLang.memberTagFormat(member), null, member.getEffectiveAvatarUrl());
             ti.addField("Возраст аккаунта:", CDate, true);
             ti.addField("Время нахождения на сервере:", JDate, false);
             ti.setFooter("Команду запросил: " + UtilLang.memberTagFormat(event.getMember()), event.getMember().getEffectiveAvatarUrl());
