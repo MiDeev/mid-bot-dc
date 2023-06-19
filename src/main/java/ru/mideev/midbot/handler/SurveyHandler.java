@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -136,10 +137,15 @@ public class SurveyHandler extends ListenerAdapter {
             si.setFooter(event.getUser().getId());
             si.setTimestamp(Instant.now());
 
-            event.getGuild().getThreadChannelById(answerBranchId).sendMessageEmbeds(si.build()).queue();
+            event.getGuild().getThreadChannelById(answerBranchId).sendMessageEmbeds(si.build()).queue(message1 -> {
+                message1.addReaction(Emoji.fromUnicode("\uD83D\uDC4D")).queue();
+                message1.addReaction(Emoji.fromUnicode("\uD83D\uDC4E")).queue();
+            });
+
             event.deferReply().setEphemeral(true).addContent("**Благодарим за ответ!**").submit();
 
             Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> dao.addAnswer(event.getMessage().getIdLong(), event.getUser().getIdLong()));
         }
     }
 }
+
