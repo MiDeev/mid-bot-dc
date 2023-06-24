@@ -20,13 +20,13 @@ public class ServerInfo extends ListenerAdapter {
             EmbedBuilder si = new EmbedBuilder();
             si.setColor(Color.decode(DEFAULT_EMBED_COLOR));
             si.setAuthor("Информация о " + event.getGuild().getName(), null, event.getGuild().getIcon().getUrl(128));
-            si.addField("Участники:", "<:all_members:949778978913267713> Всего: **" + event.
-                    getGuild().getMemberCount() + "**\n<:people:949778979169107978> Людей: **" + event.
+            si.addField("Участники:", "<:all_members:1122089047502880809> Всего: **" + event.
+                    getGuild().getMemberCount() + "**\n<:peoples:1122246144072876133> Людей: **" + event.
                     getGuild().getMembers().stream().filter(member -> !member.getUser().isBot()).count()
-                    + "**\n<:bot:949778978737127445> Ботов: **" + event.
+                    + "**\n<:robots:1122245099015917658> Ботов: **" + event.
                     getGuild().getMembers().stream().filter(member -> member.getUser().isBot()).count()
 
-                    + "**\n<:total_online:949943607236915210> Онлайн: **" + event.
+                    + "**\n<:online_members:1122252430608969768> Онлайн: **" + event.
                     getGuild().getMembers().stream().filter(member -> !member
                             .getOnlineStatus().equals(OnlineStatus.OFFLINE)).count() + "**", true);
 
@@ -40,16 +40,16 @@ public class ServerInfo extends ListenerAdapter {
                     getGuild().getMembers().stream().filter(member -> member
                             .getOnlineStatus().equals(OnlineStatus.OFFLINE)).count() + "**", true);
 
-            si.addField("Каналы:", "<:all_channels:949777348474056714> Всего: **" + (event.
+            si.addField("Каналы:", "<:all_channels:1122253092486905916> Всего: **" + (event.
                     getGuild().getTextChannels().size() + event.
-                    getGuild().getVoiceChannels().size()) + "**\n<:text_channel:949776974287609876> Текстовых: **" + event.
-                    getGuild().getTextChannels().size() + "**\n<:voice_channel:949775496382664765> Голосовых: **" + event.
-                    getGuild().getVoiceChannels().size() + "**\n<:category:949941456607526912> Категорий: **" + event.
+                    getGuild().getVoiceChannels().size()) + "**\n<:text_channels:1122248383667634337> Текстовых: **" + event.
+                    getGuild().getTextChannels().size() + "**\n<:voice_channels:1122248386138099804> Голосовых: **" + event.
+                    getGuild().getVoiceChannels().size() + "**\n<:categories:1122248382237380638> Категорий: **" + event.
                     getGuild().getCategories().size() + "**", true);
             si.setImage(event.getGuild().getBanner().getUrl(256));
 
             String ver = "" + event.getGuild().getVerificationLevel();
-            si.addField("Создатель:", "<:developer:950745056409686049> " + UtilLang.ownerTagFormat(event.getGuild().getOwner()), true);
+            si.addField("Создатель:", "<:server_owner:1122261736674836580> " + UtilLang.ownerTagFormat(event.getGuild().getOwner()), true);
 
             String moderation = switch (ver) {
                 case "NONE" -> "Отсутствует";
@@ -59,11 +59,11 @@ public class ServerInfo extends ListenerAdapter {
                 case "VERY_HIGH" -> "Полная";
                 default -> ver;
             };
-            si.addField("Модерация:", "<:protection:950746378538205244> " + moderation, true);
+            si.addField("Модерация:", "<:guild_protection_level:1122273964069224541> " + moderation, true);
 
-            si.addField("Бусты:", "<:boost:950748442458742864> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
-            si.addField("ID сервера:", event.getGuild().getId(), true);
-            si.addField("Сервер создан:", TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
+            si.addField("Бусты:", "<:guild_boost_level:1122275442003542156> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
+            si.addField("ID сервера:", "<:guild_id:1122280709873217677> " + event.getGuild().getId(), true);
+            si.addField("Сервер создан:","<:guild_creation_date:1122280421313478738> " + TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
             si.setFooter("© 2023 mideev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
 
             if (event.getChannel().getId().equals("941458443749978122")) {

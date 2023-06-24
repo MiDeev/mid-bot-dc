@@ -77,12 +77,20 @@ public class UserInfo extends ListenerAdapter {
                     , false);
             Member finalMember = member;
 
-            Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
-                ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
-                ui.addField("Опыт:", (user.getExp() + "/" + LevelUtil.getExperience(user.getLevel() + 1)), true);
-                ui.addField("Уровень:", Long.toString(user.getLevel()), true);
-            });
+            if (member.getId().equals("421259943123877888")) {
+                Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
+                    ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
+                    ui.addField("Опыт:", "∞/∞", true);
+                    ui.addField("Уровень:", "∞", true);
+                });
+            } else {
 
+                Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
+                    ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
+                    ui.addField("Опыт:", (user.getExp() + "/" + LevelUtil.getExperience(user.getLevel() + 1)), true);
+                    ui.addField("Уровень:", Long.toString(user.getLevel()), true);
+                });
+            }
 
             String badges = BadgesUtil.getUserBadges(member);
 

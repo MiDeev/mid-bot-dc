@@ -90,6 +90,7 @@ public class SurveyHandler extends ListenerAdapter {
                 Message message1 = channel.sendMessage("<@&980016919581171763>").addEmbeds(eb.build()).setActionRow(button).submit().get();
                 Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> {
                     ThreadChannel threadChannel = channel.createThreadChannel(params[0]).submit().get();
+                    threadChannel.getManager().setLocked(true).queue();
                     threadChannel.sendMessage("**Ответы участников сервера на вопрос \"`" + params[0] + "`\":**").queue();
                     dao.setAnswerBranch(threadChannel.getIdLong(), message1.getIdLong(), params[0], params[1], params[2]);
                 });
