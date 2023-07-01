@@ -1,4 +1,5 @@
 plugins {
+    id 'application'
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
@@ -9,7 +10,9 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-group 'org.example'
+mainClassName = "ru.mideev.midbot.Main"
+
+group 'ru.mideev.midbot'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -21,7 +24,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
     implementation group: 'io.javalin', name: 'javalin', version: '4.6.3'
-    implementation 'org.postgresql:postgresql:42.4.0'
+    implementation 'org.postgresql:postgresql:42.4.3'
     implementation("net.dv8tion:JDA:5.0.0-beta.10")
     implementation("org.jdbi:jdbi3-core:3.38.2")
     implementation("org.jdbi:jdbi3-sqlobject:3.38.2")
@@ -34,10 +37,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-shadowJar {
-    manifest {
-        attributes('Main-Class': 'ru.mideev.midbot.Main')
-    }
 }

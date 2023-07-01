@@ -33,11 +33,10 @@ public class SurveyHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (!(event.getChannel() instanceof TextChannel)) return;
+        if (!(event.getChannel() instanceof TextChannel channel)) return;
 
         Message message = event.getMessage();
         String content = message.getContentRaw();
-        TextChannel channel = (TextChannel) event.getChannel();
 
         EmbedBuilder eb = new EmbedBuilder();
 

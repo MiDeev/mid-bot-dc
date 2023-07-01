@@ -9,7 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class DataUtil {
-    public static String joinedDate(Member member) {
+
+    private static DiffData calculateDate(Member member) {
         String ti = Objects.requireNonNull(member).getTimeJoined()
                 .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
                 .format(DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss"));
@@ -22,48 +23,45 @@ public class DataUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         long diff = System.currentTimeMillis() - timeUp;
 
-        long diffSeconds = diff / 1000 % 60;
-        long diffMinutes = diff / (60 * 1000) % 60;
-        long diffHours = diff / (60 * 60 * 1000) % 24;
-        long diffDays = diff / (24 * 60 * 60 * 1000);
+        return new DiffData(diff);
+    }
 
-        StringBuilder sb = new StringBuilder();
+    public static String joinedDate(Member member) {
 
-        sb.append(diffDays + " " + UtilLang.pluralsRu("день", "дня", "дней", (int) diffDays) + ", ");
-        sb.append(diffHours + " " + UtilLang.pluralsRu("час", "часа", "часов", (int) diffHours) + ", ");
-        sb.append(diffMinutes + " " + UtilLang.pluralsRu("минуту", "минуты", "минут", (int) diffMinutes) + ", ");
-        sb.append(diffSeconds + " " + UtilLang.pluralsRu("секунду", "секунды", "секунд", (int) diffSeconds) + "");
-        return sb.toString();
+        return calculateDate(member).toString();
     }
 
     public static String createdDate(Member member) {
-        String ti = Objects.requireNonNull(member).getTimeCreated()
-                .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
-                .format(DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss"));
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+        return calculateDate(member).toString();
+    }
 
-        long timeUp = 0;
-        try {
-            timeUp = format.parse(ti).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
+    private record DiffData(long diff) {
+
+        public long getDiffSeconds() {
+            return diff / 1000 % 60;
         }
-        long diff = System.currentTimeMillis() - timeUp;
 
-        long diffSeconds = diff / 1000 % 60;
-        long diffMinutes = diff / (60 * 1000) % 60;
-        long diffHours = diff / (60 * 60 * 1000) % 24;
-        long diffDays = diff / (24 * 60 * 60 * 1000);
+        public long getDiffMinutes() {
+            return diff / (60 * 1000) % 60;
+        }
 
-        StringBuilder du = new StringBuilder();
+        public long getDiffHours() {
+            return diff / (60 * 60 * 1000) % 24;
+        }
 
-        du.append(diffDays + " " + UtilLang.pluralsRu("день", "дня", "дней", (int) diffDays) + ", ");
-        du.append(diffHours + " " + UtilLang.pluralsRu("час", "часа", "часов", (int) diffHours) + ", ");
-        du.append(diffMinutes + " " + UtilLang.pluralsRu("минуту", "минуты", "минут", (int) diffMinutes) + ", ");
-        du.append(diffSeconds + " " + UtilLang.pluralsRu("секунду", "секунды", "секунд", (int) diffSeconds) + "");
-        return du.toString();
+        public long getDiffDays() {
+            return diff / (24 * 60 * 60 * 1000);
+        }
+
+        public String toString() {
+            return getDiffDays() + " " + UtilLang.pluralsRu("день", "дня", "дней", (int) getDiffDays()) + ", " +
+                    getDiffHours() + " " + UtilLang.pluralsRu("час", "часа", "часов", (int) getDiffHours()) + ", " +
+                    getDiffMinutes() + " " + UtilLang.pluralsRu("минуту", "минуты", "минут", (int) getDiffMinutes()) + ", " +
+                    getDiffSeconds() + " " + UtilLang.pluralsRu("секунду", "секунды", "секунд", (int) getDiffSeconds());
+        }
     }
 }
