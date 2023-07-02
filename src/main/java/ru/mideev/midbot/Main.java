@@ -18,11 +18,12 @@ import ru.mideev.midbot.database.Database;
 import ru.mideev.midbot.handler.*;
 import ru.mideev.midbot.util.BadgesUtil;
 
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Main {
+public final class Main {
     public static final Database DATABASE = new Database(
             System.getenv("MYSQL_HOST"),
             Integer.parseInt(System.getenv("MYSQL_PORT")),
@@ -68,11 +69,13 @@ public class Main {
 
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
             Guild guild = jda.getGuildById("941320640420532254");
+            assert guild != null;
             guild.retrieveInvites().complete().forEach(x -> {
-                Member member = guild.getMember(x.getInviter());
+                Member member = guild.getMember(Objects.requireNonNull(x.getInviter()));
 
                 if (x.getUses() >= 2) {
-                    guild.addRoleToMember(member, guild.getRoleById("984478425416888440")).submit();
+                    assert member != null;
+                    guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById("984478425416888440"))).submit();
                 }
             });
         }, 1, TimeUnit.MINUTES);
