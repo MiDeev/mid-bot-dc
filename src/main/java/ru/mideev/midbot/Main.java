@@ -18,11 +18,12 @@ import ru.mideev.midbot.database.Database;
 import ru.mideev.midbot.handler.*;
 import ru.mideev.midbot.util.BadgesUtil;
 
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Main {
+public final class Main {
     public static final Database DATABASE = new Database(
             System.getenv("MYSQL_HOST"),
             Integer.parseInt(System.getenv("MYSQL_PORT")),
@@ -39,7 +40,23 @@ public class Main {
         DATABASE.init();
 
         jda = JDABuilder.createDefault(System.getenv("TOKEN"))
-                .addEventListeners(new FallbackHandler(), new ChronologyPanel(), new BadgesCommand(), new SurveyBlock(), new SurveyHandler(), new BadgesUtil(), new OfferAnswerHandler(), new LevelCommand(), new ExpLeaders(), new RandomNumberCommand(), new BannerCommand(), new TimeCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new OfferHandler(), new Roles(), new LevelHandler())
+                .addEventListeners(
+                        new FallbackHandler(), new ChronologyPanel(),
+                        // new BadgesCommand(),
+                        new SurveyBlock(),
+                        new SurveyHandler(), new BadgesUtil(),
+                        new OfferAnswerHandler(), new LevelCommand(),
+                        new ExpLeaders(), new RandomNumberCommand(),
+                        new BannerCommand(), new TimeCommand(),
+                        new AvatarCommand(), new News(),
+                        new HelpCommand(), new Rules(),
+                        new ServerInfo(), new JoinHandler(),
+                        new IdeaAnswerHandler(), new TestCommand(),
+                        new UserInfo(), new Information(),
+                        new ClearCommand(), new CommandCountCommand(),
+                        new IdeaHandler(), new OfferHandler(),
+                        new Roles(), new LevelHandler()
+                )
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
@@ -52,11 +69,13 @@ public class Main {
 
         SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
             Guild guild = jda.getGuildById("941320640420532254");
+            assert guild != null;
             guild.retrieveInvites().complete().forEach(x -> {
-                Member member = guild.getMember(x.getInviter());
+                Member member = guild.getMember(Objects.requireNonNull(x.getInviter()));
 
                 if (x.getUses() >= 2) {
-                    guild.addRoleToMember(member, guild.getRoleById("984478425416888440")).submit();
+                    assert member != null;
+                    guild.addRoleToMember(member, Objects.requireNonNull(guild.getRoleById("984478425416888440"))).submit();
                 }
             });
         }, 1, TimeUnit.MINUTES);

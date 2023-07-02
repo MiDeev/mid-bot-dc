@@ -16,6 +16,7 @@ import ru.mideev.midbot.util.LevelUtil;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -48,21 +49,28 @@ public class LevelHandler extends ListenerAdapter {
     };
 
     private void addRoleToMember(MessageReceivedEvent event, long roleId, int level, long prevRoleId) {
-        EmbedBuilder lv = new EmbedBuilder();
-        lv.setColor(Color.decode(DEFAULT_EMBED_COLOR));
 
         Role role = event.getGuild().getRoleById(roleId);
+        assert role != null;
         Member member = event.getMember();
+        assert member != null;
+
         String message = String.format("%s достиг %d уровня и получил роль %s", member.getAsMention(), level, role.getAsMention());
-        lv.setDescription(message);
+
+
+        var embed = new EmbedBuilder()
+                .setColor(Color.decode(DEFAULT_EMBED_COLOR))
+                .setDescription(message).build();
 
         TextChannel channel = event.getGuild().getTextChannelById("941458443749978122");
+        assert channel != null;
 
         member.getGuild().addRoleToMember(member, role).queue();
         if (prevRoleId != -1) {
-            member.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(prevRoleId)).queue();
+            member.getGuild().removeRoleFromMember(member, Objects.requireNonNull(event.getGuild().getRoleById(prevRoleId))).queue();
         }
-        channel.sendMessageEmbeds(lv.build()).queue();
+
+        channel.sendMessageEmbeds(embed).queue();
     }
 
 
@@ -83,8 +91,7 @@ public class LevelHandler extends ListenerAdapter {
             if (user.getExp() >= LevelUtil.getExperience(user.getLevel() + 1)) {
                 user.setLevel(user.getLevel() + 1);
                 if (event.getMember() != null) {
-                    levelRewards.getOrDefault(user.getLevel(), event1 -> {
-                    }).accept(event);
+                    levelRewards.getOrDefault(user.getLevel(), event1 -> {}).accept(event);
                 }
             }
 

@@ -16,28 +16,33 @@ public class OfferHandler extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getMember() == null) return;
+
         if ((event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".true") || event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".false")) && event.getMember().getId().equals("421259943123877888")) return;
 
-        String mid = null;
+        if (event.getMember().getUser().isBot())
+            return;
 
-        if (event.getChannel().getId().equals("985623622293028935") && !event.getMember().getUser().isBot() && !event.getMember().getUser().isSystem()) {
-            String content = event.getMessage().getContentRaw();
+        if (event.getMember().getUser().isSystem())
+            return;
 
-            Message message = event.getChannel().asTextChannel().sendMessage("<@&980016910227869746>").addEmbeds(new EmbedBuilder()
-                    .setColor(Color.decode("0xffb135"))
-                    .setAuthor("ОТКРЫТОЕ ПРЕДЛОЖЕНИЕ ",null , event.getMember().getEffectiveAvatarUrl())
-                    .appendDescription("\n" + content)
-                    .build()).complete();
-
-            Main.DATABASE.insertIdea(event.getAuthor().getIdLong(), message.getIdLong());
-
-            message.addReaction(Emoji.fromCustom("green_check_mark", 983314695027064832L, false)).queue();
-            message.addReaction(Emoji.fromUnicode("❌")).queue();
-
-            try {
-                event.getMessage().delete().queue();
-            } catch (Throwable ignored) {}
+        if (!event.getChannel().getId().equals("985623622293028935")) {
+            return;
         }
+
+        String content = event.getMessage().getContentRaw();
+
+        Message message = event.getChannel().asTextChannel().sendMessage("<@&980016910227869746>").addEmbeds(new EmbedBuilder()
+                .setColor(Color.decode("0xffb135"))
+                .setAuthor("ОТКРЫТОЕ ПРЕДЛОЖЕНИЕ ",null , event.getMember().getEffectiveAvatarUrl())
+                .appendDescription("\n" + content)
+                .build()).complete();
+
+        Main.DATABASE.insertIdea(event.getAuthor().getIdLong(), message.getIdLong());
+
+        message.addReaction(Emoji.fromCustom("green_check_mark", 983314695027064832L, false)).queue();
+        message.addReaction(Emoji.fromUnicode("❌")).queue();
+
+        event.getMessage().delete().queue();
     }
 }
 
