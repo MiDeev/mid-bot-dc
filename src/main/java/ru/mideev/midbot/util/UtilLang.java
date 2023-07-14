@@ -22,18 +22,18 @@ public class UtilLang {
         ONLINE_STATUS_MAPPINGS.put(OnlineStatus.INVISIBLE, "<:offline:949719753390428161> Невидимка");
         ONLINE_STATUS_MAPPINGS.put(OnlineStatus.UNKNOWN, "Неизвестно");
 
-        CLIENT_TYPE_MAPPINGS.put(ClientType.DESKTOP, "Компьютер");
-        CLIENT_TYPE_MAPPINGS.put(ClientType.MOBILE, "Телефон");
-        CLIENT_TYPE_MAPPINGS.put(ClientType.WEB, "Браузер");
-        CLIENT_TYPE_MAPPINGS.put(ClientType.UNKNOWN, "Неизвестно");
+        CLIENT_TYPE_MAPPINGS.put(ClientType.DESKTOP, "<:online_from_computer:1122495132437057556> Компьютер");
+        CLIENT_TYPE_MAPPINGS.put(ClientType.MOBILE, "<:online_from_mobile:1122495133758267462> Телефон");
+        CLIENT_TYPE_MAPPINGS.put(ClientType.WEB, "<:online_from_browser:1122496680005222440> Браузер");
+        CLIENT_TYPE_MAPPINGS.put(ClientType.UNKNOWN, "<:online_from_unknown_device:1122495136056737822> Неизвестно");
     }
 
     public static String onlineStatusToString(OnlineStatus status) {
-        return ONLINE_STATUS_MAPPINGS.getOrDefault(status, "Неизвестно");
+        return ONLINE_STATUS_MAPPINGS.getOrDefault(status, "<:online_from_unknown_device:1122495136056737822> Неизвестно");
     }
 
     public static String clientTypeToString(ClientType type) {
-        return CLIENT_TYPE_MAPPINGS.getOrDefault(type, "Неизвестно");
+        return CLIENT_TYPE_MAPPINGS.getOrDefault(type, "<:online_from_unknown_device:1122495136056737822> Неизвестно");
     }
 
     public static String pluralsRu(String one, String two, String five, int n) {

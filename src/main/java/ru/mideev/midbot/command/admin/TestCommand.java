@@ -37,8 +37,14 @@ public class TestCommand extends ListenerAdapter {
             long start = System.nanoTime();
             event.getGuild().getMembers()
                     .stream()
-                    .sorted(Comparator.comparing(member -> member.getNickname() == null ? member.getUser().getName().length() : member.getNickname().length()))
-                    .forEach(member -> System.out.println(member.getNickname() == null ? member.getUser().getName() : member.getNickname()));
+                    .sorted(Comparator.comparing(member -> {
+                        member.getUser().getName();
+                        return member.getUser().getName().length();
+                    }))
+                    .forEach(member -> {
+                        member.getUser().getName();
+                        System.out.println(member.getUser().getName());
+                    });
             System.out.println("Time: " + (System.nanoTime() - start));
         }
         System.out.println("USERS COUNT: " + event.getGuild().getMemberCount());

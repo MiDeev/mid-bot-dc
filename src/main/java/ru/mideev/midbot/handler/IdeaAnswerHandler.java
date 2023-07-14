@@ -60,11 +60,11 @@ public class IdeaAnswerHandler extends ListenerAdapter {
                 PrivateChannel privateChannel = user.openPrivateChannel().complete();
                 privateChannel.sendMessageEmbeds(
                         new EmbedBuilder()
-                                .setTitle("На вашу идею поступил ответ")
-                                .setColor(Color.decode("0x96ff3c"))
+                                .setTitle("На вашу идею поступил ответ!")
+                                .setColor(Color.decode("0xdcddde"))
                                 .addField("Ваша идея для " + ideaType + ":", IDEA_PATTERN.matcher(embed.getDescription()).replaceAll("").replaceFirst("\n", "").replaceFirst("\n", ""), false)
                                 .addField("Ответ:", answer, false)
-                                .setFooter("На вашу идею ответил " + UtilLang.memberTagFormat(event.getMember()))
+                                .setFooter("На вашу идею ответил: " + UtilLang.memberTagFormat(event.getMember()))
                                 .build()
                 ).queue();
 
@@ -77,4 +77,3 @@ public class IdeaAnswerHandler extends ListenerAdapter {
 
     }
 }
-

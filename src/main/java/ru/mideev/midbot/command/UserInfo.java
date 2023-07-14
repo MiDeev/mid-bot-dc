@@ -53,21 +53,16 @@ public class UserInfo extends ListenerAdapter {
 
             ui.setAuthor("Информация об участнике: " + UtilLang.memberTagFormat(member), null, member.getEffectiveAvatarUrl());
             ui.setDescription("**Общие сведения:**" + "\n" + "** **");
-            ui.addField("Никнейм:", UtilLang.memberTagFormat(member), true);
+            ui.addField("Никнейм:", "<:username:1122495141035393106> " + UtilLang.memberTagFormat(member), true);
             ui.addField("Устройство:", UtilLang.clientTypeToString(member.getActiveClients().stream().findFirst().orElse(ClientType.UNKNOWN)), true);
             ui.addField("Статус:", UtilLang.onlineStatusToString(member.getOnlineStatus()), true);
 
-            if (member.getUser().getGlobalName() != null) {
-                ui.addField("Отображаемое имя:", member.getUser().getGlobalName(), true);
+            if (member.getUser().getGlobalName() != null && !Objects.equals(member.getUser().getGlobalName().toLowerCase(Locale.ROOT), UtilLang.memberTagFormat(member))) {
+                ui.addField("Отображаемое имя:", "<:user_display_name:1122495166792617995> " + member.getUser().getGlobalName(), true);
             }
             if (member.getNickname() != null) {
-                ui.addField("Никнейм на сервере:", member.getNickname(), true);
+                ui.addField("Никнейм на сервере:", "<:member_nickname:1122495127114498068> " + member.getNickname(), true);
             }
-
-            ui.addField("ID:", member.getId(), false);
-            ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
-            ui.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> \n" + " (<t:" + member.getTimeCreated().toEpochSecond() + ":R>)", true);
-
             ui.addField("Приоритетная роль:", member.getRoles()
                             .stream()
                             .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
@@ -75,22 +70,29 @@ public class UserInfo extends ListenerAdapter {
                             .orElse(null)
                             .getAsMention()
                     , false);
+
+            ui.addField("Дата прибытия:", "<t:" + member.getTimeJoined().toEpochSecond() + ":d> \n" + "<:join_time:1122495123465441320> (<t:" + member.getTimeJoined().toEpochSecond() + ":R>)", true);
+            ui.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> \n" + "<:creation_date:1122280421313478738> (<t:" + member.getTimeCreated().toEpochSecond() + ":R>)", true);
+            ui.addField("ID:", "<:id:1122280709873217677> " + member.getId(), false);
             Member finalMember = member;
 
-            if (member.getId().equals("421259943123877888")) {
+            if (member.isOwner()) {
                 Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
                     ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
-                    ui.addField("Опыт:", "∞/∞", true);
-                    ui.addField("Уровень:", "∞", true);
+                    ui.addField("Опыт:", "<:experience:1122497447634149458> ∞/∞", true);
+                    ui.addField("Уровень:", "<:level:1122496212571013242> ∞", true);
                 });
             } else {
+                if (!member.getUser().isBot()) {
+                    Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
+                        ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
+                        ui.addField("Опыт:", "<:experience:1122497447634149458> " + (user.getExp() + "/" + LevelUtil.getExperience(user.getLevel() + 1)), true);
+                        ui.addField("Уровень:", "<:level:1122496212571013242> " + Long.toString(user.getLevel()), true);
 
-                Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
-                    ru.mideev.midbot.entity.User user = dao.findUserOrCreate(finalMember.getIdLong());
-                    ui.addField("Опыт:", (user.getExp() + "/" + LevelUtil.getExperience(user.getLevel() + 1)), true);
-                    ui.addField("Уровень:", Long.toString(user.getLevel()), true);
-                });
+                    });
+                }
             }
+
 
             String badges = BadgesUtil.getUserBadges(member);
 
@@ -108,11 +110,11 @@ public class UserInfo extends ListenerAdapter {
 
             activity.ifPresent(notNullActivity -> {
                 if (notNullActivity.isRich()) {
-                    ui.addField("Играет в:", "\"" + Objects.requireNonNull(notNullActivity.asRichPresence()).getName() + "\"", false);
+                    ui.addField("Играет в:", "<:gaming:1122495121758371882> " + "\"" + Objects.requireNonNull(notNullActivity.asRichPresence()).getName() + "\"", false);
                 } else if (notNullActivity.getName().equals("Custom Status")) {
                     ui.addField(null, null, false);
                 } else {
-                    ui.addField("Пользовательский статус:", notNullActivity.getName(), false);
+                    ui.addField("Пользовательский статус:", "<:user_custom_status:1122496213976109117> " + notNullActivity.getName(), false);
                 }
             });
 
