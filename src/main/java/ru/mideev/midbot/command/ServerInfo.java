@@ -32,6 +32,17 @@ public class ServerInfo extends ListenerAdapter {
         long totalBots = members.stream().filter(member -> member.getUser().isBot()).count();
         long totalOnline = members.stream().filter(member -> !member.getOnlineStatus().equals(OnlineStatus.OFFLINE)).count();
 
+        long onlineCount = event.getGuild().getMembers().stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.ONLINE)).count();
+        long idleCount = event.getGuild().getMembers().stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.IDLE)).count();
+        long dndCount = event.getGuild().getMembers().stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.DO_NOT_DISTURB)).count();
+        long offlineCount = event.getGuild().getMembers().stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.OFFLINE)).count();
+
+        String statusesField = String.format(
+                "<:online:949719753822437468> В сети: **%d**\n" +
+                        "<:idle:949719753763717170> Не активно: **%d**\n" +
+                        "<:dnd:949719753784701048> Не беспокоить: **%d**\n" +
+                        "<:offline:949719753390428161> Не в сети: **%d**", onlineCount, idleCount, dndCount, offlineCount);
+
         List<TextChannel> textChannels = event.getGuild().getTextChannels();
         List<VoiceChannel> voiceChannels = event.getGuild().getVoiceChannels();
         List<Category> categories = event.getGuild().getCategories();
@@ -45,7 +56,7 @@ public class ServerInfo extends ListenerAdapter {
                         "<:robots:1122428596015865877> Ботов: **" + totalBots + "**\n" +
                         "<:online_members:1122252430608969768> Онлайн: **" + totalOnline + "**",
                 true);
-
+        si.addField("Статусы:", statusesField, true);
         si.addField("Каналы:",
                 "<:all_channels:1122253092486905916> Всего: **" + (textChannels.size() + voiceChannels.size() + categories.size()) + "**\n" +
                         "<:text_channels:1122248383667634337> Текстовых: **" + textChannels.size() + "**\n" +
@@ -67,7 +78,6 @@ public class ServerInfo extends ListenerAdapter {
             default -> ver;
         };
         si.addField("Модерация:", "<:guild_protection_level:1122273964069224541> " + moderation, true);
-
         si.addField("Бусты:", "<:guild_boost_level:1122275442003542156> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
         si.addField("ID сервера:", "<:id:1122280709873217677> " + event.getGuild().getId(), true);
         si.addField("Сервер создан:", "<:creation_date:1122280421313478738> " + TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);

@@ -113,7 +113,7 @@ public class SurveyHandler extends ListenerAdapter {
                 Main.DATABASE.getJdbi().useExtension(AnswersBranchesDao.class, dao -> event.replyModal(Modal.create("answer", dao.getParam0())
                         .addComponents(ActionRow.of(TextInput.create("body", dao.getParam1(), TextInputStyle.PARAGRAPH)
                                 .setPlaceholder(dao.getParam2())
-                                .setMinLength(7)
+                                .setMinLength(4)
                                 .setMaxLength(1000)
                                 .build()))
                         .build()).queue());
