@@ -16,7 +16,7 @@ public class IdeaHandler extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getMember() == null) return;
-        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".an") && event.getMember().getId().equals("421259943123877888"))
+        if (event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).startsWith(".an") && event.getMember().getRoles().stream().anyMatch(role -> role.getId().equals("1188485792801230859")))
             return;
 
         String mid;

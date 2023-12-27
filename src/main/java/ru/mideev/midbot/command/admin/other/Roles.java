@@ -60,8 +60,8 @@ public class Roles extends ListenerAdapter {
 
     private String getRoleId(String buttonId) {
         return switch (buttonId) {
-            case "announce" -> "983322579769126983";
-            case "tracking" -> "980016910227869746";
+            case "announce" -> "980016910227869746";
+            case "tracking" -> "983322579769126983";
             case "answerer" -> "980016919581171763";
             case "male" -> "975336015344566292";
             case "female" -> "942467119323422820";

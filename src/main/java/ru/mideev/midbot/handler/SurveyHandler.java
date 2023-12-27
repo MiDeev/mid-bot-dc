@@ -134,7 +134,7 @@ public class SurveyHandler extends ListenerAdapter {
 
             si.setColor(Color.decode("0xdcddde"));
             si.setAuthor("Ответ от " + UtilLang.userTagFormat(event.getUser()) + ":", null, event.getUser().getAvatarUrl());
-            si.setDescription("### `" + body + "`");
+            si.setDescription("```" + body + "```");
             si.setFooter(event.getUser().getId());
             si.setTimestamp(Instant.now());
 

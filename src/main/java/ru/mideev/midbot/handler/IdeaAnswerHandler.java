@@ -21,7 +21,11 @@ public class IdeaAnswerHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getMessage().getContentDisplay().startsWith(".an") || (!event.getChannel().asTextChannel().getId().equals("1109502097914863667") && !event.getChannel().asTextChannel().getId().equals("979498476452859994")) || event.getMember() == null || !event.getMember().getId().equals("421259943123877888"))
+        if (!event.getMessage().getContentDisplay().startsWith(".an")
+                || (!event.getChannel().asTextChannel().getId().equals("1109502097914863667")
+                && !event.getChannel().asTextChannel().getId().equals("979498476452859994"))
+                || event.getMember() == null
+                || event.getMember().getRoles().stream().noneMatch(role -> role.getId().equals("1188485792801230859")))
             return;
 
         Message current = event.getMessage();
@@ -37,7 +41,7 @@ public class IdeaAnswerHandler extends ListenerAdapter {
                 String answer = String.join(" ", dist);
 
                 MessageEmbed embed = embeds.get(0);
-                User user = message.getGuild().getMemberById(Main.DATABASE.getSnowflakeByMessageId(message.getIdLong())).getUser();
+                User user = Main.jda.getUserById(Main.DATABASE.getSnowflakeByMessageId(message.getIdLong()));
 
                 String ideaType = "";
                 if (event.getChannel().asTextChannel().getId().equals("1109502097914863667")) {
@@ -48,7 +52,7 @@ public class IdeaAnswerHandler extends ListenerAdapter {
 
                 message.editMessageEmbeds(
                         new EmbedBuilder(embed)
-                                .setAuthor("ЗАКРЫТАЯ ИДЕЯ ", null, user.getEffectiveAvatarUrl())
+                                .setAuthor("ЗАКРЫТАЯ ИДЕЯ ", null, user == null ? "https://cdn.discordapp.com/emojis/977176088813908008.webp?size=128" : user.getEffectiveAvatarUrl())
                                 .addField("Ответ:", answer, true)
                                 .setColor(Color.decode("0x96ff3c"))
                                 .build()
@@ -57,16 +61,18 @@ public class IdeaAnswerHandler extends ListenerAdapter {
                 System.out.println(event.getMessage().getId());
                 System.out.println(event.getMessage().getContentRaw());
 
-                PrivateChannel privateChannel = user.openPrivateChannel().complete();
-                privateChannel.sendMessageEmbeds(
-                        new EmbedBuilder()
-                                .setTitle("На вашу идею поступил ответ!")
-                                .setColor(Color.decode("0xdcddde"))
-                                .addField("Ваша идея для " + ideaType + ":", IDEA_PATTERN.matcher(embed.getDescription()).replaceAll("").replaceFirst("\n", "").replaceFirst("\n", ""), false)
-                                .addField("Ответ:", answer, false)
-                                .setFooter("На вашу идею ответил: " + UtilLang.memberTagFormat(event.getMember()))
-                                .build()
-                ).queue();
+                if (user != null) {
+                    PrivateChannel privateChannel = user.openPrivateChannel().complete();
+                    privateChannel.sendMessageEmbeds(
+                            new EmbedBuilder()
+                                    .setTitle("На вашу идею поступил ответ!")
+                                    .setColor(Color.decode("0xdcddde"))
+                                    .addField("Ваша идея для " + ideaType + ":", IDEA_PATTERN.matcher(embed.getDescription()).replaceAll("").replaceFirst("\n", "").replaceFirst("\n", ""), false)
+                                    .addField("Ответ:", answer, false)
+                                    .setFooter("На вашу идею ответил: " + UtilLang.memberTagFormat(event.getMember()))
+                                    .build()
+                    ).queue();
+                }
 
                 try {
                     current.delete().queue();

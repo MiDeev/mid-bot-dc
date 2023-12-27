@@ -14,7 +14,7 @@ import java.util.Locale;
 public class TestCommand extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(UtilLang.PREFIX + "dates")) return;
+        if (!event.getMessage().getContentDisplay().equals(".dates")) return;
 
         Main.DATABASE.getJdbi().useExtension(UsersDao.class, dao -> {
             System.out.println(dao.findUserOrCreate(event.getAuthor().getIdLong()));
