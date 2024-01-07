@@ -27,7 +27,7 @@ dependencies {
 
     implementation group: 'io.javalin', name: 'javalin', version: '4.6.3'
     implementation 'org.postgresql:postgresql:42.4.0'
-    implementation("net.dv8tion:JDA:5.0.0-beta.10")
+    implementation("net.dv8tion:JDA:5.0.0-beta.19")
     implementation("org.jdbi:jdbi3-core:3.38.2")
     implementation("org.jdbi:jdbi3-sqlobject:3.38.2")
     implementation("org.jdbi:jdbi3-caffeine-cache:3.38.2")
