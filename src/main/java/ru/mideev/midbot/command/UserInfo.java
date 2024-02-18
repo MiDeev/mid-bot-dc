@@ -111,10 +111,14 @@ public class UserInfo extends ListenerAdapter {
             activity.ifPresent(notNullActivity -> {
                 if (notNullActivity.isRich()) {
                     ui.addField("Играет в:", "<:gaming:1122495121758371882> " + "\"" + Objects.requireNonNull(notNullActivity.asRichPresence()).getName() + "\"", false);
-                } else if (notNullActivity.getName().equals("Custom Status")) {
-                    ui.addField(null, null, false);
-                } else {
-                    ui.addField("Пользовательский статус:", "<:user_custom_status:1122496213976109117> " + notNullActivity.getName(), false);
+                } else if (notNullActivity.getName().equals("Custom Status") && notNullActivity.getEmoji() != null && !Objects.requireNonNull(notNullActivity.getEmoji()).getName().isEmpty()) {
+                    ui.addField("Пользовательское эмодзи:", notNullActivity.getEmoji().getName(), false);
+                } else if (notNullActivity.getEmoji() != null && !Objects.requireNonNull(notNullActivity.getEmoji()).getName().isEmpty() && !notNullActivity.getName().isEmpty()) {
+                    ui.addField("Пользовательский статус:", notNullActivity.getEmoji().getName() + " " + notNullActivity.getName(), false);
+                } else if (notNullActivity.getEmoji() != null && !Objects.requireNonNull(notNullActivity.getEmoji()).getName().isEmpty()) {
+                    ui.addField("Пользовательский статус:", notNullActivity.getEmoji().getName(), false);
+                } else if (!notNullActivity.getName().isEmpty()) {
+                    ui.addField("Пользовательский статус:", notNullActivity.getName(), false);
                 }
             });
 
