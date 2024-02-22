@@ -36,7 +36,7 @@ public class RegisterCommand extends ListenerAdapter {
                 event.getJDA().upsertCommand(commandName, commandDescription).submit();
                 event.getChannel().sendMessage("Команда \"" + commandName + "\" успешно зарегистрирована!").queue();
             } else {
-                event.getChannel().sendMessage("Вы не Мидеев, поэтому воспользоваться этой командой вы не сможете.").queue();
+                event.getChannel().sendMessage("Вы не можете воспользоваться командой, поскольку вы не Мидеев.").queue();
             }
         }
     }
