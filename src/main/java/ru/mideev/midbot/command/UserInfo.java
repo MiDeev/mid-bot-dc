@@ -93,7 +93,6 @@ public class UserInfo extends ListenerAdapter {
                 }
             }
 
-
             String badges = BadgesUtil.getUserBadges(member);
 
             if (!badges.isEmpty()) {

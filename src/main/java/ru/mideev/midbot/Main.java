@@ -36,10 +36,9 @@ public class Main {
     public static JDA jda;
 
     public static void main(String[] args) {
-
         DATABASE.init();
         jda = JDABuilder.createDefault(System.getenv("TOKEN"))
-                .addEventListeners(new FallbackHandler(), new BoostersCoomand(), new UnregisterCommand(), new RegisterCommand(), new RepeatPublishing(), new RepeatMessage(), new VoiceHandler(), new SuperMessage(), new ChronologyPanel(), new Announcements(), new BadgesCommand(), new SurveyBlock(), new SurveyHandler(), new BadgesUtil(), new OfferAnswerHandler(), new LevelCommand(), new ExpLeaders(), new RandomNumberCommand(), new BannerCommand(), new TimeCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new OfferHandler(), new Roles(), new LevelHandler())
+                .addEventListeners(new FallbackHandler(), new VoiceChannelHandler(), new BoostersCoomand(), new UnregisterCommand(), new RegisterCommand(), new RepeatPublishing(), new RepeatMessage(), new MusicalVoiceChannelHandler(), new SuperMessage(), new ChronologyPanel(), new Announcements(), new BadgesCommand(), new SurveyBlock(), new SurveyHandler(), new BadgesUtil(), new OfferAnswerHandler(), new LevelCommand(), new ExpLeaders(), new RandomNumberCommand(), new BannerCommand(), new TimeCommand(), new AvatarCommand(), new News(), new HelpCommand(), new Rules(), new ServerInfo(), new JoinHandler(), new IdeaAnswerHandler(), new TestCommand(), new UserInfo(), new Information(), new ClearCommand(), new CommandCountCommand(), new IdeaHandler(), new OfferHandler(), new Roles(), new LevelHandler())
                 .enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
