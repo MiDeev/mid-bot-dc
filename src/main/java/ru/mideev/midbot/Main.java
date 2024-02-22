@@ -63,17 +63,16 @@ public class Main {
                 e.printStackTrace();
             }
 
-            SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
-                Guild guild = jda.getGuildById("941320640420532254");
-                guild.retrieveInvites().complete().forEach(x -> {
-                    Member member = guild.getMember(x.getInviter());
-
-                    if (x.getUses() >= 2) {
-                        guild.addRoleToMember(member, guild.getRoleById("984478425416888440")).submit();
-                    }
-                });
-            }, 1, TimeUnit.MINUTES);
         }
+        SCHEDULED_EXECUTOR_SERVICE.schedule(() -> {
+            Guild guild = jda.getGuildById("941320640420532254");
+            guild.retrieveInvites().complete().forEach(x -> {
+                Member member = guild.getMember(x.getInviter());
 
+                if (x.getUses() >= 2) {
+                    guild.addRoleToMember(member, guild.getRoleById("984478425416888440")).submit();
+                }
+            });
+        }, 1, TimeUnit.MINUTES);
     }
 }
