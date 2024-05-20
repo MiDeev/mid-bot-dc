@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.NotNull;
-import ru.mideev.midbot.util.DataUtil;
+import ru.mideev.midbot.util.DateUtil;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
@@ -40,8 +40,8 @@ public class TimeCommand extends ListenerAdapter {
 
             if (member == null) return;
 
-            String JDate = DataUtil.joinedDate(member);
-            String CDate = DataUtil.createdDate(member);
+            String JDate = DateUtil.joinedDate(member);
+            String CDate = DateUtil.createdDate(member);
 
             EmbedBuilder ti = new EmbedBuilder();
 

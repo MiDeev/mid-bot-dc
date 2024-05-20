@@ -8,7 +8,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class DataUtil {
+public class DateUtil {
     public static String joinedDate(Member member) {
         String ti = Objects.requireNonNull(member).getTimeJoined()
                 .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()

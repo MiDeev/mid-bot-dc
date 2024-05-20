@@ -104,7 +104,7 @@ public class UserInfo extends ListenerAdapter {
 
             banner.ifPresent(it -> ui.setImage(it.getUrl(256)));
 
-            ui.setFooter("Команду запросил: " + UtilLang.userTagFormat(event.getUser()), event.getMember().getEffectiveAvatarUrl());
+            ui.setFooter("Команду запросил: " + UtilLang.userNameFormat(event.getUser()), event.getMember().getEffectiveAvatarUrl());
             Optional<Activity> activity = member.getActivities().stream().filter(x -> x.getType() == Activity.ActivityType.PLAYING || x.getType() == Activity.ActivityType.CUSTOM_STATUS).findFirst();
 
             activity.ifPresent(notNullActivity -> {

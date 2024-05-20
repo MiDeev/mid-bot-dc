@@ -3,6 +3,8 @@ package ru.mideev.midbot.command.admin.other;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -31,19 +33,14 @@ public class Roles extends ListenerAdapter {
                             "<@&980016910227869746> - **позволяет отслеживать объявления сервера.**\n" +
                             "*Посредством уведомлений ни одно [объявление](https://discord.com/channels/941320640420532254/950750830833852446) не уйдёт мимо глаз.*\n\n" +
                             "<@&980016919581171763> - **помогает отслеживать вопросы в <#1013527821085315082>.**\n" +
-                            "*Эта роль упоминается при каждом новом публичном [вопросе](https://canary.discord.com/channels/941320640420532254/1013527821085315082).*\n" +
-                            "\n" +
-                            "<@&975336015344566292> | <@&942467119323422820> - **гендерные роли.**\n" +
-                            "*Здесь можно быть кем угодно и даже пол тут выбрать можно.*"
+                            "*Эта роль упоминается при каждом новом публичном [вопросе](https://canary.discord.com/channels/941320640420532254/1013527821085315082).*"
             );
             event.getMessage().getChannel().asTextChannel()
                     .sendMessageEmbeds(im.build(), si.build())
                     .setComponents(
                             ActionRow.of(Button.of(ButtonStyle.SECONDARY, "announce", "ANNOUNCEMENTS"),
                                     (Button.of(ButtonStyle.SECONDARY, "tracking", "TRACKING")),
-                                    (Button.of(ButtonStyle.SECONDARY, "answerer", "ANSWERER"))),
-                            ActionRow.of((Button.of(ButtonStyle.PRIMARY, "male", "BRO")),
-                                    (Button.of(ButtonStyle.DANGER, "female", "SIS")))
+                                    (Button.of(ButtonStyle.SECONDARY, "answerer", "ANSWERER")))
                     )
                     .queue();
         }
@@ -63,8 +60,6 @@ public class Roles extends ListenerAdapter {
             case "announce" -> "980016910227869746";
             case "tracking" -> "983322579769126983";
             case "answerer" -> "980016919581171763";
-            case "male" -> "975336015344566292";
-            case "female" -> "942467119323422820";
             default -> null;
         };
     }

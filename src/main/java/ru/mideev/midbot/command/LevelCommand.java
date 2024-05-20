@@ -1,7 +1,6 @@
 package ru.mideev.midbot.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -41,7 +40,7 @@ public class LevelCommand extends ListenerAdapter {
 
         eb.setDescription("**Уровень**: " + user.getLevel() + " **|** " + "**Опыт**: " + user.getExp() + "**/**" + LevelUtil.getExperience(user.getLevel() + 1));
 
-        eb.setFooter("Команду запросил: " + UtilLang.userTagFormat(event.getUser()));
+        eb.setFooter("Команду запросил: " + UtilLang.userNameFormat(event.getUser()));
 
         event.replyEmbeds(eb.build()).queue();
     }

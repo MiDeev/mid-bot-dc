@@ -43,24 +43,13 @@ public class UtilLang {
         return n % 10 == 1 && n % 100 != 11 ? one : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? two : five);
     }
 
-//    public static String memberTagFormat(User user, String nickname) {
-//        if (nickname == null) {
-//            return user.getAsTag().contains("#0000") ? user.getName() : user.getAsTag();
-//        } else {
-//            return user.getName() + " \n(" + nickname + ")";
-//        }
-//    }
-
-    public static String userTagFormat(User user) {
-            return user.getAsTag().contains("#0000") ? user.getName() : user.getAsTag();
+    public static String userNameFormat(User user) {
+        return user.getName().replace("_", "\\_");
     }
 
     public static String memberTagFormat(Member member) {
-        return member.getUser().getAsTag().contains("#0000") ? member.getUser().getName() : member.getUser().getAsTag();
+        return member.getUser().getName().replace("_", "\\_");
     }
 
-    public static String ownerTagFormat(Member member) {
-        return member.getGuild().getOwner().getUser().getAsTag().contains("#0000") ? member.getGuild().getOwner().getUser().getName() : member.getGuild().getOwner().getUser().getAsTag();
-    }
 }
 

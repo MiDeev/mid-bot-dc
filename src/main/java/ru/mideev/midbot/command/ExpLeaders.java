@@ -11,7 +11,6 @@ import ru.mideev.midbot.dao.UsersDao;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -68,7 +67,7 @@ public class ExpLeaders extends ListenerAdapter {
             position++;
         }
 
-        eb.setFooter("Команду запросил: " + UtilLang.userTagFormat(event.getUser()), event.getMember().getEffectiveAvatarUrl());
+        eb.setFooter("Команду запросил: " + UtilLang.userNameFormat(event.getUser()), event.getMember().getEffectiveAvatarUrl());
 
         event.replyEmbeds(eb.build()).queue();
     }

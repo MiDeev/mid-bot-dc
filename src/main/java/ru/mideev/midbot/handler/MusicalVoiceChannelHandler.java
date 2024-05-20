@@ -24,6 +24,7 @@ public class MusicalVoiceChannelHandler extends ListenerAdapter {
     private final AudioPlayerManager playerManager;
     private final AudioPlayer player;
     private TimerTask cancelConnectionTask;
+    private VoiceChannel channel;
 
     public MusicalVoiceChannelHandler() {
         this.playerManager = new DefaultAudioPlayerManager();
@@ -68,8 +69,7 @@ public class MusicalVoiceChannelHandler extends ListenerAdapter {
             }
         });
     }
-
-
+    
     @Override
     public void onGuildVoiceUpdate(GuildVoiceUpdateEvent event) {
         Timer timer = new Timer();
@@ -91,7 +91,9 @@ public class MusicalVoiceChannelHandler extends ListenerAdapter {
             cancelConnectionTask = new TimerTask() {
                 @Override
                 public void run() {
+                    audioManager.setSendingHandler(null);
                     audioManager.closeAudioConnection();
+                    channel.modifyStatus("ЗАХОДИ, ЧТОБЫ ЗАИГРАЛА МУЗЫКА").submit();
                 }
             };
             timer.schedule(cancelConnectionTask, 10000);

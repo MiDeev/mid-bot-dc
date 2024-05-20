@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-import ru.mideev.midbot.util.DataUtil;
+import ru.mideev.midbot.util.DateUtil;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
@@ -27,7 +27,7 @@ public class JoinHandler extends ListenerAdapter {
 
         EmbedBuilder jh = new EmbedBuilder();
         jh.setColor(new Color(128, 255, 55));
-        jh.setDescription("**" + UtilLang.userTagFormat(event.getUser()) + "** (<@" + event.getMember().getUser().getId() + ">)" + " присоединился к серверу.");
+        jh.setDescription("**" + UtilLang.userNameFormat(event.getUser()) + "** (<@" + event.getMember().getUser().getId() + ">)" + " присоединился к серверу.");
         jh.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> " + " [<t:" + member.getTimeCreated().toEpochSecond() + ":R>]", true);
 
         int count = event.getGuild().getMemberCount();
@@ -53,8 +53,8 @@ public class JoinHandler extends ListenerAdapter {
                         .getAsMention()
                 , false);
 
-        String date = DataUtil.joinedDate(event.getMember());
-        emba.setDescription("**" + UtilLang.userTagFormat(event.getUser()) + "** (<@" + event.getUser().getId() + ">)" + " покинул сервер.");
+        String date = DateUtil.joinedDate(event.getMember());
+        emba.setDescription("**" + UtilLang.userNameFormat(event.getUser()) + "** (<@" + event.getUser().getId() + ">)" + " покинул сервер.");
         emba.addField("Пробыл на сервере:", date, false);
         emba.addField("Теперь на сервере:", event.getGuild().getMemberCount() + " участников.", false);
         emba.setFooter("ID участника: " + member.getId());

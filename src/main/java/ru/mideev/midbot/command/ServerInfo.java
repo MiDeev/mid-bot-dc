@@ -67,7 +67,7 @@ public class ServerInfo extends ListenerAdapter {
         si.setImage(event.getGuild().getBanner().getUrl(256));
 
         String ver = "" + event.getGuild().getVerificationLevel();
-        si.addField("Создатель:", "<:server_owner:1122261736674836580> " + UtilLang.ownerTagFormat(event.getGuild().getOwner()), true);
+        si.addField("Создатель:", "<:server_owner:1122261736674836580> " + event.getGuild().getOwner(), true);
 
         String moderation = switch (ver) {
             case "NONE" -> "Отсутствует";
