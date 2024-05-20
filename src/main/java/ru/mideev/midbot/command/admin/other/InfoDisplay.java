@@ -6,9 +6,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.util.Locale;
 
-public class Information extends ListenerAdapter {
+public class InfoDisplay extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
         EmbedBuilder im = new EmbedBuilder();

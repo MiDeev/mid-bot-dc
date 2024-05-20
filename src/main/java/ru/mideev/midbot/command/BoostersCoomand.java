@@ -13,6 +13,7 @@ import java.util.StringJoiner;
 import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class BoostersCoomand extends ListenerAdapter {
+
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("boosters")) {

@@ -10,7 +10,7 @@ import ru.mideev.midbot.dao.CommandCounterDao;
 import ru.mideev.midbot.dao.IdeasDao;
 import ru.mideev.midbot.dao.UsersDao;
 
-public class Database {
+public class DatabaseManager {
 
     private final String host;
     private final int port;
@@ -21,7 +21,7 @@ public class Database {
     @Getter
     private Jdbi jdbi;
 
-    public Database(String host, int port, String username, String password, String database) {
+    public DatabaseManager(String host, int port, String username, String password, String database) {
         this.host = host;
         this.port = port;
         this.username = username;

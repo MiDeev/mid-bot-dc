@@ -7,7 +7,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.awt.*;
 import java.util.Arrays;
 
-public class RepeatPublishing extends ListenerAdapter {
+public class MessagePublisher extends ListenerAdapter {
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getGuild().getId().equals("975854031329185802")) {
@@ -24,12 +25,14 @@ public class RepeatPublishing extends ListenerAdapter {
                     eb.setDescription(description);
                     event.getChannel().sendMessageEmbeds(eb.build()).queue();
                 }
+
                 if (event.getChannel().getId().equals("1150155345906368642")) {
                     eb.setColor(Color.decode("0x5064ff"));
                     eb.setTitle(title);
                     eb.setDescription(description);
                     event.getChannel().sendMessageEmbeds(eb.build()).queue();
                 }
+
                 if (event.getChannel().getId().equals("1150155476873515211")) {
                     eb.setColor(Color.decode("0xdcdddf"));
                     eb.setTitle(title);

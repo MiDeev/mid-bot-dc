@@ -13,6 +13,7 @@ import java.awt.*;
 import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class AvatarCommand extends ListenerAdapter {
+
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("ava")) {

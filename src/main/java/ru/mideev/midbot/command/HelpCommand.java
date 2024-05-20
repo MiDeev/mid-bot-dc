@@ -9,6 +9,7 @@ import ru.mideev.midbot.util.UtilLang;
 import java.util.Locale;
 
 public class HelpCommand extends ListenerAdapter {
+
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("help")) {

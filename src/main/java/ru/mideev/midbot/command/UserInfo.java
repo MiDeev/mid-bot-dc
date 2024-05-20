@@ -60,9 +60,11 @@ public class UserInfo extends ListenerAdapter {
             if (member.getUser().getGlobalName() != null && !Objects.equals(member.getUser().getGlobalName().toLowerCase(Locale.ROOT), UtilLang.memberTagFormat(member))) {
                 ui.addField("Отображаемое имя:", "<:user_display_name:1122495166792617995> " + member.getUser().getGlobalName(), true);
             }
+
             if (member.getNickname() != null) {
                 ui.addField("Никнейм на сервере:", "<:member_nickname:1122495127114498068> " + member.getNickname(), true);
             }
+
             ui.addField("Приоритетная роль:", member.getRoles()
                             .stream()
                             .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())

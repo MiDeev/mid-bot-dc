@@ -16,6 +16,7 @@ import java.util.Optional;
 import static ru.mideev.midbot.util.UtilLang.DEFAULT_EMBED_COLOR;
 
 public class BannerCommand extends ListenerAdapter {
+
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("banner")) {

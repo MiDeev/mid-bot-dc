@@ -77,6 +77,7 @@ public class ServerInfo extends ListenerAdapter {
             case "VERY_HIGH" -> "Полная";
             default -> ver;
         };
+
         si.addField("Модерация:", "<:guild_protection_level:1122273964069224541> " + moderation, true);
         si.addField("Бусты:", "<:guild_boost_level:1122275442003542156> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
         si.addField("ID сервера:", "<:id:1122280709873217677> " + event.getGuild().getId(), true);

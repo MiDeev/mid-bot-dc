@@ -66,12 +66,15 @@ public class BadgesUtil extends ListenerAdapter {
         if (banner.isPresent()) {
             response.append(BOOSTER_SUBSCRIBER);
         }
+
         if (member.isBoosting()) {
             response.append(NITRO_BOOSTER);
         }
+
         if (member.getUser().getAsTag().contains("0000")) {
             response.append(UPDATED_NICKNAME);
         }
+
         return response.toString();
     }
 

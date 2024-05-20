@@ -8,7 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Locale;
 
-public class Rules extends ListenerAdapter {
+public class RulesDisplay extends ListenerAdapter {
+
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder be = new EmbedBuilder();

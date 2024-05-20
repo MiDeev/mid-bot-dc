@@ -31,6 +31,7 @@ public class RandomNumberCommand extends ListenerAdapter {
             String str = "";
             String genNum = NumberGenerator.pad(random.nextInt(9999) + 1);
             String finalNumber = "";
+
             if (optionMapping != null) {
                 int num = (int) optionMapping.getAsDouble();
 

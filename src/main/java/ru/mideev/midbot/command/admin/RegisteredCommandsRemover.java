@@ -3,7 +3,8 @@ package ru.mideev.midbot.command.admin;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class UnregisterCommand extends ListenerAdapter {
+public class RegisteredCommandsRemover extends ListenerAdapter {
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();

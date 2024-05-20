@@ -1,6 +1,5 @@
 package ru.mideev.midbot.command.admin;
 
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -9,7 +8,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegisterCommand extends ListenerAdapter {
+public class CommandRegistrationHandler extends ListenerAdapter {
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();

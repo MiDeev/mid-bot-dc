@@ -15,6 +15,7 @@ import java.awt.*;
 import java.util.Locale;
 
 public class LevelCommand extends ListenerAdapter {
+
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (!event.getInteraction().getCommandString().toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "level") || !event.getChannel().getId().equals("941458443749978122"))
@@ -37,9 +38,7 @@ public class LevelCommand extends ListenerAdapter {
         User user = Main.DATABASE.getJdbi().withExtension(UsersDao.class, dao -> dao.findUserOrCreate(member.getIdLong()));
 
         eb.setAuthor("Статистика участника: " + UtilLang.memberTagFormat(member), null,  member.getEffectiveAvatarUrl());
-
         eb.setDescription("**Уровень**: " + user.getLevel() + " **|** " + "**Опыт**: " + user.getExp() + "**/**" + LevelUtil.getExperience(user.getLevel() + 1));
-
         eb.setFooter("Команду запросил: " + UtilLang.userNameFormat(event.getUser()));
 
         event.replyEmbeds(eb.build()).queue();

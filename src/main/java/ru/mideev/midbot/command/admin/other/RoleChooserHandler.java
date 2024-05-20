@@ -3,8 +3,6 @@ package ru.mideev.midbot.command.admin.other;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -15,13 +13,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Locale;
-import java.util.Objects;
 
-public class Roles extends ListenerAdapter {
+public class RoleChooserHandler extends ListenerAdapter {
+
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         EmbedBuilder si = new EmbedBuilder();
         EmbedBuilder im = new EmbedBuilder();
+
         if (event.getChannel().getId().equals("983318878258081813") && event.getMessage().getContentDisplay().toLowerCase(Locale.ROOT).equals(".roles")) {
             si.setColor(new Color(220, 221, 222));
             im.setColor(new Color(220, 221, 222));
