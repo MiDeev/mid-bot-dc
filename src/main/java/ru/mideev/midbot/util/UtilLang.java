@@ -11,6 +11,8 @@ import java.util.Map;
 public class UtilLang {
     public static final String PREFIX = "/";
     public static final String DEFAULT_EMBED_COLOR = "0x5865F2";
+    public static final String GREEN_EMBED_COLOR = "0x8CFE1C";
+    public static final String RED_EMBED_COLOR = "0xff3616";
     private static final Map<OnlineStatus, String> ONLINE_STATUS_MAPPINGS = new HashMap<>();
     private static final Map<ClientType, String> CLIENT_TYPE_MAPPINGS = new HashMap<>();
 

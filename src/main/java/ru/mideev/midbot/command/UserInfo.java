@@ -51,7 +51,7 @@ public class UserInfo extends ListenerAdapter {
             EmbedBuilder ui = new EmbedBuilder();
             ui.setColor(Color.decode(DEFAULT_EMBED_COLOR));
 
-            ui.setAuthor("Информация об участнике: " + UtilLang.memberTagFormat(member), null, member.getEffectiveAvatarUrl());
+            ui.setAuthor("Информация об участнике: " + member.getUser().getName(), null, member.getEffectiveAvatarUrl());
             ui.setDescription("**Общие сведения:**" + "\n" + "** **");
             ui.addField("Никнейм:", "<:username:1122495141035393106> " + UtilLang.memberTagFormat(member), true);
             ui.addField("Устройство:", UtilLang.clientTypeToString(member.getActiveClients().stream().findFirst().orElse(ClientType.UNKNOWN)), true);

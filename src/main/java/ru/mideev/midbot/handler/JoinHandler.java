@@ -26,7 +26,7 @@ public class JoinHandler extends ListenerAdapter {
         guild.addRoleToMember(member, role).queue();
 
         EmbedBuilder jh = new EmbedBuilder();
-        jh.setColor(new Color(128, 255, 55));
+        jh.setColor(Color.decode(UtilLang.GREEN_EMBED_COLOR));
         jh.setDescription("**" + UtilLang.userNameFormat(event.getUser()) + "** (<@" + event.getMember().getUser().getId() + ">)" + " присоединился к серверу.");
         jh.addField("Дата регистрации:", "<t:" + member.getTimeCreated().toEpochSecond() + ":d> " + " [<t:" + member.getTimeCreated().toEpochSecond() + ":R>]", true);
 
@@ -44,7 +44,7 @@ public class JoinHandler extends ListenerAdapter {
         Member member = event.getMember();
 
         EmbedBuilder emba = new EmbedBuilder();
-        emba.setColor(new Color(255, 60, 60));
+        emba.setColor(Color.decode(UtilLang.RED_EMBED_COLOR));
         emba.addField("Приоритетная роль:", Objects.requireNonNull(member.getRoles()
                                 .stream()
                                 .sorted(Comparator.comparingInt(Role::getPositionRaw).reversed())
