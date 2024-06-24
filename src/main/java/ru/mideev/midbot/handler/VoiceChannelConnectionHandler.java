@@ -43,7 +43,7 @@ public class VoiceChannelConnectionHandler extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder()
                         .setTitle(joined ? "Участник зашёл в голосовой канал" : "Участник покинул голосовой канал")
                         .setDescription("<@" + member + ">" + (joined ? " зашёл в " : " покинул ") + "голосовой канал <#" + channelId + ">")
-                        .setColor(Color.decode(joined ? UtilLang.GREEN_EMBED_COLOR : UtilLang.RED_EMBED_COLOR))
+                        .setColor(Color.decode(joined ? "0x2e6dff" : "0xfb2ea0"))
                         .setFooter(member)
                         .setTimestamp(Instant.now());
                 textChannel.sendMessageEmbeds(embed.build()).queue();
