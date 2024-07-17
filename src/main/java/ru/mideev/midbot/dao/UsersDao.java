@@ -14,18 +14,18 @@ import java.util.Optional;
 @Transaction
 public interface UsersDao {
 
-    @SqlUpdate("create table if not exists users (snowflake bigint not null primary key, exp bigint not null, level bigint not null, nickname varchar(128));")
+    @SqlUpdate("create table if not exists users (snowflake bigint not null primary key, exp bigint not null, level bigint not null, nickname varchar(128), voice bigint not null default 0);")
     void createTable();
 
     @SqlQuery("select * from users where snowflake = ?;")
     @RegisterConstructorMapper(User.class)
     User findUser(long snowflake);
 
-    @SqlUpdate("insert into users (snowflake, exp, level, nickname) values (:snowflake, :exp, :level, :nickname) on conflict (snowflake) do update set exp = :exp, level = :level;")
+    @SqlUpdate("insert into users (snowflake, exp, level, nickname, voice) values (:snowflake, :exp, :level, :nickname, :voice) on conflict (snowflake) do update set exp = :exp, level = :level, voice = :voice;")
     void saveUser(@BindBean User user);
 
     default User findUserOrCreate(long snowflake) {
-        return Optional.ofNullable(findUser(snowflake)).orElse(new User(snowflake, 0, 0, ""));
+        return Optional.ofNullable(findUser(snowflake)).orElse(new User(snowflake, 0, 0, "", 0));
     }
 
     @SqlQuery("SELECT COUNT (*) FROM users where exp > 0")
