@@ -39,7 +39,7 @@ public class LevelCommand extends ListenerAdapter {
 
         eb.setAuthor("Статистика участника: " + UtilLang.memberTagFormat(member), null,  member.getEffectiveAvatarUrl());
         eb.setDescription("**Уровень**: " + user.getLevel() + " **|** " + "**Опыт**: " + user.getExp() + "**/**" + LevelUtil.getExperience(user.getLevel() + 1));
-        eb.setFooter("Команду запросил: " + UtilLang.userNameFormat(event.getUser()));
+        eb.setFooter("Команду запросил: " + event.getUser().getName());
 
         event.replyEmbeds(eb.build()).queue();
     }

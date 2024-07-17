@@ -67,7 +67,7 @@ public class ServerInfo extends ListenerAdapter {
         si.setImage(event.getGuild().getBanner().getUrl(256));
 
         String ver = "" + event.getGuild().getVerificationLevel();
-        si.addField("Создатель:", "<:server_owner:1122261736674836580> " + event.getGuild().getOwner(), true);
+        si.addField("Создатель:", "<:server_owner:1122261736674836580> " + event.getGuild().getOwner().getUser().getName(), true);
 
         String moderation = switch (ver) {
             case "NONE" -> "Отсутствует";
@@ -82,7 +82,7 @@ public class ServerInfo extends ListenerAdapter {
         si.addField("Бусты:", "<:guild_boost_level:1122275442003542156> Бустов: **" + event.getGuild().getBoostCount() + "**", true);
         si.addField("ID сервера:", "<:id:1122280709873217677> " + event.getGuild().getId(), true);
         si.addField("Сервер создан:", "<:creation_date:1122280421313478738> " + TimeFormat.DATE_LONG.format(event.getGuild().getTimeCreated()), true);
-        si.setFooter("© 2023 mideev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
+        si.setFooter("© 2024 mideev", "https://cdn.discordapp.com/attachments/942520425936719952/979496152607096852/vcat_40.png");
 
         if (event.getChannel().getId().equals("941458443749978122")) {
             event.replyEmbeds(si.build()).queue();

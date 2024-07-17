@@ -49,7 +49,7 @@ public class TimeCommand extends ListenerAdapter {
             ti.setAuthor("Информация об участнике: " + UtilLang.memberTagFormat(member), null, member.getEffectiveAvatarUrl());
             ti.addField("Возраст аккаунта:", CDate, true);
             ti.addField("Время нахождения на сервере:", JDate, false);
-            ti.setFooter("Команду запросил: " + UtilLang.memberTagFormat(event.getMember()), event.getMember().getEffectiveAvatarUrl());
+            ti.setFooter("Команду запросил: " + event.getMember().getUser().getName(), event.getMember().getEffectiveAvatarUrl());
 
             if (event.getChannel().getId().equals("941458443749978122") && com.toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "time")) {
                 event.replyEmbeds(ti.build()).queue();

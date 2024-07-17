@@ -67,7 +67,7 @@ public class ExpLeaders extends ListenerAdapter {
             position++;
         }
 
-        eb.setFooter("Команду запросил: " + UtilLang.userNameFormat(event.getUser()), event.getMember().getEffectiveAvatarUrl());
+        eb.setFooter("Команду запросил: " + event.getUser().getName(), event.getMember().getEffectiveAvatarUrl());
 
         event.replyEmbeds(eb.build()).queue();
     }

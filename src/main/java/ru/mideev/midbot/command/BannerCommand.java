@@ -54,7 +54,7 @@ public class BannerCommand extends ListenerAdapter {
                 banner.ifPresent(it -> ba.setImage(it.getUrl(512)));
             }
 
-            ba.setFooter("Команду запросил: " + UtilLang.memberTagFormat(event.getMember()), event.getMember().getEffectiveAvatarUrl());
+            ba.setFooter("Команду запросил: " + event.getMember().getUser().getName(), event.getMember().getEffectiveAvatarUrl());
 
             if (event.getChannel().getId().equals("941458443749978122") && net.startsWith(UtilLang.PREFIX + "banner") || net.startsWith(UtilLang.PREFIX + "banner")) {
                 event.replyEmbeds(ba.build()).queue();

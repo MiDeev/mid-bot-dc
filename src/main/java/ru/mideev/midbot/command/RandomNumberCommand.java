@@ -67,7 +67,7 @@ public class RandomNumberCommand extends ListenerAdapter {
             }
 
             rn.setDescription("Вам выпало число: **" + genNum + "**" + "\n" + str + "\n\n" + finalNumber);
-            rn.setFooter("Команду запросил: " + UtilLang.memberTagFormat(event.getMember()), event.getMember().getEffectiveAvatarUrl());
+            rn.setFooter("Команду запросил: " + event.getMember().getUser().getName(), event.getMember().getEffectiveAvatarUrl());
 
             if (event.getChannel().getId().equals("941458443749978122") && com.toLowerCase(Locale.ROOT).startsWith(UtilLang.PREFIX + "guess")) {
                 event.replyEmbeds(rn.build()).queue();
