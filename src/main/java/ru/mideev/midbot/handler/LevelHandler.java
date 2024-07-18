@@ -97,7 +97,7 @@ public class LevelHandler extends ListenerAdapter {
                     }
                 }
 
-                var xp = 5 + 0.5 * activeCount + (voiceState.isStream() ? (0.5 + 0.25 * activeCount) : 0);
+                var xp = 3 + 0.5 * activeCount + (voiceState.isStream() ? (0.5 + 0.25 * activeCount) : 0);
 
                 user.setExp((long) (user.getExp() + xp));
                 user.setNickname(event.getMember().getNickname());

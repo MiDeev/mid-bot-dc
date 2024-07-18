@@ -9,6 +9,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class DateUtil {
+    public static String msToDate(long voice) {
+        long totalSeconds = voice / 1000;
+        long days = totalSeconds / 86400;
+        long remainingSeconds = totalSeconds % 86400;
+        long hours = remainingSeconds / 3600;
+        long minutes = (remainingSeconds % 3600) / 60;
+        long seconds = remainingSeconds % 60;
+
+        String time = days > 0
+                ? String.format("%02d:%02d:%02d:%02d", days, hours, minutes, seconds)
+                : String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return time;
+    }
+
     public static String joinedDate(Member member) {
         String ti = Objects.requireNonNull(member).getTimeJoined()
                 .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()

@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import ru.mideev.midbot.Main;
 import ru.mideev.midbot.dao.UsersDao;
 import ru.mideev.midbot.entity.User;
+import ru.mideev.midbot.util.DateUtil;
 import ru.mideev.midbot.util.LevelUtil;
 import ru.mideev.midbot.util.UtilLang;
 
@@ -38,7 +39,7 @@ public class LevelCommand extends ListenerAdapter {
         User user = Main.DATABASE.getJdbi().withExtension(UsersDao.class, dao -> dao.findUserOrCreate(member.getIdLong()));
 
         eb.setAuthor("Статистика участника: " + UtilLang.memberTagFormat(member), null,  member.getEffectiveAvatarUrl());
-        eb.setDescription("**Уровень**: " + user.getLevel() + " **|** " + "**Опыт**: " + user.getExp() + "**/**" + LevelUtil.getExperience(user.getLevel() + 1));
+        eb.setDescription("**Уровень:** " + user.getLevel() + " **|** " + "**Опыт:** " + user.getExp() + " / " + LevelUtil.getExperience(user.getLevel() + 1) + " | " + "**Голосовой:** " + DateUtil.msToDate(user.getVoice()));
         eb.setFooter("Команду запросил: " + event.getUser().getName());
 
         event.replyEmbeds(eb.build()).queue();

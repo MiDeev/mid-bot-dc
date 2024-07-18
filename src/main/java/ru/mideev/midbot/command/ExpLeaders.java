@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import ru.mideev.midbot.Main;
 import ru.mideev.midbot.dao.UsersDao;
+import ru.mideev.midbot.util.DateUtil;
 import ru.mideev.midbot.util.UtilLang;
 
 import java.awt.*;
@@ -49,11 +50,22 @@ public class ExpLeaders extends ListenerAdapter {
 
         for (ru.mideev.midbot.entity.User user : users) {
             JDA jda = Main.jda;
-            System.out.println(user.getSnowflake());
+
+            long voiceTime = user.getVoice();
+            if (voiceTime > 0) {
+                String output = " | " + "**Голосовой:** " + DateUtil.msToDate(voiceTime);
+            }
 
             User member = jda.getUserById(user.getSnowflake());
             if (member == null) {
-                eb.addField("#" + (position + offset) + " - " + user.getNickname(), "Уровень: " + user.getLevel() + " | " + "Опыт: " + user.getExp(), false);
+                String fieldTitle = "#" + (position + offset) + " - " + user.getNickname();
+                String fieldContent = "Уровень: " + user.getLevel() + " | " + "Опыт: " + user.getExp();
+
+                if (voiceTime > 0) {
+                    fieldContent += " | " + "Голосовой: " + DateUtil.msToDate(user.getVoice());
+                }
+
+                eb.addField(fieldTitle, fieldContent, false);
                 position++;
                 continue;
             }
@@ -62,12 +74,18 @@ public class ExpLeaders extends ListenerAdapter {
                 continue;
             }
 
-            eb.addField("#" + (position + offset) + " - " + member.getEffectiveName(), "Уровень: " + user.getLevel() + " | " + "Опыт: " + user.getExp(), false);
+            String fieldTitle = "#" + (position + offset) + " - " + member.getEffectiveName();
+            String fieldContent = "Уровень: " + user.getLevel() + " | " + "Опыт: " + user.getExp();
 
+            if (voiceTime > 0) {
+                fieldContent += " | " + "Голосовой: " + DateUtil.msToDate(user.getVoice());
+            }
+
+            eb.addField(fieldTitle, fieldContent, false);
             position++;
         }
 
-        eb.setFooter("Команду запросил: " + event.getUser().getName(), event.getMember().getEffectiveAvatarUrl());
+        eb.setFooter("Всего участников с опытом: " + totalUsers);
 
         event.replyEmbeds(eb.build()).queue();
     }

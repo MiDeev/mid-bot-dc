@@ -11,10 +11,10 @@ import java.beans.ConstructorProperties;
 @AllArgsConstructor(onConstructor_ = @ConstructorProperties({"snowflake", "exp", "level", "nickname", "voice"}))
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-
     long snowflake;
     long exp;
     long level;
+
     String nickname;
     long voice;
 
